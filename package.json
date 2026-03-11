@@ -1,0 +1,63 @@
+{
+  "name": "brand-os",
+  "version": "0.1.2",
+  "description": "CLI for brand operating systems, template scaffolding, AST parsing, and layout validation",
+  "author": "UI8Kit",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "brand-os",
+    "ui8kit",
+    "cli",
+    "branding",
+    "design-system",
+    "brand-system",
+    "ast",
+    "npx",
+    "npm",
+    "node",
+    "vite",
+    "react",
+    "scaffolding",
+    "template",
+    "8px",
+    "spacing"
+  ],
+  "homepage": "https://github.com/ui8kit/brand-os",
+  "bugs": {
+    "url": "https://github.com/ui8kit/brand-os/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ui8kit/brand-os.git"
+  },
+  "bin": {
+    "brand-os": "./dist/index.js"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
+    "brand:emit": "npm run build && node dist/index.js --schema \".project/Tech Brand OS/tech-brand-os.schema.json\" --prompt-pack \".project/Tech Brand OS/tech-brand-os-prompt-pack.json\" --parser-contract \".project/Tech Brand OS/tech-brand-os-parser-contract.json\" --fixtures \".project/Tech Brand OS/tech-brand-os-parser-fixtures.source.json\" --emit-dir \".project/Tech Brand OS/tech-brand-os-generated\"",
+    "prepublishOnly": "tsc --noEmit -p tsconfig.json && tsc -p tsconfig.build.json",
+    "test": "node --test"
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "template-react",
+    "template-react-resta"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.8.0"
+  },
+  "dependencies": {
+    "node-html-parser": "^7.1.0"
+  }
+}
