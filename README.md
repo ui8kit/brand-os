@@ -27,8 +27,9 @@ npx brand-os --schema "./brand.schema.json"
 You can also run with npm or bun:
 
 ```bash
-npm exec brand-os -- my-app --template react-resta
+npx brand-os my-app --template tech-blog
 bunx brand-os my-app --template react-resta
+npm exec brand-os -- my-app --template react-resta
 ```
 
 ## 1) Scaffolding
