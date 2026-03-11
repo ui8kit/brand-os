@@ -125,7 +125,7 @@ export default function App() {
 
           <Stack component="section" id="journal" gap="6" data-class="tech-blog-section">
             <Stack gap="2" max="w-4xl" data-class="tech-blog-section-head">
-              <Badge variant="secondary" data-class="tech-blog-section-badge">
+              <Badge variant="secondary" size="xl" data-class="tech-blog-section-badge">
                 Editorial system
               </Badge>
               <Title order={2} fontSize="3xl" data-class="tech-blog-section-title">

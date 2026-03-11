@@ -8,17 +8,6 @@ export interface ScaffoldCliArgs {
   immediate: boolean;
 }
 
-export interface ValidateGridCliArgs {
-  mode: 'validate-grid';
-  help: boolean;
-  design: 'grid';
-  input: string;
-  output: string;
-  spacingBase: number;
-  rootFontSize: number;
-  verbose: boolean;
-}
-
 export interface BrandOsCliArgs {
   mode: 'brand-os';
   help: boolean;
@@ -40,35 +29,20 @@ export interface AstParserCliArgs {
   verbose: boolean;
 }
 
-export type CliArgs = ScaffoldCliArgs | ValidateGridCliArgs | BrandOsCliArgs | AstParserCliArgs;
+export type CliArgs = ScaffoldCliArgs | BrandOsCliArgs | AstParserCliArgs;
 
 export const VALID_TEMPLATES: readonly CliTemplateName[] = ['react', 'react-resta'];
 export const DEFAULT_TEMPLATE: CliTemplateName = 'react';
-
-const DEFAULT_SPACING_BASE = 4;
-const DEFAULT_ROOT_FONT_SIZE = 16;
 
 function fail(message: string): never {
   throw new Error(`Error: ${message}`);
 }
 
-function parsePositiveNumber(value: string, label: string): number {
-  const parsed = Number(value);
-  if (!Number.isFinite(parsed) || parsed <= 0) {
-    fail(`${label} must be a positive number.`);
-  }
-  return parsed;
-}
 
 export function parseArgs(argv: string[]): CliArgs {
   const parsed: {
     help: boolean;
-    mode: 'scaffold' | 'validate-grid' | 'brand-os' | 'ast-parser';
-    input?: string;
-    output?: string;
-    design?: string;
-    spacingBase: number;
-    rootFontSize: number;
+    mode: 'scaffold' | 'brand-os' | 'ast-parser';
     verbose: boolean;
     astInput?: string;
     astOutput?: string;
@@ -87,8 +61,6 @@ export function parseArgs(argv: string[]): CliArgs {
   } = {
     help: false,
     mode: 'scaffold',
-    spacingBase: DEFAULT_SPACING_BASE,
-    rootFontSize: DEFAULT_ROOT_FONT_SIZE,
     verbose: false,
     astSuites: [],
     template: DEFAULT_TEMPLATE as CliTemplateName,
@@ -202,61 +174,6 @@ export function parseArgs(argv: string[]): CliArgs {
       continue;
     }
 
-    if (arg === '--design') {
-      const value = argv[i + 1];
-      if (!value || value.startsWith('-')) {
-        fail('--design requires a mode value.');
-      }
-      parsed.design = value;
-      parsed.mode = 'validate-grid';
-      i += 1;
-      continue;
-    }
-
-    if (arg === '--input') {
-      const value = argv[i + 1];
-      if (!value || value.startsWith('-')) {
-        fail('--input requires a file path.');
-      }
-      parsed.input = value;
-      parsed.mode = 'validate-grid';
-      i += 1;
-      continue;
-    }
-
-    if (arg === '--output') {
-      const value = argv[i + 1];
-      if (!value || value.startsWith('-')) {
-        fail('--output requires a file path.');
-      }
-      parsed.output = value;
-      parsed.mode = 'validate-grid';
-      i += 1;
-      continue;
-    }
-
-    if (arg === '--spacing-base') {
-      const value = argv[i + 1];
-      if (!value || value.startsWith('-')) {
-        fail('--spacing-base requires a number.');
-      }
-      parsed.spacingBase = parsePositiveNumber(value, '--spacing-base');
-      parsed.mode = 'validate-grid';
-      i += 1;
-      continue;
-    }
-
-    if (arg === '--root-font-size') {
-      const value = argv[i + 1];
-      if (!value || value.startsWith('-')) {
-        fail('--root-font-size requires a number.');
-      }
-      parsed.rootFontSize = parsePositiveNumber(value, '--root-font-size');
-      parsed.mode = 'validate-grid';
-      i += 1;
-      continue;
-    }
-
     if (arg === '--verbose') {
       parsed.verbose = true;
       continue;
@@ -316,18 +233,12 @@ export function parseArgs(argv: string[]): CliArgs {
     }
 
     return {
-      mode: parsed.mode === 'validate-grid' ? 'validate-grid' : 'scaffold',
+      mode: 'scaffold',
       help: true,
       target: parsed.target ?? 'my-app',
       template: parsed.template,
       immediate: parsed.immediate,
-      design: (parsed.design as any) || 'grid',
-      input: parsed.input ?? '',
-      output: parsed.output ?? '',
-      spacingBase: parsed.spacingBase,
-      rootFontSize: parsed.rootFontSize,
-      verbose: parsed.verbose,
-    } as CliArgs;
+    };
   }
 
   if (parsed.mode === 'ast-parser') {
@@ -335,7 +246,7 @@ export function parseArgs(argv: string[]): CliArgs {
       fail('Scaffold-only flags --template and --immediate are not allowed in AST parser mode.');
     }
 
-    if (parsed.design || parsed.input || parsed.output || parsed.brandSchema) {
+    if (parsed.brandSchema) {
       fail('Validation and brand OS flags are not allowed in AST parser mode.');
     }
 
@@ -371,10 +282,6 @@ export function parseArgs(argv: string[]): CliArgs {
       fail('Scaffold-only flags --template and --immediate are not allowed in brand OS mode.');
     }
 
-    if (parsed.design || parsed.input || parsed.output) {
-      fail('Validation flags are not allowed in brand OS mode.');
-    }
-
     if (positional.length > 0) {
       fail('Positional directory argument is not supported in brand OS mode.');
     }
@@ -393,43 +300,6 @@ export function parseArgs(argv: string[]): CliArgs {
       emitDir: parsed.emitDir,
       verbose: parsed.verbose,
     };
-  }
-
-  if (parsed.mode === 'validate-grid') {
-      if (parsed.templateSpecified || parsed.immediateSpecified) {
-        fail('Scaffold-only flags --template and --immediate are not allowed in validation mode.');
-      }
-
-    if (parsed.design !== 'grid') {
-      fail(`Only --design grid is supported. Received --design ${parsed.design ?? 'undefined'}.`);
-    }
-
-    if (positional.length > 0) {
-      fail('Positional directory argument is not supported in validation mode.');
-    }
-
-    if (!parsed.input) {
-      fail('--input is required for --design grid.');
-    }
-
-    if (!parsed.output) {
-      fail('--output is required for --design grid.');
-    }
-
-    return {
-      mode: 'validate-grid',
-      help: false,
-      design: 'grid',
-      input: parsed.input,
-      output: parsed.output,
-      spacingBase: parsed.spacingBase,
-      rootFontSize: parsed.rootFontSize,
-      verbose: parsed.verbose,
-    };
-  }
-
-  if (parsed.input || parsed.output) {
-    fail('Use --design grid together with --input/--output for map validation.');
   }
 
   if (positional.length > 1) {

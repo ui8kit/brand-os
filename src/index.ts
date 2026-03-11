@@ -1,17 +1,15 @@
 #!/usr/bin/env node
 /**
- * brand-os — Scaffold apps, validate layout maps, emit Brand OS assets, and parse ASTs.
+ * brand-os — Scaffold apps, emit Brand OS assets, and parse ASTs.
  *
  * Usage examples:
  *   npx brand-os [OPTION]... [DIRECTORY]
- *   npx brand-os --design grid --input <path> --output <path>
  */
 
 import { CliArgs, parseArgs } from './cli/parse-args.js';
 import { printAstParserUsage, runAstParser } from './commands/ast-parser.js';
 import { printBrandOsUsage, runBrandOs } from './commands/brand-os.js';
 import { printScaffoldUsage, runScaffold } from './commands/scaffold.js';
-import { printValidateUsage, runValidateGrid } from './commands/validate-grid.js';
 
 function fail(message: string, code = 2): never {
   console.error(`\n${message}`);
@@ -20,8 +18,6 @@ function fail(message: string, code = 2): never {
 
 function printUsage(): void {
   console.log(printScaffoldUsage());
-  console.log('');
-  console.log(printValidateUsage());
   console.log('');
   console.log(printAstParserUsage());
   console.log('');
@@ -53,12 +49,6 @@ async function main(): Promise<void> {
     if (args.mode === 'brand-os') {
       await runBrandOs(args);
       process.exit(0);
-      return;
-    }
-
-    if (args.mode === 'validate-grid') {
-      const exitCode = await runValidateGrid(args);
-      process.exit(exitCode);
       return;
     }
 

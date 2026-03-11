@@ -51,10 +51,11 @@
   --font-display: Merriweather, Georgia, serif;
   --font-ui: Inter, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --radius-media: 2rem;
   --radius-shell: 2.5rem;
   --radius-pill: 9999px;

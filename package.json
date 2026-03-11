@@ -1,7 +1,7 @@
 {
   "name": "brand-os",
-  "version": "0.1.2",
-  "description": "CLI for brand operating systems, template scaffolding, AST parsing, and layout validation",
+  "version": "0.1.5",
+  "description": "CLI for brand operating systems, template scaffolding, Brand OS asset emit, and AST parsing",
   "author": "UI8Kit",
   "license": "MIT",
   "type": "module",
@@ -19,9 +19,7 @@
     "vite",
     "react",
     "scaffolding",
-    "template",
-    "8px",
-    "spacing"
+    "template"
   ],
   "homepage": "https://github.com/ui8kit/brand-os",
   "bugs": {
@@ -45,7 +43,8 @@
     "README.md",
     "dist",
     "template-react",
-    "template-react-resta"
+    "template-react-resta",
+    "template-tech-blog"
   ],
   "engines": {
     "node": ">=18"
