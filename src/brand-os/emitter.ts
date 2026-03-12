@@ -298,6 +298,8 @@ function buildBrandBrief(schema: BrandOsSchema, promptPack: PromptPack): string 
   if (thesis) {
     sections.push('## Brand Thesis', '');
     if (thesis.summary) sections.push(thesis.summary, '');
+    if (thesis.promise) sections.push(`**Promise:** ${thesis.promise}`, '');
+    if (thesis.positioning) sections.push(`**Positioning:** ${thesis.positioning}`, '');
     if (thesis.personality?.length) {
       sections.push('**Personality:** ' + thesis.personality.join(', '), '');
     }
@@ -326,12 +328,70 @@ function buildBrandBrief(schema: BrandOsSchema, promptPack: PromptPack): string 
     sections.push('');
   }
 
+  if (tokens?.typography?.sizes && Object.keys(tokens.typography.sizes).length > 0) {
+    sections.push('### Type Scale', '');
+    for (const [k, v] of Object.entries(tokens.typography.sizes)) {
+      sections.push(`- ${k}: \`${v}\``);
+    }
+    sections.push('');
+  }
+
+  if (tokens?.typography?.lineHeights && Object.keys(tokens.typography.lineHeights).length > 0) {
+    sections.push('### Line Heights', '');
+    for (const [k, v] of Object.entries(tokens.typography.lineHeights)) {
+      sections.push(`- ${k}: \`${v}\``);
+    }
+    sections.push('');
+  }
+
+  if (tokens?.typography?.tracking && Object.keys(tokens.typography.tracking).length > 0) {
+    sections.push('### Tracking', '');
+    for (const [k, v] of Object.entries(tokens.typography.tracking)) {
+      sections.push(`- ${k}: \`${v}\``);
+    }
+    sections.push('');
+  }
+
+  if (tokens?.typography?.surfaceOverrides && Object.keys(tokens.typography.surfaceOverrides).length > 0) {
+    sections.push('### Typography Surface Overrides', '');
+    for (const [surface, override] of Object.entries(tokens.typography.surfaceOverrides)) {
+      sections.push(`- ${surface}: ${Object.entries(override).map(([k, v]) => `${k}=\`${v}\``).join(', ')}`);
+    }
+    sections.push('');
+  }
+
   if (tokens?.color?.light) {
     const c = tokens.color.light;
     sections.push('### Colors (light)', '');
     const colorKeys = ['primary', 'primaryForeground', 'secondary', 'accent', 'muted', 'background', 'foreground', 'border', 'destructive'] as const;
     for (const key of colorKeys) {
       if (c[key]) sections.push(`- ${key}: \`${c[key]}\``);
+    }
+    sections.push('');
+  }
+
+  if (tokens?.color?.dark && Object.keys(tokens.color.dark).length > 0) {
+    const c = tokens.color.dark;
+    sections.push('### Colors (dark)', '');
+    const colorKeys = ['primary', 'primaryForeground', 'secondary', 'accent', 'muted', 'background', 'foreground', 'border', 'destructive'] as const;
+    for (const key of colorKeys) {
+      if (c[key]) sections.push(`- ${key}: \`${c[key]}\``);
+    }
+    sections.push('');
+  }
+
+  if (tokens?.color?.charts && Object.keys(tokens.color.charts).length > 0) {
+    sections.push('### Chart Colors', '');
+    for (const [k, v] of Object.entries(tokens.color.charts)) {
+      sections.push(`- ${k}: \`${v}\``);
+    }
+    sections.push('');
+  }
+
+  if (tokens?.color?.categories && Object.keys(tokens.color.categories).length > 0) {
+    sections.push('### Category Colors', '');
+    for (const [k, v] of Object.entries(tokens.color.categories)) {
+      sections.push(`- ${k}: light=\`${v.light}\`, dark=\`${v.dark}\`${v.aliases?.length ? `, aliases=${v.aliases.join(', ')}` : ''}`);
     }
     sections.push('');
   }
@@ -352,6 +412,50 @@ function buildBrandBrief(schema: BrandOsSchema, promptPack: PromptPack): string 
     sections.push('');
   }
 
+  if (tokens?.spacing) {
+    if (tokens.spacing.baseUnit) {
+      sections.push(`### Spacing`, '', `- baseUnit: \`${tokens.spacing.baseUnit}\``, '');
+    }
+    if (tokens.spacing.scale && Object.keys(tokens.spacing.scale).length > 0) {
+      sections.push('### Spacing Scale', '');
+      for (const [k, v] of Object.entries(tokens.spacing.scale)) {
+        sections.push(`- ${k}: \`${v}\``);
+      }
+      sections.push('');
+    }
+    if (tokens.spacing.sectionRhythm && Object.keys(tokens.spacing.sectionRhythm).length > 0) {
+      sections.push('### Section Rhythm', '');
+      for (const [k, v] of Object.entries(tokens.spacing.sectionRhythm)) {
+        sections.push(`- ${k}: \`${v}\``);
+      }
+      sections.push('');
+    }
+    if (tokens.spacing.container && Object.keys(tokens.spacing.container).length > 0) {
+      sections.push('### Containers', '');
+      for (const [k, v] of Object.entries(tokens.spacing.container)) {
+        sections.push(`- ${k}: \`${v}\``);
+      }
+      sections.push('');
+    }
+  }
+
+  if (tokens?.motion) {
+    sections.push('### Motion', '');
+    if (tokens.motion.durations && Object.keys(tokens.motion.durations).length > 0) {
+      sections.push(`- durations: ${Object.entries(tokens.motion.durations).map(([k, v]) => `${k}=\`${v}\``).join(', ')}`);
+    }
+    if (tokens.motion.easings && Object.keys(tokens.motion.easings).length > 0) {
+      sections.push(`- easings: ${Object.entries(tokens.motion.easings).map(([k, v]) => `${k}=\`${v}\``).join(', ')}`);
+    }
+    if (tokens.motion.presets && Object.keys(tokens.motion.presets).length > 0) {
+      sections.push(`- presets: ${Object.entries(tokens.motion.presets).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join('; ')}`);
+    }
+    if (tokens.motion.reducedMotion && Object.keys(tokens.motion.reducedMotion).length > 0) {
+      sections.push(`- reducedMotion: ${Object.entries(tokens.motion.reducedMotion).map(([k, v]) => `${k}=\`${String(v)}\``).join(', ')}`);
+    }
+    sections.push('');
+  }
+
   if (grammar) {
     sections.push('## Design Grammar', '');
     if (grammar.styleDirection) {
@@ -367,11 +471,24 @@ function buildBrandBrief(schema: BrandOsSchema, promptPack: PromptPack): string 
       if (grammar.surfaceLanguage.contrastRule) sections.push(`**Contrast rule:** ${grammar.surfaceLanguage.contrastRule}`);
       sections.push('');
     }
+    if (grammar.densityModes && Object.keys(grammar.densityModes).length > 0) {
+      sections.push('### Density Modes', '');
+      for (const [k, v] of Object.entries(grammar.densityModes)) {
+        sections.push(`- ${k}: ${v}`);
+      }
+      sections.push('');
+    }
     if (grammar.imageTreatment) {
       sections.push('### Image Treatment', '');
       if (grammar.imageTreatment.style) sections.push(`- Style: ${grammar.imageTreatment.style}`);
       if (grammar.imageTreatment.preferred?.length) sections.push(`- Preferred: ${grammar.imageTreatment.preferred.join(', ')}`);
       if (grammar.imageTreatment.avoid?.length) sections.push(`- Avoid: ${grammar.imageTreatment.avoid.join(', ')}`);
+      sections.push('');
+    }
+    if (grammar.contentVoice) {
+      sections.push('### Content Voice', '');
+      if (grammar.contentVoice.adjectives?.length) sections.push(`- Adjectives: ${grammar.contentVoice.adjectives.join(', ')}`);
+      if (grammar.contentVoice.avoid?.length) sections.push(`- Avoid: ${grammar.contentVoice.avoid.join(', ')}`);
       sections.push('');
     }
   }
@@ -412,8 +529,14 @@ function buildBrandBrief(schema: BrandOsSchema, promptPack: PromptPack): string 
     if (schema_componentPolicy.keepStandard?.length) {
       sections.push('**Keep standard:** ' + schema_componentPolicy.keepStandard.join(', '), '');
     }
+    if (schema_componentPolicy.wrapEarly?.length) {
+      sections.push('**Wrap early:** ' + schema_componentPolicy.wrapEarly.join(', '), '');
+    }
     if (schema_componentPolicy.customBlocks?.length) {
       sections.push('**Custom blocks:** ' + schema_componentPolicy.customBlocks.join(', '), '');
+    }
+    if (schema_componentPolicy.rawHtmlAllowedFor?.length) {
+      sections.push('**Raw HTML allowed for:** ' + schema_componentPolicy.rawHtmlAllowedFor.join(', '), '');
     }
     if (schema_componentPolicy.avoid?.length) {
       sections.push('**Avoid:** ' + schema_componentPolicy.avoid.join(', '), '');

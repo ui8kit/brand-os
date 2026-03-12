@@ -1,0 +1,770 @@
+{
+  "meta": {
+    "name": "Cyber OS",
+    "slug": "cyber-os",
+    "description": "Dark-first data hub brand system for CRUD admin, docs, dashboards, and launch surfaces built on UI8kit with a Better Stack-inspired cyber utility aesthetic.",
+    "sourceReference": {
+      "project": "Better Stack AI SRE landing"
+    }
+  },
+  "emit": {
+    "docs": {
+      "generatedKitTitle": "Cyber OS Generated Kit",
+      "promptTitlePrefix": "Cyber OS",
+      "promptIntro": "Use this kit as the source-of-truth contract for building Cyber OS surfaces with UI8kit primitives plus a brand overlay layer.",
+      "parserFixtureTitle": "Cyber OS Parser Fixtures",
+      "parserFixtureReference": "`Cyber Brand OS/example.html`"
+    },
+    "assets": [
+      {
+        "source": "cyber-os.adapters/shared/tokens.css",
+        "output": "adapters/shared/tokens.css",
+        "description": "Shared Cyber OS semantic tokens and base CSS variables."
+      },
+      {
+        "source": "cyber-os.adapters/tailwind4/shadcn.css",
+        "output": "adapters/tailwind4/shadcn.css",
+        "description": "Tailwind 4 @theme bridge for Cyber OS semantic tokens."
+      },
+      {
+        "source": "cyber-os.adapters/tailwind4/brand-layer.css",
+        "output": "adapters/tailwind4/brand-layer.css",
+        "description": "Cyber-specific overlay classes for glass panels, compact nav controls, gradients, and feature cards."
+      }
+    ]
+  },
+  "brandThesis": {
+    "summary": "Cyber OS should feel sharp, cinematic, dependable, and data-native while remaining legible and operational across landing, admin, docs, and app surfaces.",
+    "promise": "Turn raw JSON data, CRUD flows, and system operations into a branded interface layer that feels premium, fast, and coherent.",
+    "positioning": "A dark-first interface system for data hubs and internal tools that merges Better Stack-style launch polish with practical UI8kit system components.",
+    "personality": [
+      "bold",
+      "confident",
+      "high-contrast",
+      "data-native",
+      "precise",
+      "operator-friendly",
+      "cinematic-tech"
+    ],
+    "antiPersonality": [
+      "generic-saas-template",
+      "neon-cyberpunk-cliche",
+      "glassmorphism-everywhere",
+      "over-decorated",
+      "toy-dashboard",
+      "soft-lifestyle-brand"
+    ],
+    "voice": {
+      "tone": [
+        "clear",
+        "technical-without-jargon",
+        "confident",
+        "direct",
+        "operator-friendly"
+      ],
+      "avoid": [
+        "corporate jargon",
+        "marketing fluff on operational surfaces",
+        "cheap urgency language",
+        "overhyped AI claims",
+        "vague labels that hide the data model"
+      ]
+    }
+  },
+  "tokens": {
+    "color": {
+      "light": {
+        "background": "220 35% 98%",
+        "foreground": "226 24% 14%",
+        "card": "0 0% 100%",
+        "cardForeground": "226 24% 14%",
+        "popover": "0 0% 100%",
+        "popoverForeground": "226 24% 14%",
+        "primary": "233 88% 67%",
+        "primaryForeground": "0 0% 100%",
+        "secondary": "225 29% 95%",
+        "secondaryForeground": "226 24% 18%",
+        "muted": "226 29% 94%",
+        "mutedForeground": "225 12% 42%",
+        "accent": "231 92% 95%",
+        "accentForeground": "233 58% 36%",
+        "destructive": "0 84% 60%",
+        "destructiveForeground": "0 0% 100%",
+        "border": "226 22% 88%",
+        "input": "226 22% 88%",
+        "ring": "233 88% 67%",
+        "success": "148 52% 42%",
+        "successForeground": "0 0% 100%",
+        "warning": "40 96% 52%",
+        "warningForeground": "226 24% 14%",
+        "info": "206 84% 54%",
+        "infoForeground": "0 0% 100%",
+        "promo": "274 79% 64%",
+        "promoForeground": "0 0% 100%",
+        "surfaceElevated": "220 36% 99%",
+        "surfaceSubtle": "225 25% 96%",
+        "surfaceStrong": "227 28% 90%",
+        "cream": "220 31% 96%",
+        "creamForeground": "226 24% 14%",
+        "overlaySoft": "226 24% 14% / 0.05",
+        "overlayStrong": "226 24% 14% / 0.72",
+        "sidebar": "223 31% 97%",
+        "sidebarForeground": "226 24% 16%",
+        "sidebarPrimary": "233 88% 67%",
+        "sidebarPrimaryForeground": "0 0% 100%",
+        "sidebarAccent": "226 32% 94%",
+        "sidebarAccentForeground": "226 24% 16%",
+        "sidebarBorder": "226 22% 88%",
+        "sidebarRing": "233 88% 67%"
+      },
+      "dark": {
+        "background": "229 29% 7%",
+        "foreground": "221 39% 91%",
+        "card": "231 24% 10%",
+        "cardForeground": "221 39% 91%",
+        "popover": "231 21% 12%",
+        "popoverForeground": "221 39% 91%",
+        "primary": "233 88% 73%",
+        "primaryForeground": "0 0% 100%",
+        "secondary": "230 17% 17%",
+        "secondaryForeground": "221 39% 91%",
+        "muted": "229 14% 18%",
+        "mutedForeground": "224 17% 72%",
+        "accent": "233 42% 19%",
+        "accentForeground": "233 88% 73%",
+        "destructive": "0 72% 58%",
+        "destructiveForeground": "0 0% 100%",
+        "border": "227 18% 22%",
+        "input": "227 18% 22%",
+        "ring": "233 88% 73%",
+        "success": "148 44% 45%",
+        "successForeground": "0 0% 100%",
+        "warning": "40 82% 56%",
+        "warningForeground": "229 29% 7%",
+        "info": "206 79% 61%",
+        "infoForeground": "229 29% 7%",
+        "promo": "273 68% 66%",
+        "promoForeground": "0 0% 100%",
+        "surfaceElevated": "230 25% 12%",
+        "surfaceSubtle": "229 16% 14%",
+        "surfaceStrong": "229 14% 22%",
+        "cream": "228 18% 18%",
+        "creamForeground": "221 39% 91%",
+        "overlaySoft": "0 0% 0% / 0.18",
+        "overlayStrong": "0 0% 0% / 0.72",
+        "sidebar": "230 27% 9%",
+        "sidebarForeground": "221 39% 91%",
+        "sidebarPrimary": "233 88% 73%",
+        "sidebarPrimaryForeground": "0 0% 100%",
+        "sidebarAccent": "229 14% 18%",
+        "sidebarAccentForeground": "221 39% 91%",
+        "sidebarBorder": "227 18% 22%",
+        "sidebarRing": "233 88% 73%"
+      },
+      "categories": {
+        "data": {
+          "light": "206 74% 71%",
+          "dark": "206 54% 44%",
+          "aliases": [
+            "json",
+            "records"
+          ]
+        },
+        "analytics": {
+          "light": "152 31% 70%",
+          "dark": "152 30% 38%",
+          "aliases": [
+            "metrics",
+            "charts"
+          ]
+        },
+        "governance": {
+          "light": "24 40% 66%",
+          "dark": "24 36% 42%",
+          "aliases": [
+            "roles",
+            "permissions"
+          ]
+        },
+        "ai": {
+          "light": "274 46% 75%",
+          "dark": "274 36% 45%",
+          "aliases": [
+            "assistant",
+            "automation"
+          ]
+        },
+        "design": {
+          "light": "334 44% 76%",
+          "dark": "334 35% 44%",
+          "aliases": [
+            "tokens",
+            "brand"
+          ]
+        },
+        "security": {
+          "light": "60 36% 72%",
+          "dark": "60 30% 41%",
+          "aliases": [
+            "audit",
+            "access"
+          ]
+        }
+      },
+      "charts": {
+        "1": "233 88% 73%",
+        "2": "206 79% 61%",
+        "3": "148 44% 45%",
+        "4": "273 68% 66%",
+        "5": "40 82% 56%"
+      }
+    },
+    "typography": {
+      "families": {
+        "display": "Geist, Inter, system-ui, sans-serif",
+        "body": "Inter, system-ui, sans-serif",
+        "ui": "Inter, system-ui, sans-serif",
+        "mono": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, monospace"
+      },
+      "weights": {
+        "regular": 400,
+        "medium": 500,
+        "semibold": 600,
+        "bold": 700
+      },
+      "sizes": {
+        "2xs": "12px",
+        "xs": "13px",
+        "sm": "14px",
+        "base": "16px",
+        "md": "18px",
+        "lg": "20px",
+        "hero-sm": "28px",
+        "hero-md": "40px",
+        "hero-lg": "53px"
+      },
+      "lineHeights": {
+        "flat": "100%",
+        "tight": "108%",
+        "snug": "120%",
+        "normal": "145%",
+        "relaxed": "160%"
+      },
+      "tracking": {
+        "tight": "-0.02em",
+        "normal": "-0.01em",
+        "micro": "-0.16px"
+      },
+      "surfaceOverrides": {
+        "dashboard": {
+          "display": "Inter, system-ui, sans-serif"
+        },
+        "docs": {
+          "display": "Inter, system-ui, sans-serif",
+          "body": "Inter, system-ui, sans-serif"
+        },
+        "tech-blog": {
+          "display": "Geist, Inter, system-ui, sans-serif",
+          "body": "Inter, system-ui, sans-serif"
+        }
+      }
+    },
+    "spacing": {
+      "baseUnit": 4,
+      "scale": {
+        "0": "0",
+        "1": "0.25rem",
+        "2": "0.5rem",
+        "3": "0.75rem",
+        "4": "1rem",
+        "5": "1.25rem",
+        "6": "1.5rem",
+        "8": "2rem",
+        "10": "2.5rem",
+        "12": "3rem",
+        "15": "3.75rem",
+        "16": "4rem",
+        "24": "6rem",
+        "32": "8rem"
+      },
+      "sectionRhythm": {
+        "landing": "6rem 0 6rem",
+        "dashboard": "2rem 0 2rem",
+        "docs": "2.5rem 0 2.5rem",
+        "admin": "2rem 0 2rem",
+        "auth": "4rem 0 4rem"
+      },
+      "container": {
+        "narrow": "720px",
+        "content": "950px",
+        "shell": "1110px",
+        "wide": "1280px"
+      }
+    },
+    "radius": {
+      "xs": "2px",
+      "sm": "4px",
+      "md": "6px",
+      "lg": "8px",
+      "xl": "12px",
+      "media": "1rem",
+      "shell": "1.5rem",
+      "pill": "9999px"
+    },
+    "shadow": {
+      "none": "none",
+      "soft": "0 4px 20px -4px hsl(229 29% 4% / 0.10)",
+      "elevated": "0 20px 40px -10px hsl(229 29% 4% / 0.15)",
+      "floating": "0 4px 12px -2px hsl(229 29% 4% / 0.15)"
+    },
+    "motion": {
+      "durations": {
+        "fast": "150ms",
+        "normal": "300ms",
+        "slow": "600ms"
+      },
+      "easings": {
+        "standard": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "decelerate": "cubic-bezier(0, 0, 0.2, 1)"
+      },
+      "presets": {
+        "cardHover": {
+          "duration": "600ms",
+          "easing": "cubic-bezier(0.4, 0, 0.2, 1)"
+        },
+        "fadeIn": {
+          "duration": "500ms",
+          "easing": "ease-out"
+        }
+      },
+      "reducedMotion": {
+        "disableEntranceAnimations": true,
+        "disableHoverTransforms": true
+      }
+    }
+  },
+  "designGrammar": {
+    "styleDirection": "dark-tech-cinematic",
+    "densityModes": {
+      "landing": "comfortable",
+      "dashboard": "compact",
+      "docs": "comfortable",
+      "admin": "compact",
+      "sms": "compact",
+      "user-management": "compact",
+      "login-auth": "comfortable",
+      "webapp": "compact",
+      "spa": "compact",
+      "mpa": "comfortable",
+      "tech-blog": "relaxed"
+    },
+    "shapeLanguage": {
+      "core": "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+    },
+    "surfaceLanguage": {
+      "base": "Public surfaces can use cinematic gradients and glass panels, while operational surfaces stay flatter, denser, and more system-like.",
+      "depthRule": "Use blur and elevated shadows mainly for navigation, overlays, and landing highlights; keep admin and data tables flatter.",
+      "accentRule": "Indigo is the primary action accent, but keep most surfaces neutral so charts, status chips, and CTA gradients stand out.",
+      "contrastRule": "Maintain strong text contrast on dark shells and reserve pure white for headings, CTAs, and mono highlights."
+    },
+    "imageTreatment": {
+      "style": "Product screenshots, dashboards, code snippets, and operator workflows with dark gradient fades at the bottom.",
+      "preferred": [
+        "full-bleed product imagery",
+        "cropped dashboard screenshots",
+        "dark screenshots with indigo highlights",
+        "subtle grain or blur on backgrounds"
+      ],
+      "avoid": [
+        "bright stock photography",
+        "cartoon illustrations",
+        "overexposed screenshots",
+        "rainbow cyberpunk effects"
+      ]
+    },
+    "contentVoice": {
+      "adjectives": [
+        "clear",
+        "credible",
+        "fast",
+        "technical",
+        "operator-friendly",
+        "composed"
+      ],
+      "avoid": [
+        "confusing jargon",
+        "buzzword-heavy AI copy",
+        "cute microcopy on admin surfaces",
+        "marketing slogans in data tables"
+      ]
+    }
+  },
+  "componentPolicy": {
+    "keepStandard": [
+      "Accordion",
+      "Badge",
+      "Field",
+      "Grid",
+      "Icon",
+      "Image",
+      "Stack",
+      "Text",
+      "Title"
+    ],
+    "wrapEarly": [
+      "Button",
+      "Card",
+      "Container",
+      "Group",
+      "Sheet"
+    ],
+    "customBlocks": [
+      "CyberHeader",
+      "CyberFooter",
+      "CyberSidebar",
+      "HeroBlock",
+      "FeatureSplitBlock",
+      "FeatureCardGridBlock",
+      "DataTableBlock",
+      "JsonEditorBlock",
+      "TokenShowcaseBlock",
+      "ComponentGalleryBlock"
+    ],
+    "rawHtmlAllowedFor": [
+      "embedded charts",
+      "syntax-highlighted code",
+      "third-party status widgets"
+    ],
+    "avoid": [
+      "oversized rounded pills on enterprise surfaces",
+      "default card styling without Cyber overlay on landing pages",
+      "heavy gradients on CRUD and docs surfaces",
+      "using decorative glass effects on dense tables",
+      "mixing too many accent colors in a single screen"
+    ]
+  },
+  "recipes": {
+    "pageArchetypes": {
+      "landing": {
+        "purpose": "Introduce Cyber OS as a central data hub and convert technical visitors into trying the product or exploring docs.",
+        "requiredSections": [
+          "hero",
+          "logo-banner",
+          "feature-split",
+          "feature-card-grid",
+          "testimonials",
+          "cta"
+        ]
+      },
+      "dashboard": {
+        "purpose": "Give operators an at-a-glance overview of ingest volume, recent activity, health, and shortcuts.",
+        "requiredSections": [
+          "stats-overview",
+          "charts",
+          "recent-activity",
+          "quick-actions"
+        ]
+      },
+      "docs": {
+        "purpose": "Document data flows, component rules, and brand usage with a clear reading structure and fast navigation.",
+        "requiredSections": [
+          "docs-hero",
+          "sidebar-nav",
+          "content",
+          "toc",
+          "prev-next"
+        ]
+      },
+      "admin": {
+        "purpose": "Manage collections, records, permissions, and workflows from a stable left-sidebar CRUD shell.",
+        "requiredSections": [
+          "admin-sidebar",
+          "data-table",
+          "detail-panel",
+          "crud-form",
+          "activity-feed"
+        ]
+      },
+      "sms": {
+        "purpose": "Operate message-based automations and communication history in a compact, chat-oriented workspace.",
+        "requiredSections": [
+          "chat-shell",
+          "message-stream",
+          "composer",
+          "contact-sidebar"
+        ]
+      },
+      "user-management": {
+        "purpose": "Review users, roles, invitations, and account health with table-first clarity.",
+        "requiredSections": [
+          "user-stats",
+          "filters",
+          "user-table",
+          "role-panel"
+        ]
+      },
+      "login-auth": {
+        "purpose": "Authenticate users with a focused, trust-heavy entry point and minimal friction.",
+        "requiredSections": [
+          "auth-hero",
+          "auth-panel",
+          "trust-strip"
+        ]
+      },
+      "webapp": {
+        "purpose": "Present the main product workspace with command-driven navigation, data tables, and contextual detail panels.",
+        "requiredSections": [
+          "workspace-shell",
+          "command-bar",
+          "data-table",
+          "detail-panel"
+        ]
+      },
+      "spa": {
+        "purpose": "Support fast route changes and stateful workflows inside a single-page application shell.",
+        "requiredSections": [
+          "workspace-shell",
+          "command-bar",
+          "route-view",
+          "inspector-panel"
+        ]
+      },
+      "mpa": {
+        "purpose": "Support a multipage marketing and resource site with strong hierarchy and repeatable shell patterns.",
+        "requiredSections": [
+          "page-header",
+          "content-grid",
+          "resource-band",
+          "footer-links"
+        ]
+      },
+      "tech-blog": {
+        "purpose": "Publish technical stories, release notes, and deep product explainers with editorial rhythm.",
+        "requiredSections": [
+          "blog-hero",
+          "featured-article",
+          "article-list",
+          "newsletter",
+          "footer-links"
+        ]
+      }
+    },
+    "sectionArchetypes": {
+      "hero": {
+        "purpose": "Launch-oriented hero with compact CTAs, gradient title treatment, and strong dark shell contrast.",
+        "requiredSlots": ["eyebrow", "title", "subtitle", "primary-cta", "secondary-cta", "hero-visual"],
+        "fixedTraits": ["above-fold", "dark-shell", "tight-heading", "indigo-accent"]
+      },
+      "logo-banner": {
+        "purpose": "Show trust logos in a horizontally scrolling or repeated strip.",
+        "requiredSlots": ["intro", "logo-list"],
+        "fixedTraits": ["marquee-friendly", "muted", "separator-fade"]
+      },
+      "feature-split": {
+        "purpose": "Pair a screenshot or visual with supporting text in alternating left-right sections.",
+        "requiredSlots": ["image", "title", "body", "meta-points"],
+        "fixedTraits": ["two-column", "alternating", "landing-only"]
+      },
+      "feature-card-grid": {
+        "purpose": "Display fixed-height feature cards with image overlays and bottom-anchored copy.",
+        "requiredSlots": ["background-image", "title", "body"],
+        "fixedTraits": ["rounded-xl", "h-350", "bottom-anchored", "glass-border"]
+      },
+      "testimonials": {
+        "purpose": "Build credibility using customer quotes, logos, or analyst statements.",
+        "requiredSlots": ["quote", "source"],
+        "fixedTraits": ["muted", "brand-consistent"]
+      },
+      "cta": {
+        "purpose": "Close a public surface with one clear conversion action.",
+        "requiredSlots": ["headline", "supporting-copy", "button"],
+        "fixedTraits": ["single-primary-action", "high-contrast", "gradient-cta"]
+      },
+      "stats-overview": {
+        "purpose": "Expose key metrics in compact cards with clear trend indicators.",
+        "requiredSlots": ["metric-value", "metric-label", "trend", "status"],
+        "fixedTraits": ["compact", "card-grid", "quick-scan"]
+      },
+      "charts": {
+        "purpose": "Show time-series or categorical data with restrained chart colors and operator clarity.",
+        "requiredSlots": ["chart", "legend", "range-controls"],
+        "fixedTraits": ["dark-surface", "muted-frame", "chart-palette"]
+      },
+      "recent-activity": {
+        "purpose": "List recent ingests, mutations, errors, and operator actions in chronological order.",
+        "requiredSlots": ["event-list", "timestamp", "event-meta"],
+        "fixedTraits": ["timeline", "compact", "mono-meta"]
+      },
+      "quick-actions": {
+        "purpose": "Provide high-frequency shortcuts near the top of operational surfaces.",
+        "requiredSlots": ["actions"],
+        "fixedTraits": ["compact", "button-group", "operator-first"]
+      },
+      "docs-hero": {
+        "purpose": "Introduce docs sections and orient the reader before the main content area.",
+        "requiredSlots": ["eyebrow", "title", "summary"],
+        "fixedTraits": ["readable-width", "muted-meta", "no-heavy-effects"]
+      },
+      "sidebar-nav": {
+        "purpose": "Provide a left navigation rail for docs or app surfaces.",
+        "requiredSlots": ["section-list", "active-state"],
+        "fixedTraits": ["left-rail", "compact", "sticky-allowed"]
+      },
+      "content": {
+        "purpose": "Main reading or data presentation column.",
+        "requiredSlots": ["body"],
+        "fixedTraits": ["semantic", "scannable"]
+      },
+      "toc": {
+        "purpose": "Show headings and anchor links for long-form content.",
+        "requiredSlots": ["anchors"],
+        "fixedTraits": ["right-rail", "small-type"]
+      },
+      "prev-next": {
+        "purpose": "Link adjacent docs or resource pages.",
+        "requiredSlots": ["previous-link", "next-link"],
+        "fixedTraits": ["footer-nav", "directional"]
+      },
+      "admin-sidebar": {
+        "purpose": "Primary navigation for CRUD, settings, collections, and documentation links.",
+        "requiredSlots": ["logo", "primary-nav", "secondary-nav"],
+        "fixedTraits": ["left-sidebar", "compact", "surface-subtle"]
+      },
+      "data-table": {
+        "purpose": "Show records with sorting, filtering, row actions, and selection states.",
+        "requiredSlots": ["columns", "rows", "filters", "pagination"],
+        "fixedTraits": ["dense", "row-actions", "sticky-header"]
+      },
+      "detail-panel": {
+        "purpose": "Reveal focused record details or contextual metadata next to a table.",
+        "requiredSlots": ["title", "meta", "actions"],
+        "fixedTraits": ["side-panel", "contextual", "surface-elevated"]
+      },
+      "crud-form": {
+        "purpose": "Create or edit structured data with clear grouping and validation.",
+        "requiredSlots": ["fields", "validation", "submit-actions"],
+        "fixedTraits": ["stacked", "grouped-sections", "system-first"]
+      },
+      "activity-feed": {
+        "purpose": "Track changes, audit events, and operational history.",
+        "requiredSlots": ["event-list", "user", "timestamp"],
+        "fixedTraits": ["muted", "audit-friendly", "compact"]
+      },
+      "chat-shell": {
+        "purpose": "Host message-driven workflows for SMS or assistant operations.",
+        "requiredSlots": ["conversation-list", "active-thread"],
+        "fixedTraits": ["split-view", "compact", "operator-first"]
+      },
+      "message-stream": {
+        "purpose": "Render chronological inbound and outbound messages.",
+        "requiredSlots": ["messages", "timestamps", "delivery-state"],
+        "fixedTraits": ["bubble-lite", "mono-meta", "dense"]
+      },
+      "composer": {
+        "purpose": "Compose outbound messages or automation commands.",
+        "requiredSlots": ["input", "attachments", "send-action"],
+        "fixedTraits": ["sticky-bottom", "compact", "clear-primary-action"]
+      },
+      "contact-sidebar": {
+        "purpose": "Show contact metadata, tags, and message history shortcuts.",
+        "requiredSlots": ["contact-meta", "tags", "actions"],
+        "fixedTraits": ["side-panel", "compact"]
+      },
+      "user-stats": {
+        "purpose": "Summarize account counts, role health, and invitation status.",
+        "requiredSlots": ["metric-cards"],
+        "fixedTraits": ["compact", "row-friendly"]
+      },
+      "filters": {
+        "purpose": "Filter and segment datasets without hiding the query state.",
+        "requiredSlots": ["search", "selects", "chips"],
+        "fixedTraits": ["toolbar", "compact", "clear-active-state"]
+      },
+      "user-table": {
+        "purpose": "List users, roles, access status, and quick actions.",
+        "requiredSlots": ["rows", "role-badge", "status", "actions"],
+        "fixedTraits": ["data-table-derived", "badge-heavy", "compact"]
+      },
+      "role-panel": {
+        "purpose": "Explain and edit role scopes, permissions, and inheritance.",
+        "requiredSlots": ["role-summary", "permissions", "save-action"],
+        "fixedTraits": ["surface-elevated", "detail-panel"]
+      },
+      "auth-hero": {
+        "purpose": "Establish trust and product context on login or signup screens.",
+        "requiredSlots": ["title", "summary", "supporting-proof"],
+        "fixedTraits": ["minimal", "trust-focused", "dark-shell"]
+      },
+      "auth-panel": {
+        "purpose": "Hold the actual authentication form in a focused card.",
+        "requiredSlots": ["fields", "submit", "secondary-links"],
+        "fixedTraits": ["centered", "card", "simple"]
+      },
+      "trust-strip": {
+        "purpose": "Reinforce trust with security, compliance, or customer proof near auth forms.",
+        "requiredSlots": ["items"],
+        "fixedTraits": ["small-type", "muted", "horizontal"]
+      },
+      "workspace-shell": {
+        "purpose": "Establish the primary app shell for webapp and SPA surfaces.",
+        "requiredSlots": ["topbar", "sidebar", "content"],
+        "fixedTraits": ["application-shell", "persistent-nav"]
+      },
+      "command-bar": {
+        "purpose": "Expose fast actions, search, and stateful filters at the top of app surfaces.",
+        "requiredSlots": ["search", "actions", "context-meta"],
+        "fixedTraits": ["compact", "operator-first", "sticky-optional"]
+      },
+      "route-view": {
+        "purpose": "Render the current SPA route inside the workspace shell.",
+        "requiredSlots": ["view-content"],
+        "fixedTraits": ["stateful", "app-surface"]
+      },
+      "inspector-panel": {
+        "purpose": "Show route-specific details, logs, or JSON next to the main view.",
+        "requiredSlots": ["summary", "details", "actions"],
+        "fixedTraits": ["side-panel", "mono-friendly"]
+      },
+      "page-header": {
+        "purpose": "Introduce an MPA page with breadcrumbs, title, and short context.",
+        "requiredSlots": ["breadcrumbs", "title", "summary"],
+        "fixedTraits": ["clear-hierarchy", "moderate-density"]
+      },
+      "content-grid": {
+        "purpose": "Lay out cards, resources, or grouped content on multipage surfaces.",
+        "requiredSlots": ["items"],
+        "fixedTraits": ["grid", "responsive", "repeatable"]
+      },
+      "resource-band": {
+        "purpose": "Highlight related resources, links, or documentation handoffs.",
+        "requiredSlots": ["resource-list"],
+        "fixedTraits": ["muted-surface", "scannable"]
+      },
+      "footer-links": {
+        "purpose": "Group support, product, and legal links in the lower page shell.",
+        "requiredSlots": ["link-groups", "legal-links"],
+        "fixedTraits": ["footer", "micro-text", "border-top"]
+      },
+      "blog-hero": {
+        "purpose": "Introduce a blog or changelog section with editorial rhythm.",
+        "requiredSlots": ["eyebrow", "title", "summary"],
+        "fixedTraits": ["editorial", "readable-width"]
+      },
+      "featured-article": {
+        "purpose": "Feature one top article or release note with more emphasis than the rest of the feed.",
+        "requiredSlots": ["image", "title", "excerpt", "meta"],
+        "fixedTraits": ["card", "elevated", "editorial"]
+      },
+      "article-list": {
+        "purpose": "List multiple posts with tags, excerpts, and publication metadata.",
+        "requiredSlots": ["items", "meta", "tags"],
+        "fixedTraits": ["scan-friendly", "editorial", "muted-dividers"]
+      },
+      "newsletter": {
+        "purpose": "Capture subscribers for release notes or technical updates.",
+        "requiredSlots": ["headline", "email-input", "submit-button"],
+        "fixedTraits": ["compact", "single-action", "muted-surface"]
+      }
+    }
+  }
+}

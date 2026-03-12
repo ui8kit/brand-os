@@ -1,0 +1,212 @@
+/* Cyber OS shared tokens and base CSS variables. */
+
+:root {
+  --background: 220 35% 98%;
+  --foreground: 226 24% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 226 24% 14%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 226 24% 14%;
+  --primary: 233 88% 67%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 225 29% 95%;
+  --secondary-foreground: 226 24% 18%;
+  --muted: 226 29% 94%;
+  --muted-foreground: 225 12% 42%;
+  --accent: 231 92% 95%;
+  --accent-foreground: 233 58% 36%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 226 22% 88%;
+  --input: 226 22% 88%;
+  --ring: 233 88% 67%;
+  --success: 148 52% 42%;
+  --success-foreground: 0 0% 100%;
+  --warning: 40 96% 52%;
+  --warning-foreground: 226 24% 14%;
+  --info: 206 84% 54%;
+  --info-foreground: 0 0% 100%;
+  --promo: 274 79% 64%;
+  --promo-foreground: 0 0% 100%;
+  --surface-elevated: 220 36% 99%;
+  --surface-subtle: 225 25% 96%;
+  --surface-strong: 227 28% 90%;
+  --cream: 220 31% 96%;
+  --cream-foreground: 226 24% 14%;
+  --overlay-soft: 226 24% 14% / 0.05;
+  --overlay-strong: 226 24% 14% / 0.72;
+  --sidebar: 223 31% 97%;
+  --sidebar-foreground: 226 24% 16%;
+  --sidebar-primary: 233 88% 67%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 226 32% 94%;
+  --sidebar-accent-foreground: 226 24% 16%;
+  --sidebar-border: 226 22% 88%;
+  --sidebar-ring: 233 88% 67%;
+
+  --chart-1: 233 88% 73%;
+  --chart-2: 206 79% 61%;
+  --chart-3: 148 44% 45%;
+  --chart-4: 273 68% 66%;
+  --chart-5: 40 82% 56%;
+
+  --category-1: 206 74% 71%;
+  --category-2: 152 31% 70%;
+  --category-3: 24 40% 66%;
+  --category-4: 274 46% 75%;
+  --category-5: 334 44% 76%;
+  --category-6: 60 36% 72%;
+
+  --font-display: Geist, Inter, system-ui, sans-serif;
+  --font-ui: Inter, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --text-2xs: 12px;
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-md: 18px;
+  --text-lg: 20px;
+  --text-hero-sm: 28px;
+  --text-hero-md: 40px;
+  --text-hero-lg: 53px;
+
+  --leading-flat: 100%;
+  --leading-tight: 108%;
+  --leading-snug: 120%;
+  --leading-normal: 145%;
+  --leading-relaxed: 160%;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: -0.01em;
+  --tracking-micro: -0.16px;
+
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-15: 3.75rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  --container-narrow: 720px;
+  --container-content: 950px;
+  --container-shell: 1110px;
+  --container-wide: 1280px;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-media: 1rem;
+  --radius-shell: 1.5rem;
+  --radius-pill: 9999px;
+  --radius: var(--radius-lg);
+
+  --shadow-none: none;
+  --shadow-soft: 0 4px 20px -4px hsl(229 29% 4% / 0.10);
+  --shadow-elevated: 0 20px 40px -10px hsl(229 29% 4% / 0.15);
+  --shadow-floating: 0 4px 12px -2px hsl(229 29% 4% / 0.15);
+
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.dark {
+  --background: 229 29% 7%;
+  --foreground: 221 39% 91%;
+  --card: 231 24% 10%;
+  --card-foreground: 221 39% 91%;
+  --popover: 231 21% 12%;
+  --popover-foreground: 221 39% 91%;
+  --primary: 233 88% 73%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 230 17% 17%;
+  --secondary-foreground: 221 39% 91%;
+  --muted: 229 14% 18%;
+  --muted-foreground: 224 17% 72%;
+  --accent: 233 42% 19%;
+  --accent-foreground: 233 88% 73%;
+  --destructive: 0 72% 58%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 227 18% 22%;
+  --input: 227 18% 22%;
+  --ring: 233 88% 73%;
+  --success: 148 44% 45%;
+  --success-foreground: 0 0% 100%;
+  --warning: 40 82% 56%;
+  --warning-foreground: 229 29% 7%;
+  --info: 206 79% 61%;
+  --info-foreground: 229 29% 7%;
+  --promo: 273 68% 66%;
+  --promo-foreground: 0 0% 100%;
+  --surface-elevated: 230 25% 12%;
+  --surface-subtle: 229 16% 14%;
+  --surface-strong: 229 14% 22%;
+  --cream: 228 18% 18%;
+  --cream-foreground: 221 39% 91%;
+  --overlay-soft: 0 0% 0% / 0.18;
+  --overlay-strong: 0 0% 0% / 0.72;
+  --sidebar: 230 27% 9%;
+  --sidebar-foreground: 221 39% 91%;
+  --sidebar-primary: 233 88% 73%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 229 14% 18%;
+  --sidebar-accent-foreground: 221 39% 91%;
+  --sidebar-border: 227 18% 22%;
+  --sidebar-ring: 233 88% 73%;
+
+  --category-1: 206 54% 44%;
+  --category-2: 152 30% 38%;
+  --category-3: 24 36% 42%;
+  --category-4: 274 36% 45%;
+  --category-5: 334 35% 44%;
+  --category-6: 60 30% 41%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}

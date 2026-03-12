@@ -1,0 +1,563 @@
+{
+  "sharedContext": {
+    "brandSummary": "Cyber OS should feel sharp, cinematic, dependable, and data-native while remaining legible and operational across landing, admin, docs, and app surfaces.",
+    "styleKeywords": [
+      "bold",
+      "confident",
+      "high-contrast",
+      "data-native",
+      "precise",
+      "operator-friendly",
+      "cinematic-tech",
+      "clear"
+    ],
+    "negativeStyleKeywords": [
+      "generic-saas-template",
+      "neon-cyberpunk-cliche",
+      "glassmorphism-everywhere",
+      "over-decorated",
+      "toy-dashboard",
+      "soft-lifestyle-brand"
+    ],
+    "crossSurfaceRules": [
+      "confusing jargon",
+      "buzzword-heavy AI copy",
+      "cute microcopy on admin surfaces",
+      "marketing slogans in data tables",
+      "Keep one clear information architecture per surface.",
+      "Preserve semantic consistency across public and operational surfaces."
+    ],
+    "implementationBias": {
+      "preferredStack": "Tailwind CSS + shadcn-compatible system components",
+      "systemLayer": [
+        "Button",
+        "Input",
+        "Textarea",
+        "Dialog",
+        "Accordion",
+        "Tabs",
+        "Card"
+      ],
+      "brandLayer": [
+        "Hero shells",
+        "Section wrappers",
+        "Feature blocks",
+        "Promo blocks"
+      ]
+    },
+    "motionBias": {
+      "defaultLevel": "css-only",
+      "allowedEscalation": [
+        "subtle fade",
+        "gentle hover emphasis"
+      ],
+      "forbiddenWithoutJustification": [
+        "heavy motion",
+        "conflicting parallel animations"
+      ]
+    }
+  },
+  "surfaces": {
+    "landing": {
+      "goal": "Introduce Cyber OS as a central data hub and convert technical visitors into trying the product or exploring docs.",
+      "requiredInputs": [
+        "hero",
+        "logoBanner",
+        "featureSplit",
+        "featureCardGrid",
+        "testimonials",
+        "cta"
+      ],
+      "optionalInputs": [
+        "landingAudience",
+        "landingTone",
+        "landingConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "hero",
+        "logo-banner",
+        "feature-split",
+        "feature-card-grid",
+        "testimonials",
+        "cta"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on landing.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a landing in Cyber OS.",
+        "Input: {{hero}}",
+        "Input: {{logoBanner}}",
+        "Input: {{featureSplit}}",
+        "Input: {{featureCardGrid}}",
+        "Input: {{testimonials}}",
+        "Input: {{cta}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does landing keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "dashboard": {
+      "goal": "Give operators an at-a-glance overview of ingest volume, recent activity, health, and shortcuts.",
+      "requiredInputs": [
+        "statsOverview",
+        "charts",
+        "recentActivity",
+        "quickActions"
+      ],
+      "optionalInputs": [
+        "dashboardAudience",
+        "dashboardTone",
+        "dashboardConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "stats-overview",
+        "charts",
+        "recent-activity",
+        "quick-actions"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on dashboard.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a dashboard in Cyber OS.",
+        "Input: {{statsOverview}}",
+        "Input: {{charts}}",
+        "Input: {{recentActivity}}",
+        "Input: {{quickActions}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does dashboard keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "docs": {
+      "goal": "Document data flows, component rules, and brand usage with a clear reading structure and fast navigation.",
+      "requiredInputs": [
+        "docsHero",
+        "sidebarNav",
+        "content",
+        "toc",
+        "prevNext"
+      ],
+      "optionalInputs": [
+        "docsAudience",
+        "docsTone",
+        "docsConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "docs-hero",
+        "sidebar-nav",
+        "content",
+        "toc",
+        "prev-next"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on docs.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a docs in Cyber OS.",
+        "Input: {{docsHero}}",
+        "Input: {{sidebarNav}}",
+        "Input: {{content}}",
+        "Input: {{toc}}",
+        "Input: {{prevNext}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does docs keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "admin": {
+      "goal": "Manage collections, records, permissions, and workflows from a stable left-sidebar CRUD shell.",
+      "requiredInputs": [
+        "adminSidebar",
+        "dataTable",
+        "detailPanel",
+        "crudForm",
+        "activityFeed"
+      ],
+      "optionalInputs": [
+        "adminAudience",
+        "adminTone",
+        "adminConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "admin-sidebar",
+        "data-table",
+        "detail-panel",
+        "crud-form",
+        "activity-feed"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on admin.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a admin in Cyber OS.",
+        "Input: {{adminSidebar}}",
+        "Input: {{dataTable}}",
+        "Input: {{detailPanel}}",
+        "Input: {{crudForm}}",
+        "Input: {{activityFeed}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does admin keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "sms": {
+      "goal": "Operate message-based automations and communication history in a compact, chat-oriented workspace.",
+      "requiredInputs": [
+        "chatShell",
+        "messageStream",
+        "composer",
+        "contactSidebar"
+      ],
+      "optionalInputs": [
+        "smsAudience",
+        "smsTone",
+        "smsConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "chat-shell",
+        "message-stream",
+        "composer",
+        "contact-sidebar"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on sms.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a sms in Cyber OS.",
+        "Input: {{chatShell}}",
+        "Input: {{messageStream}}",
+        "Input: {{composer}}",
+        "Input: {{contactSidebar}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does sms keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "user-management": {
+      "goal": "Review users, roles, invitations, and account health with table-first clarity.",
+      "requiredInputs": [
+        "userStats",
+        "filters",
+        "userTable",
+        "rolePanel"
+      ],
+      "optionalInputs": [
+        "user-managementAudience",
+        "user-managementTone",
+        "user-managementConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "user-stats",
+        "filters",
+        "user-table",
+        "role-panel"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on user-management.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a user management in Cyber OS.",
+        "Input: {{userStats}}",
+        "Input: {{filters}}",
+        "Input: {{userTable}}",
+        "Input: {{rolePanel}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does user-management keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "login-auth": {
+      "goal": "Authenticate users with a focused, trust-heavy entry point and minimal friction.",
+      "requiredInputs": [
+        "authHero",
+        "authPanel",
+        "trustStrip"
+      ],
+      "optionalInputs": [
+        "login-authAudience",
+        "login-authTone",
+        "login-authConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "auth-hero",
+        "auth-panel",
+        "trust-strip"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on login-auth.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a login auth in Cyber OS.",
+        "Input: {{authHero}}",
+        "Input: {{authPanel}}",
+        "Input: {{trustStrip}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does login-auth keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "webapp": {
+      "goal": "Present the main product workspace with command-driven navigation, data tables, and contextual detail panels.",
+      "requiredInputs": [
+        "workspaceShell",
+        "commandBar",
+        "dataTable",
+        "detailPanel"
+      ],
+      "optionalInputs": [
+        "webappAudience",
+        "webappTone",
+        "webappConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "workspace-shell",
+        "command-bar",
+        "data-table",
+        "detail-panel"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on webapp.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a webapp in Cyber OS.",
+        "Input: {{workspaceShell}}",
+        "Input: {{commandBar}}",
+        "Input: {{dataTable}}",
+        "Input: {{detailPanel}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does webapp keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "spa": {
+      "goal": "Support fast route changes and stateful workflows inside a single-page application shell.",
+      "requiredInputs": [
+        "workspaceShell",
+        "commandBar",
+        "routeView",
+        "inspectorPanel"
+      ],
+      "optionalInputs": [
+        "spaAudience",
+        "spaTone",
+        "spaConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "workspace-shell",
+        "command-bar",
+        "route-view",
+        "inspector-panel"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on spa.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a spa in Cyber OS.",
+        "Input: {{workspaceShell}}",
+        "Input: {{commandBar}}",
+        "Input: {{routeView}}",
+        "Input: {{inspectorPanel}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does spa keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "mpa": {
+      "goal": "Support a multipage marketing and resource site with strong hierarchy and repeatable shell patterns.",
+      "requiredInputs": [
+        "pageHeader",
+        "contentGrid",
+        "resourceBand",
+        "footerLinks"
+      ],
+      "optionalInputs": [
+        "mpaAudience",
+        "mpaTone",
+        "mpaConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "page-header",
+        "content-grid",
+        "resource-band",
+        "footer-links"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on mpa.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a mpa in Cyber OS.",
+        "Input: {{pageHeader}}",
+        "Input: {{contentGrid}}",
+        "Input: {{resourceBand}}",
+        "Input: {{footerLinks}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does mpa keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "tech-blog": {
+      "goal": "Publish technical stories, release notes, and deep product explainers with editorial rhythm.",
+      "requiredInputs": [
+        "blogHero",
+        "featuredArticle",
+        "articleList",
+        "newsletter",
+        "footerLinks"
+      ],
+      "optionalInputs": [
+        "tech-blogAudience",
+        "tech-blogTone",
+        "tech-blogConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "blog-hero",
+        "featured-article",
+        "article-list",
+        "newsletter",
+        "footer-links"
+      ],
+      "surfaceOverrides": [
+        "Use Cyber OS shapes and spacing consistently on tech-blog.",
+        "Dark navy shells, precise indigo accents, restrained glass panels, compact controls, and bottom-anchored feature cards with cinematic image overlays."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a tech blog in Cyber OS.",
+        "Input: {{blogHero}}",
+        "Input: {{featuredArticle}}",
+        "Input: {{articleList}}",
+        "Input: {{newsletter}}",
+        "Input: {{footerLinks}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does tech-blog keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    }
+  },
+  "auditPromptAddendum": [
+    "List what stays system-level and what becomes a custom wrapper.",
+    "Check that reusable components are named and repeatable.",
+    "Remove redundant motion and decorative noise where possible."
+  ]
+}

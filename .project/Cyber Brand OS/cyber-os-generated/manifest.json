@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-03-12T07:24:11.965Z",
+  "brandName": "Cyber OS",
+  "outputDir": "e:\\_@Bun\\@ui8kit-brand-os\\.project\\Cyber Brand OS\\cyber-os-generated",
+  "files": {
+    "promptCount": 11,
+    "prompts": [
+      "prompts/landing.md",
+      "prompts/dashboard.md",
+      "prompts/docs.md",
+      "prompts/admin.md",
+      "prompts/sms.md",
+      "prompts/user-management.md",
+      "prompts/login-auth.md",
+      "prompts/webapp.md",
+      "prompts/spa.md",
+      "prompts/mpa.md",
+      "prompts/tech-blog.md"
+    ],
+    "fixtureCount": 0,
+    "fixtureIndex": "parser-fixtures/index.json",
+    "copiedAssets": [
+      "adapters/shared/tokens.css",
+      "adapters/tailwind4/shadcn.css",
+      "adapters/tailwind4/brand-layer.css"
+    ]
+  }
+}
