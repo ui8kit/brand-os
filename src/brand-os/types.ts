@@ -85,6 +85,7 @@ export interface BrandOsSchema {
     };
   };
   designGrammar?: {
+    styleDirection?: string;
     densityModes?: StringMap;
     shapeLanguage?: {
       core?: string;

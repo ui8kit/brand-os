@@ -282,6 +282,155 @@ function emitPrompts(outputDir: string, promptPack: PromptPack, schema: BrandOsS
   writeTextFile(join(promptsDir, 'README.md'), buildPromptIndex(promptPack, schema));
 }
 
+function buildBrandBrief(schema: BrandOsSchema, promptPack: PromptPack): string {
+  const thesis = schema.brandThesis;
+  const tokens = schema.tokens;
+  const grammar = schema.designGrammar;
+  const recipes = schema.recipes;
+
+  const sections: string[] = [
+    `# ${schema.meta.name} — Brand Brief`,
+    '',
+    schema.meta.description ?? thesis?.summary ?? '',
+    '',
+  ];
+
+  if (thesis) {
+    sections.push('## Brand Thesis', '');
+    if (thesis.summary) sections.push(thesis.summary, '');
+    if (thesis.personality?.length) {
+      sections.push('**Personality:** ' + thesis.personality.join(', '), '');
+    }
+    if (thesis.antiPersonality?.length) {
+      sections.push('**Anti-personality (NEVER):** ' + thesis.antiPersonality.join(', '), '');
+    }
+    if (thesis.voice) {
+      if (thesis.voice.tone?.length) {
+        sections.push('**Voice tone:** ' + thesis.voice.tone.join(', '), '');
+      }
+      if (thesis.voice.avoid?.length) {
+        sections.push('**Voice avoid:** ' + thesis.voice.avoid.join(', '), '');
+      }
+    }
+  }
+
+  sections.push('## Design Tokens', '');
+
+  if (tokens?.typography?.families) {
+    const f = tokens.typography.families;
+    sections.push('### Typography', '');
+    if (f.display) sections.push(`- Display: \`${f.display}\``);
+    if (f.body) sections.push(`- Body: \`${f.body}\``);
+    if (f.ui) sections.push(`- UI: \`${f.ui}\``);
+    if (f.mono) sections.push(`- Mono: \`${f.mono}\``);
+    sections.push('');
+  }
+
+  if (tokens?.color?.light) {
+    const c = tokens.color.light;
+    sections.push('### Colors (light)', '');
+    const colorKeys = ['primary', 'primaryForeground', 'secondary', 'accent', 'muted', 'background', 'foreground', 'border', 'destructive'] as const;
+    for (const key of colorKeys) {
+      if (c[key]) sections.push(`- ${key}: \`${c[key]}\``);
+    }
+    sections.push('');
+  }
+
+  if (tokens?.radius) {
+    sections.push('### Radius', '');
+    for (const [k, v] of Object.entries(tokens.radius)) {
+      sections.push(`- ${k}: \`${v}\``);
+    }
+    sections.push('');
+  }
+
+  if (tokens?.shadow) {
+    sections.push('### Shadow', '');
+    for (const [k, v] of Object.entries(tokens.shadow)) {
+      sections.push(`- ${k}: \`${v}\``);
+    }
+    sections.push('');
+  }
+
+  if (grammar) {
+    sections.push('## Design Grammar', '');
+    if (grammar.styleDirection) {
+      sections.push(`**Style direction:** ${grammar.styleDirection}`, '');
+    }
+    if (grammar.shapeLanguage?.core) {
+      sections.push(`**Shape language:** ${grammar.shapeLanguage.core}`, '');
+    }
+    if (grammar.surfaceLanguage) {
+      if (grammar.surfaceLanguage.base) sections.push(`**Surface treatment:** ${grammar.surfaceLanguage.base}`);
+      if (grammar.surfaceLanguage.depthRule) sections.push(`**Depth rule:** ${grammar.surfaceLanguage.depthRule}`);
+      if (grammar.surfaceLanguage.accentRule) sections.push(`**Accent rule:** ${grammar.surfaceLanguage.accentRule}`);
+      if (grammar.surfaceLanguage.contrastRule) sections.push(`**Contrast rule:** ${grammar.surfaceLanguage.contrastRule}`);
+      sections.push('');
+    }
+    if (grammar.imageTreatment) {
+      sections.push('### Image Treatment', '');
+      if (grammar.imageTreatment.style) sections.push(`- Style: ${grammar.imageTreatment.style}`);
+      if (grammar.imageTreatment.preferred?.length) sections.push(`- Preferred: ${grammar.imageTreatment.preferred.join(', ')}`);
+      if (grammar.imageTreatment.avoid?.length) sections.push(`- Avoid: ${grammar.imageTreatment.avoid.join(', ')}`);
+      sections.push('');
+    }
+  }
+
+  if (recipes?.pageArchetypes && Object.keys(recipes.pageArchetypes).length > 0) {
+    sections.push('## Page Archetypes', '');
+    for (const [name, archetype] of Object.entries(recipes.pageArchetypes)) {
+      sections.push(`### ${toTitleCase(name)}`, '');
+      if (archetype.purpose) sections.push(`Purpose: ${archetype.purpose}`, '');
+      if (archetype.requiredSections?.length) {
+        sections.push(`Sections: ${archetype.requiredSections.join(', ')}`, '');
+      }
+    }
+  }
+
+  if (recipes?.sectionArchetypes && Object.keys(recipes.sectionArchetypes).length > 0) {
+    sections.push('## Section Archetypes', '');
+    for (const [name, archetype] of Object.entries(recipes.sectionArchetypes)) {
+      sections.push(`### ${toTitleCase(name)}`, '');
+      if (archetype.purpose) sections.push(`Purpose: ${archetype.purpose}`);
+      if (archetype.requiredSlots?.length) sections.push(`Slots: ${archetype.requiredSlots.join(', ')}`);
+      if (archetype.fixedTraits?.length) sections.push(`Traits: ${archetype.fixedTraits.join(', ')}`);
+      sections.push('');
+    }
+  }
+
+  if (promptPack.sharedContext.crossSurfaceRules?.length) {
+    sections.push('## Cross-Surface Rules', '');
+    for (const rule of promptPack.sharedContext.crossSurfaceRules) {
+      sections.push(`- ${rule}`);
+    }
+    sections.push('');
+  }
+
+  const schema_componentPolicy = schema.componentPolicy;
+  if (schema_componentPolicy) {
+    sections.push('## Component Policy', '');
+    if (schema_componentPolicy.keepStandard?.length) {
+      sections.push('**Keep standard:** ' + schema_componentPolicy.keepStandard.join(', '), '');
+    }
+    if (schema_componentPolicy.customBlocks?.length) {
+      sections.push('**Custom blocks:** ' + schema_componentPolicy.customBlocks.join(', '), '');
+    }
+    if (schema_componentPolicy.avoid?.length) {
+      sections.push('**Avoid:** ' + schema_componentPolicy.avoid.join(', '), '');
+    }
+  }
+
+  sections.push(
+    '---',
+    '',
+    `Generated by brand-os on ${new Date().toISOString().split('T')[0]}.`,
+    `Source: ${schema.meta.slug}.schema.json`,
+    '',
+  );
+
+  return sections.join('\n');
+}
+
 export function emitBrandOsArtifacts(
   paths: BrandOsResolvedPaths,
   schema: BrandOsSchema,
@@ -298,6 +447,7 @@ export function emitBrandOsArtifacts(
   }
   const copiedAssets = copyAdapterAssets(paths, schema);
   writeTextFile(join(paths.emitDir, 'README.md'), buildBrandReadme(schema, promptPack, copiedAssets));
+  writeTextFile(join(paths.emitDir, 'brand-brief.md'), buildBrandBrief(schema, promptPack));
   writeTextFile(join(paths.emitDir, 'parser-contract.json'), `${JSON.stringify(parserContract, null, 2)}\n`);
   emitPrompts(paths.emitDir, promptPack, schema, paths.schemaFileName);
   const emittedFixtures = emitParserFixtures(paths.emitDir, fixtureSource, schema);

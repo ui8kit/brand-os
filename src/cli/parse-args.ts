@@ -36,6 +36,8 @@ export interface InitCliArgs {
   name?: string;
   description?: string;
   surfaces?: string[];
+  style?: string;
+  palette?: string;
   out?: string;
   json: boolean;
 }
@@ -73,6 +75,8 @@ export function parseArgs(argv: string[]): CliArgs {
     initName?: string;
     initDescription?: string;
     initSurfaces?: string[];
+    initStyle?: string;
+    initPalette?: string;
     initOut?: string;
     initJson: boolean;
   } = {
@@ -129,6 +133,26 @@ export function parseArgs(argv: string[]): CliArgs {
         fail('--surfaces requires a comma-separated list.');
       }
       parsed.initSurfaces = value.split(',').map((s) => s.trim()).filter(Boolean);
+      i += 1;
+      continue;
+    }
+
+    if (arg === '--style') {
+      const value = argv[i + 1];
+      if (!value || value.startsWith('-')) {
+        fail('--style requires a style direction (warm, bold, minimal, editorial, playful, luxury).');
+      }
+      parsed.initStyle = value;
+      i += 1;
+      continue;
+    }
+
+    if (arg === '--palette') {
+      const value = argv[i + 1];
+      if (!value || value.startsWith('-')) {
+        fail('--palette requires a color palette name (warm, cool, rose, forest, slate, amber, violet).');
+      }
+      parsed.initPalette = value;
       i += 1;
       continue;
     }
@@ -288,6 +312,8 @@ export function parseArgs(argv: string[]): CliArgs {
         name: parsed.initName,
         description: parsed.initDescription,
         surfaces: parsed.initSurfaces,
+        style: parsed.initStyle,
+        palette: parsed.initPalette,
         out: parsed.initOut,
         json: parsed.initJson,
       };
@@ -375,6 +401,8 @@ export function parseArgs(argv: string[]): CliArgs {
       name: parsed.initName,
       description: parsed.initDescription,
       surfaces: parsed.initSurfaces,
+      style: parsed.initStyle,
+      palette: parsed.initPalette,
       out: parsed.initOut,
       json: parsed.initJson,
     };

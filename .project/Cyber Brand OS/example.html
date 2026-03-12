@@ -1,0 +1,1461 @@
+<html class="" lang="en" prefix="og: https://ogp.me/ns#">
+
+<head>
+    <style type="text/css">
+        .turbo-progress-bar {
+            position: fixed;
+            display: block;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: #0076ff;
+            z-index: 2147483647;
+            transition:
+                width 300ms ease-out,
+                opacity 150ms 150ms ease-in;
+            transform: translate3d(0, 0, 0);
+        }
+    </style>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>AI SRE agent for on-call | Better Stack</title>
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+
+    <link href="/assets/favicon-64296699.png" rel="shortcut icon">
+    <meta
+        content="AI agent with the knowledge of your infrastructure. Root cause analysis, Slack integration, MCP server, and AI-native incident management built-in."
+        name="description">
+ 
+
+    <link rel="stylesheet" href="https://betterstack.com/assets/betterstack_v2-9481ece8.css" media="all"
+        data-turbo-track="reload">
+</head>
+
+<body class="helvetica bg-[#0B0C14] text-neutral-200" data-aos-easing="ease" data-aos-duration="1000"
+    data-aos-delay="0">
+    <div class="main overflow-x-hidden">
+        <header
+            class="z-40 top-0 left-0 right-0 flex justify-center helvetica bg-[#0B0C14]/80 fixed before:absolute before:-z-10 before:inset-0 before:backdrop-blur-2xl"
+            data-controller="header" id="navbar">
+            <nav
+                class="grow flex justify-between border-b mx-5 max-w-[1110px] h-[52px] text-[13px] leading-[100%] text-[#C9D3EE] border-[#727DA1]/15">
+                <div class="flex items-stretch gap-3">
+                    <a aria-label="Go to homepage" class="flex items-center py-3" href="/">
+                        <svg width="154" height="21" class="scale-[65%] -mx-6" alt="Better Stack"
+                            style="--currentColor: currentColor;">
+                            <use href="/assets/v2/better-stack-logo-f5a76de1.svg#root"></use>
+                        </svg>
+                    </a>
+                    <div class="hidden md:flex items-stretch gap-4">
+                        <button aria-controls="platform-menu" aria-haspopup="menu"
+                            class="pl-3 py-3 pr-6 -mr-3 group relative flex items-center">
+                            <div class="transition group-hover:text-white">Platform</div>
+                            <span class="absolute right-2 text-[#656A7B]"><svg
+                                    class="group-hover:rotate-180 transition  w-[11px] h-[11px] inline"
+                                    style="--currentColor: currentColor;">
+                                    <use href="/assets/icons/heroicons_v2/outline/chevron-down-f42404b3.svg#root"></use>
+                                </svg></span>
+                            <div class="hidden group-hover:block absolute z-40 top-full left-0 text-left"
+                                id="platform-menu" role="menu" tabindex="-1">
+                                <div
+                                    class="rounded-lg border backdrop-blur-2xl flex w-[667px] min-[1100px]:w-[950px] xl:w-[1005px] bg-[#181926]/80 border-[#1F2433]/75">
+                                    <div class="grid md:grid-cols-2 w-full min-[1100px]:grid-cols-3">
+                                        <div
+                                            class="flex-1 py-3 flex flex-col gap-1 border-b md:border-r relative md:pl-[17px] md:pr-[17px] border-[#727DA112] min-[1100px]:border-b-0">
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/ai-sre"><span class="text-[#7C87F7]"><svg width="25" height="24"
+                                                        alt="" class="scale-[85%]"
+                                                        style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/ai-sre-9ed692c8.svg#root"></use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">AI SRE</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">Agentic root cause
+                                                        analysis</div>
+                                                </div>
+                                            </a>
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/incident-management"><span class="text-[#7C87F7]"><svg width="25"
+                                                        height="24" alt="" class="relative top-[-2px] scale-[90%]"
+                                                        style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/calendar-f8fa6928.svg#root"></use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">Incident management &amp; on-call</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">Move fast when things
+                                                        break</div>
+                                                </div>
+                                            </a>
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/uptime"><span class="text-[#7C87F7]"><svg width="25" height="24"
+                                                        alt="" class="relative top-[-2px] scale-[90%]"
+                                                        style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/radar-4182d855.svg#root"></use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">Uptime monitoring</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">The most reliable uptime
+                                                        monitoring</div>
+                                                </div>
+                                            </a>
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/status-page"><span class="text-[#7C87F7]"><svg width="25"
+                                                        height="24" alt="" class="relative top-[-1px] left-[2px]"
+                                                        style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/page-a4cac846.svg#root"></use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">Status page</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">Communicate downtime
+                                                        &amp; build trust</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div
+                                            class="flex-1 py-3 flex flex-col gap-1 border-b relative md:pl-[17px] md:pr-[17px] border-[#727DA112] min-[1100px]:border-b-0 min-[1100px]:border-r">
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/tracing"><span class="text-[#7C87F7]"><svg width="25" height="24"
+                                                        alt="" class="relative" style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/telescope-bf9dc2b9.svg#root"></use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">Tracing</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">eBPF-based
+                                                        OpenTelemetry-native tracing</div>
+                                                </div>
+                                            </a>
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/log-management"><span class="text-[#7C87F7]"><svg width="25"
+                                                        height="24" alt="" class="relative top-[-2px] scale-[90%]"
+                                                        style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/code-insert-dbc41857.svg#root"></use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">Log management</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">Collect insights across
+                                                        your stack</div>
+                                                </div>
+                                            </a>
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/infrastructure-monitoring"><span class="text-[#7C87F7]"><svg
+                                                        width="25" height="24" alt="" class="relative scale-[90%]"
+                                                        style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/server-f03364f4.svg#root"></use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">Infrastructure monitoring</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">OpenTelemetry-native
+                                                        infrastructure monitoring</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="flex-1 mt-2 md:mt-0 py-3 flex flex-col gap-1 md:pl-[17px] md:pr-5">
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/real-user-monitoring"><span class="text-[#7C87F7]"><svg
+                                                        width="25" height="24" alt="" class="relative"
+                                                        style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/rum-dbe53d43.svg#root"></use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">Real user monitoring</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">Session replay, web
+                                                        vitals &amp; product analytics</div>
+                                                </div>
+                                            </a>
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/error-tracking"><span class="text-[#7C87F7]"><svg width="25"
+                                                        height="24" alt="" class="relative scale-[75%] top-px left-px"
+                                                        style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/exclamation-circle-de67a698.svg#root">
+                                                        </use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">Error tracking</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">AI‑native error tracking
+                                                        built on Better Stack</div>
+                                                </div>
+                                            </a>
+                                            <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                                href="/warehouse"><span class="text-[#7C87F7]"><svg width="25"
+                                                        height="24" alt="" class="relative scale-[90%]"
+                                                        style="--currentColor: currentColor;">
+                                                        <use href="/assets/v2/warehouse-52df23d8.svg#root"></use>
+                                                    </svg></span>
+                                                <div>
+                                                    <div class="font-medium">Data warehouse</div>
+                                                    <div class="mt-1 text-xs text-neutral-200">Time series data
+                                                        warehouse as an API</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </button>
+                        <a class="hidden lg:flex p-3 hover:text-white transition items-center"
+                            href="https://betterstack.com/docs/">
+                            <span>Documentation</span>
+                        </a>
+                        <a class="hidden lg:flex p-3 hover:text-white transition items-center" href="/pricing">
+                            <span>Pricing</span>
+                        </a>
+                        <form action="https://betterstack.com/community" class="m-0 flex items-stretch">
+                            <button aria-controls="community-menu" aria-haspopup="menu"
+                                class="p-3 group relative flex items-center" type="submit">
+                                <div class="transition group-hover:text-white">Community</div>
+                                <span class="absolute -right-1 text-[#656A7B]"><svg
+                                        class="group-hover:rotate-180 transition  w-[11px] h-[11px] inline"
+                                        style="--currentColor: currentColor;">
+                                        <use href="/assets/icons/heroicons_v2/outline/chevron-down-f42404b3.svg#root">
+                                        </use>
+                                    </svg></span>
+                                <div class="hidden group-hover:block absolute z-40 top-full left-0 text-left"
+                                    id="community-menu" role="menu" tabindex="-1">
+                                    <div
+                                        class="rounded-lg border backdrop-blur-2xl flex flex-col gap-1 w-[174px] p-[6px] bg-[#181926]/80 border-[#1F2433]/75">
+                                        <a class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%] md:hidden"
+                                            href="https://betterstack.com/community"><span class="text-neutral-200"><svg
+                                                    class="mx-[2px]  w-4 h-4 inline"
+                                                    style="--currentColor: currentColor;">
+                                                    <use
+                                                        href="/assets/icons/heroicons_v2/solid/users-c09a1e92.svg#root">
+                                                    </use>
+                                                </svg></span>
+                                            Community home
+                                        </a><a
+                                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                                            href="https://betterstack.com/community/guides"><span
+                                                class="text-neutral-200"><svg width="20" height="20" alt=""
+                                                    style="--currentColor: currentColor;">
+                                                    <use href="/assets/v2/guides-fa8300b6.svg#root"></use>
+                                                </svg></span>
+                                            Guides
+                                        </a><a
+                                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                                            href="https://betterstack.com/community/questions"><span
+                                                class="text-neutral-200"><svg width="20" height="20" alt=""
+                                                    style="--currentColor: currentColor;">
+                                                    <use href="/assets/v2/questions-ae0ab73b.svg#root"></use>
+                                                </svg></span>
+                                            Questions
+                                        </a><a
+                                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                                            href="https://betterstack.com/community/comparisons"><span
+                                                class="text-neutral-200"><svg width="20" height="20" alt=""
+                                                    style="--currentColor: currentColor;">
+                                                    <use href="/assets/v2/comparisons-e0f4ca1e.svg#root"></use>
+                                                </svg></span>
+                                            Comparisons
+                                        </a>
+                                    </div>
+                                </div>
+                            </button>
+                            <input type="hidden" name="_ph"
+                                value="19cde22d0c04c9-0153f8ebfe4e67-4c657b58-15f900-19cde22d0c1d32"><input
+                                type="hidden" name="_s"
+                                value="19cde22d70ab6d-0424207f2ff746-4c657b58-15f900-19cde22d70bf41"><input
+                                type="hidden" name="_st" value="1773253351177">
+                        </form>
+                        <button aria-controls="company-menu" aria-haspopup="menu"
+                            class="p-3 group relative flex items-center">
+                            <div class="transition group-hover:text-white">Company</div>
+                            <span class="absolute -right-1 text-[#656A7B]"><svg
+                                    class="group-hover:rotate-180 transition  w-[11px] h-[11px] inline"
+                                    style="--currentColor: currentColor;">
+                                    <use href="/assets/icons/heroicons_v2/outline/chevron-down-f42404b3.svg#root"></use>
+                                </svg></span>
+                            <div class="hidden group-hover:block absolute z-40 top-full left-0 text-left"
+                                id="company-menu" role="menu" tabindex="-1">
+                                <div
+                                    class="rounded-lg border backdrop-blur-2xl flex flex-col gap-1 w-[190px] p-[6px] bg-[#181926]/80 border-[#1F2433]/75">
+                                    <a class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                                        href="/careers"><span class="text-neutral-200"><svg width="20" height="20"
+                                                alt="" style="--currentColor: currentColor;">
+                                                <use href="/assets/v2/ship-38e68322.svg#root"></use>
+                                            </svg></span>
+                                        Work at Better Stack
+                                    </a><a
+                                        class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                                        href="/careers/engineering"><span class="text-neutral-200"><svg width="20"
+                                                height="20" alt="" style="--currentColor: currentColor;">
+                                                <use href="/assets/v2/code-05597a86.svg#root"></use>
+                                            </svg></span>
+                                        Engineering
+                                    </a><a
+                                        class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                                        href="/security"><span class="text-neutral-200"><svg width="20" height="20"
+                                                alt="" class="w-5 h-5 inline" style="--currentColor: currentColor;">
+                                                <use
+                                                    href="/assets/icons/heroicons_v2/solid/shield-check-f947ade1.svg#root">
+                                                </use>
+                                            </svg></span>
+                                        Security
+                                    </a><a
+                                        class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                                        href="https://betterstack.com/community/blog"><span
+                                            class="text-neutral-200"><svg width="20" height="20" alt=""
+                                                style="--currentColor: currentColor;">
+                                                <use href="/assets/v2/blog-0647ef17.svg#root"></use>
+                                            </svg></span>
+                                        Blog
+                                    </a><a
+                                        class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                                        href="https://betterstack.com/tag/changelog"><span class="text-neutral-200"><svg
+                                                class="w-5 h-5 inline" style="--currentColor: currentColor;">
+                                                <use
+                                                    href="/assets/icons/heroicons_v2/solid/newspaper-ea89647a.svg#root">
+                                                </use>
+                                            </svg></span>
+                                        Changelog
+                                    </a>
+                                </div>
+                            </div>
+                        </button>
+                        <a class="hidden lg:flex p-3 hover:text-white transition items-center" href="/enterprise">
+                            <span>Enterprise</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex items-center sm:gap-2 whitespace-nowrap -mr-3 md:mr-0">
+                    <a class="p-2 transition hover:text-white" data-turbo="false" href="/users/sign-in">Sign in</a>
+                    <a class="px-2 h-[27px] flex items-center rounded bg-button-gradient text-white font-medium"
+                        data-turbo="false" href="/users/sign-up">Sign up</a>
+                    <button aria-label="Open menu" class="p-2 group relative md:hidden text-neutral-300" id="open-menu">
+                        <svg class="w-5 h-5 inline" style="--currentColor: currentColor;">
+                            <use href="/assets/icons/heroicons_v2/outline/bars-3-4a440a20.svg#root"></use>
+                        </svg>
+                    </button>
+                    <button aria-label="Close menu" class="hidden p-2 group relative md:hidden text-neutral-300"
+                        id="close-menu">
+                        <svg class="w-5 h-5 inline" style="--currentColor: currentColor;">
+                            <use href="/assets/icons/heroicons_v2/outline/x-mark-1a7d1e94.svg#root"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div class="hidden md:hidden p-5 fixed z-40 left-0 right-0 backdrop-blur-2xl top-[52px] bg-[#181926]/80 text-[#C9D3EE] max-h-[calc(100dvh-52px)] overflow-y-scroll"
+                    id="mobile-menu">
+                    <div class="js-menu-section flex flex-col gap-1" data-section="root">
+                        <button class="p-3 group relative flex items-center" data-section="platform">
+                            Platform
+                            <span class="text-[#656A7B]"><svg class="ml-[6px]  w-[11px] h-[11px] inline"
+                                    style="--currentColor: currentColor;">
+                                    <use href="/assets/icons/heroicons_v2/outline/chevron-right-46102eb0.svg#root">
+                                    </use>
+                                </svg></span>
+                        </button>
+                        <a class="p-3" href="https://betterstack.com/docs/">Documentation</a>
+                        <a class="p-3" href="/pricing">Pricing</a>
+                        <button class="p-3 group relative flex items-center" data-section="community">
+                            Community
+                            <span class="text-[#656A7B]"><svg class="ml-[6px]  w-[11px] h-[11px] inline"
+                                    style="--currentColor: currentColor;">
+                                    <use href="/assets/icons/heroicons_v2/outline/chevron-right-46102eb0.svg#root">
+                                    </use>
+                                </svg></span>
+                        </button>
+                        <button class="p-3 group relative flex items-center" data-section="company">
+                            Company
+                            <span class="text-[#656A7B]"><svg class="ml-[6px]  w-[11px] h-[11px] inline"
+                                    style="--currentColor: currentColor;">
+                                    <use href="/assets/icons/heroicons_v2/outline/chevron-right-46102eb0.svg#root">
+                                    </use>
+                                </svg></span>
+                        </button>
+                        <a class="p-3" href="/enterprise">Enterprise</a>
+                    </div>
+                    <div class="js-menu-section hidden" data-section="platform">
+                        <button class="mb-2 p-3 group relative flex items-center" data-section="root">
+                            <svg class="mr-[6px]  w-[11px] h-[11px] inline" style="--currentColor: currentColor;">
+                                <use href="/assets/icons/heroicons_v2/outline/chevron-left-57aa5924.svg#root"></use>
+                            </svg>
+                            Back
+                        </button>
+
+                        <div class="grid md:grid-cols-2 w-full min-[1100px]:grid-cols-3">
+                            <div
+                                class="flex-1 py-3 flex flex-col gap-1 border-b md:border-r relative md:pl-[17px] md:pr-[17px] border-[#727DA112] min-[1100px]:border-b-0">
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/ai-sre"><span class="text-[#7C87F7]"><svg width="25" height="24" alt=""
+                                            class="scale-[85%]" style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/ai-sre-9ed692c8.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">AI SRE</div>
+                                        <div class="mt-1 text-xs text-neutral-200">Agentic root cause analysis</div>
+                                    </div>
+                                </a>
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/incident-management"><span class="text-[#7C87F7]"><svg width="25" height="24"
+                                            alt="" class="relative top-[-2px] scale-[90%]"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/calendar-f8fa6928.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">Incident management &amp; on-call</div>
+                                        <div class="mt-1 text-xs text-neutral-200">Move fast when things break</div>
+                                    </div>
+                                </a>
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/uptime"><span class="text-[#7C87F7]"><svg width="25" height="24" alt=""
+                                            class="relative top-[-2px] scale-[90%]"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/radar-4182d855.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">Uptime monitoring</div>
+                                        <div class="mt-1 text-xs text-neutral-200">The most reliable uptime monitoring
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/status-page"><span class="text-[#7C87F7]"><svg width="25" height="24" alt=""
+                                            class="relative top-[-1px] left-[2px]"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/page-a4cac846.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">Status page</div>
+                                        <div class="mt-1 text-xs text-neutral-200">Communicate downtime &amp; build
+                                            trust</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div
+                                class="flex-1 py-3 flex flex-col gap-1 border-b relative md:pl-[17px] md:pr-[17px] border-[#727DA112] min-[1100px]:border-b-0 min-[1100px]:border-r">
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/tracing"><span class="text-[#7C87F7]"><svg width="25" height="24" alt=""
+                                            class="relative" style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/telescope-bf9dc2b9.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">Tracing</div>
+                                        <div class="mt-1 text-xs text-neutral-200">eBPF-based OpenTelemetry-native
+                                            tracing</div>
+                                    </div>
+                                </a>
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/log-management"><span class="text-[#7C87F7]"><svg width="25" height="24"
+                                            alt="" class="relative top-[-2px] scale-[90%]"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/code-insert-dbc41857.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">Log management</div>
+                                        <div class="mt-1 text-xs text-neutral-200">Collect insights across your stack
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/infrastructure-monitoring"><span class="text-[#7C87F7]"><svg width="25"
+                                            height="24" alt="" class="relative scale-[90%]"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/server-f03364f4.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">Infrastructure monitoring</div>
+                                        <div class="mt-1 text-xs text-neutral-200">OpenTelemetry-native infrastructure
+                                            monitoring</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="flex-1 mt-2 md:mt-0 py-3 flex flex-col gap-1 md:pl-[17px] md:pr-5">
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/real-user-monitoring"><span class="text-[#7C87F7]"><svg width="25"
+                                            height="24" alt="" class="relative" style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/rum-dbe53d43.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">Real user monitoring</div>
+                                        <div class="mt-1 text-xs text-neutral-200">Session replay, web vitals &amp;
+                                            product analytics</div>
+                                    </div>
+                                </a>
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/error-tracking"><span class="text-[#7C87F7]"><svg width="25" height="24"
+                                            alt="" class="relative scale-[75%] top-px left-px"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/exclamation-circle-de67a698.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">Error tracking</div>
+                                        <div class="mt-1 text-xs text-neutral-200">AI‑native error tracking built on
+                                            Better Stack</div>
+                                    </div>
+                                </a>
+                                <a class="block px-2 flex gap-2 transition py-[10px] hover:bg-[#727DA1]/15 rounded leading-[145%]"
+                                    href="/warehouse"><span class="text-[#7C87F7]"><svg width="25" height="24" alt=""
+                                            class="relative scale-[90%]" style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/warehouse-52df23d8.svg#root"></use>
+                                        </svg></span>
+                                    <div>
+                                        <div class="font-medium">Data warehouse</div>
+                                        <div class="mt-1 text-xs text-neutral-200">Time series data warehouse as an API
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="js-menu-section hidden flex flex-col gap-1" data-section="community">
+                        <button class="mb-2 p-3 group relative flex items-center" data-section="root">
+                            <svg class="mr-[6px]  w-[11px] h-[11px] inline" style="--currentColor: currentColor;">
+                                <use href="/assets/icons/heroicons_v2/outline/chevron-left-57aa5924.svg#root"></use>
+                            </svg>
+                            Back
+                        </button>
+
+                        <a class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%] md:hidden"
+                            href="https://betterstack.com/community"><span class="text-neutral-200"><svg
+                                    class="mx-[2px]  w-4 h-4 inline" style="--currentColor: currentColor;">
+                                    <use href="/assets/icons/heroicons_v2/solid/users-c09a1e92.svg#root"></use>
+                                </svg></span>
+                            Community home
+                        </a><a
+                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                            href="https://betterstack.com/community/guides"><span class="text-neutral-200"><svg
+                                    width="20" height="20" alt="" style="--currentColor: currentColor;">
+                                    <use href="/assets/v2/guides-fa8300b6.svg#root"></use>
+                                </svg></span>
+                            Guides
+                        </a><a
+                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                            href="https://betterstack.com/community/questions"><span class="text-neutral-200"><svg
+                                    width="20" height="20" alt="" style="--currentColor: currentColor;">
+                                    <use href="/assets/v2/questions-ae0ab73b.svg#root"></use>
+                                </svg></span>
+                            Questions
+                        </a><a
+                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                            href="https://betterstack.com/community/comparisons"><span class="text-neutral-200"><svg
+                                    width="20" height="20" alt="" style="--currentColor: currentColor;">
+                                    <use href="/assets/v2/comparisons-e0f4ca1e.svg#root"></use>
+                                </svg></span>
+                            Comparisons
+                        </a>
+                    </div>
+                    <div class="js-menu-section hidden pb-5 flex flex-col gap-1" data-section="company">
+                        <button class="mb-2 p-3 group relative flex items-center" data-section="root">
+                            <svg class="mr-[6px]  w-[11px] h-[11px] inline" style="--currentColor: currentColor;">
+                                <use href="/assets/icons/heroicons_v2/outline/chevron-left-57aa5924.svg#root"></use>
+                            </svg>
+                            Back
+                        </button>
+
+                        <a class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                            href="/careers"><span class="text-neutral-200"><svg width="20" height="20" alt=""
+                                    style="--currentColor: currentColor;">
+                                    <use href="/assets/v2/ship-38e68322.svg#root"></use>
+                                </svg></span>
+                            Work at Better Stack
+                        </a><a
+                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                            href="/careers/engineering"><span class="text-neutral-200"><svg width="20" height="20"
+                                    alt="" style="--currentColor: currentColor;">
+                                    <use href="/assets/v2/code-05597a86.svg#root"></use>
+                                </svg></span>
+                            Engineering
+                        </a><a
+                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                            href="/security"><span class="text-neutral-200"><svg width="20" height="20" alt=""
+                                    class="w-5 h-5 inline" style="--currentColor: currentColor;">
+                                    <use href="/assets/icons/heroicons_v2/solid/shield-check-f947ade1.svg#root"></use>
+                                </svg></span>
+                            Security
+                        </a><a
+                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                            href="https://betterstack.com/community/blog"><span class="text-neutral-200"><svg width="20"
+                                    height="20" alt="" style="--currentColor: currentColor;">
+                                    <use href="/assets/v2/blog-0647ef17.svg#root"></use>
+                                </svg></span>
+                            Blog
+                        </a><a
+                            class="block px-2 flex items-center gap-2 transition py-[6px] hover:bg-[#727DA1]/15 rounded-[6px] leading-[145%]"
+                            href="https://betterstack.com/tag/changelog"><span class="text-neutral-200"><svg
+                                    class="w-5 h-5 inline" style="--currentColor: currentColor;">
+                                    <use href="/assets/icons/heroicons_v2/solid/newspaper-ea89647a.svg#root"></use>
+                                </svg></span>
+                            Changelog
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="mt-12 md:pb-10 lg:pb-0 xl:pb-10">
+                <div class="pt-16 md:pt-32 container mx-auto ai-sre-hero-bg md:pb-[500px] lg:pb-24">
+                    <div class="xl:mx-20 text-center lg:text-left flex flex-col items-center lg:items-start">
+                        <h1 class="homepage-heading-gradient font-medium text-[36px] md:text-[53px] leading-[120%] aos-init aos-animate"
+                            data-aos="fade-up" data-aos-delay="50">
+                            Hire an AI SRE
+                        </h1>
+                        <p class="mt-5 md:text-large-20 max-w-[330px] md:max-w-[430px] aos-init aos-animate"
+                            data-aos="fade-up" data-aos-delay="100">
+                            Slack-native AI SRE agent that investigates incidents using your logs, metrics, traces,
+                            errors, and web events.
+                        </p>
+                        <div class="mt-10 w-full sm:w-auto" data-controller="recaptcha">
+                            <form id="recaptcha_signup" data-recaptcha-target="form" action="/users/link"
+                                accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token"
+                                    value="QiLtmSapxF_E8-fp2CbAh91tSaXnpPr2jafwqWMQB71zv79W6T5gOt1ZXedjJIaVp_62UOsQoR7UMyg_MOCjVQ"
+                                    autocomplete="off">
+                                <div class="flex flex-col sm:flex-row gap-3 items-center">
+                                    <input autocomplete="email"
+                                        class="appearance-none px-5 border rounded-lg backdrop-blur-2xl text-white h-12 w-full max-w-[316px] sm:max-w-full sm:w-[324px] border-[#727DA1]/20 bg-[#727DA1]/10 placeholder:text-neutral-300"
+                                        data-1p-ignore="" name="user[email]" placeholder="Your work e-mail" required=""
+                                        type="email">
+                                    <button
+                                        class="cta-button px-6 flex items-center justify-center text-white font-medium whitespace-nowrap h-12 w-full sm:w-auto max-w-[316px]"
+                                        data-disable-with="spinner" data-recaptcha-target="submit" type="submit"
+                                        data-original-value="
+  Sign up for free
+  " data-turbo-submits-with="&lt;svg viewBox=&quot;0 0 24 24&quot; class=&quot;spinner animate-spin&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;g transform=&quot;translate(1 1)&quot; fill-rule=&quot;nonzero&quot; fill=&quot;none&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;11&quot;&gt;&lt;/circle&gt;&lt;path d=&quot;M10.998 22a.846.846 0 0 1 0-1.692 9.308 9.308 0 0 0 0-18.616 9.286 9.286 0 0 0-7.205 3.416.846.846 0 1 1-1.31-1.072A10.978 10.978 0 0 1 10.998 0c6.075 0 11 4.925 11 11s-4.925 11-11 11z&quot; fill=&quot;currentColor&quot;&gt;&lt;/path&gt;&lt;/g&gt;&lt;/svg&gt;">
+                                        Sign up for free
+                                    </button>
+                                </div>
+                                <input type="hidden" name="_ph"
+                                    value="19cde22d0c04c9-0153f8ebfe4e67-4c657b58-15f900-19cde22d0c1d32"><input
+                                    type="hidden" name="_s"
+                                    value="19cde22d70ab6d-0424207f2ff746-4c657b58-15f900-19cde22d70bf41"><input
+                                    type="hidden" name="_st" value="1773253351177">
+                            </form>
+                            <p
+                                class="mt-5 pb-2 text-neutral-300 text-13 sm:text-base-landing text-center lg:ml-2 lg:text-left">
+                                Enterprise deployment?
+                                <a class="text-neutral-100 underline underline-offset-4 transition decoration-[#C9D3EE]/20 hover:decoration-[#C9D3EE]"
+                                    href="https://betterstack.com/book-a-demo" rel="nofollow noopener" target="_blank">
+                                    Book a consultation
+                                </a>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <img width="392" height="553" alt="" class="md:hidden w-full relative -z-10 mt-[-35vw] lazyload"
+                    data-src="https://betterstack.com/assets/v2/ai-sre/hero-illustration-sm-5a5d5e30.jpg" src="">
+            </section>
+
+            <section class="relative mt-4 -mb-20 flex flex-col items-center overflow-hidden">
+                <div class="mx-auto max-w-[1684px]">
+                    <p class="mb-4 md:mb-10 text-neutral-300 text-center text-base md:text-md max-w-[200px] sm:max-w-none aos-init aos-animate"
+                        data-aos="fade-in" data-aos-delay="200">
+                        Relied on by the world’s best engineering teams
+                    </p>
+                </div>
+                <div class="scale-75 md:scale-100">
+                    <div class="customers-scroll flex justify-center">
+                        <svg class="w-[1752px]"
+                            alt="Better Stack customers include Accenture, the Raspberry Pi foundation, Brave browser, Drata, Unicef, the government of Canada, Decathlon and more."
+                            width="1752" style="--currentColor: currentColor;">
+                            <use href="/assets/v2/homepage-v3/customers-6feb4e86.svg#root"></use>
+                        </svg>
+                        <svg class="w-[1752px]" aria-hidden="true" width="1752" style="--currentColor: currentColor;">
+                            <use href="/assets/v2/homepage-v3/customers-6feb4e86.svg#root"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="absolute inset-0 flex justify-center pointer-events-none">
+                    <div class="grow h-full bg-linear-to-r from-[#0B0C14] md:from-50%"></div>
+                    <div class="min-w-[200px] md:min-w-[1000px]"></div>
+                    <div class="grow h-full bg-linear-to-l from-[#0B0C14] md:from-50%"></div>
+                </div>
+                <div class="absolute inset-0 flex justify-center pointer-events-none">
+                    <div class="grow mask-gradient-to-l backdrop-blur-[2px]"></div>
+                    <div class="w-[710px]"></div>
+                    <div class="grow mask-gradient-to-r backdrop-blur-[2px]"></div>
+                </div>
+            </section>
+
+            <hr class="container mx-auto relative z-10 border-image-t border-separator-gradient max-md:mt-10"
+                id="agent">
+            <section class="mt-24 md:mt-32 pb-16 md:pb-32 relative z-10 container mx-auto">
+                <div class="mx-auto flex flex-col items-center aos-init aos-animate" data-aos="fade-up">
+                    <h2
+                        class="mt-2 pb-2 logs-text text-transparent font-bold text-center text-[28px] md:text-[40px] leading-[108%] max-w-[350px] md:max-w-[629px]">
+                        Get an agent to resolve incidents with you at 3 am
+                    </h2>
+                    <p
+                        class="mt-3 text-neutral-200 text-center text-md max-w-[350px] md:max-w-[524px] tracking-[-0.01em]">
+                        In-depth root cause analysis based on the eBPF-based service map, OpenTelemetry traces, logs,
+                        metrics, errors, and web events.
+                    </p>
+                </div>
+                <div class="mx-auto relative flex flex-col mt-12 md:mt-16 gap-y-10 md:flex-row max-w-[950px]">
+                    <div class="flex-1 min-w-0 flex items-center">
+                        <div class="flex flex-col">
+                            <img width="954" height="795" alt=""
+                                class="max-md:max-h-[350px] max-md:w-auto md:w-[582px] md:max-w-none md:-ml-10 lazyloaded"
+                                data-src="https://betterstack.com/assets/v2/ai-sre/root-cause-analysis-abf48143.jpg"
+                                src="https://betterstack.com/assets/v2/ai-sre/root-cause-analysis-abf48143.jpg">
+                            <div class="flex flex-col space-y-3 md:-mt-16 pl-4 md:pl-6">
+                                <p class="text-lg text-white font-bold md:text-[28px] md:max-w-[350px] lg:max-w-none">
+                                    Agentic root cause analysis</p>
+                                <p
+                                    class="text-md -tracking-[0.16px] max-w-[340px] md:max-w-[360px] lg:max-w-[420px] leading-[145%]">
+                                    Correlate recent deployments, errors, trace slowdowns, changes in trends within
+                                    metrics, and recent logs to suggest hypotheses for what went wrong.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col gap-y-5">
+                        <div
+                            class="relative rounded-xl border overflow-hidden border-[#727DA1]/10 bg-[#0F101A] h-[350px]">
+                            <div class="absolute inset-0">
+                                <img width="472" height="350" alt=""
+                                    data-src="https://betterstack.com/assets/v2/ai-sre/integrations-a5e72ead.jpg"
+                                    class=" lazyloaded"
+                                    src="https://betterstack.com/assets/v2/ai-sre/integrations-a5e72ead.jpg">
+                            </div>
+                            <div
+                                class="relative z-10 h-full flex flex-col justify-end max-md:pl-6 max-md:pb-5.5 max-md:pr-3 md:p-7.5">
+                                <h4 class="text-white font-medium">
+                                    Plug in Datadog, Grafana, Sentry, Linear, and Notion
+                                </h4>
+                                <p class="mt-2 max-w-[320px] sm:max-w-[420px]">
+                                    As well as all your logs, metrics, traces, errors, and web events ingested directly
+                                    into Better Stack.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="relative rounded-xl border overflow-hidden border-[#727DA1]/10 bg-[#0F101A] h-[356px]">
+                            <div class="absolute inset-0">
+                                <img width="470" height="350" alt=""
+                                    data-src="https://betterstack.com/assets/v2/ai-sre/service-map-2b09990a.jpg"
+                                    class=" lazyloaded"
+                                    src="https://betterstack.com/assets/v2/ai-sre/service-map-2b09990a.jpg">
+                            </div>
+                            <div
+                                class="relative z-10 h-full flex flex-col justify-end max-md:pl-6 max-md:pb-5.5 max-md:pr-3 md:p-7.5">
+                                <h4 class="text-white font-medium">
+                                    Get a service map with eBPF &amp; OpenTelemetry
+                                </h4>
+                                <p class="mt-2">
+                                    Instrument your code without any code changes thanks to eBPF and get host metrics,
+                                    and RED metrics for services across your stack.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="container mx-auto relative z-10 border-image-t border-separator-gradient max-md:mt-10"
+                id="chat-online">
+            <section class="mt-24 md:mt-32 pb-16 md:pb-32 relative z-10 container mx-auto">
+                <div class="mx-auto flex flex-col items-center aos-init aos-animate" data-aos="fade-up">
+                    <h2
+                        class="mt-2 pb-2 logs-text text-transparent font-bold text-center text-[28px] md:text-[40px] leading-[108%] max-w-[330px] md:max-w-[540px]">
+                        Chat online, inside Slack and in Claude Code using the MCP
+                    </h2>
+                    <p
+                        class="mt-3 text-neutral-200 text-center text-md max-w-[340px] md:max-w-[444px] tracking-[-0.01em] leading-[145%]">
+                        Focus on resolving the incident instead of context-switching between tools. Call the AI SRE from
+                        Slack, MS Teams, or your existing LLM workflows.
+                    </p>
+                </div>
+                <div class="mx-auto relative flex flex-col mt-12 md:mt-16 gap-y-10 md:flex-row max-w-[950px]">
+                    <div class="flex-1 min-w-0 flex items-center">
+                        <div class="flex flex-col max-md:-mt-12">
+                            <img width="587" height="390" alt="" class="md:hidden lazyload"
+                                data-src="https://betterstack.com/assets/v2/ai-sre/human-in-loop-sm-8b883b86.jpg"
+                                src="">
+                            <img width="1098" height="698" alt=""
+                                class="hidden md:block md:w-[680px] md:max-w-none lazyloaded"
+                                data-src="https://betterstack.com/assets/v2/ai-sre/human-in-loop-3e6858ed.jpg"
+                                src="https://betterstack.com/assets/v2/ai-sre/human-in-loop-3e6858ed.jpg">
+                            <div class="flex flex-col space-y-3 -mt-10 md:-mt-16 pl-4 md:pl-6">
+                                <p class="text-lg text-white font-bold md:text-[28px] md:max-w-[350px] lg:max-w-none">
+                                    Human-in-the-loop approval</p>
+                                <p
+                                    class="text-md -tracking-[0.16px] max-w-[380px] md:max-w-[350px] lg:max-w-[380px] leading-[145%]">
+                                    You're always in control. The AI SRE suggests hypotheses but never takes any
+                                    automated actions without your approval. Get help when investigating an incident
+                                    while remaining in charge.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col gap-y-5">
+                        <div
+                            class="relative rounded-xl border overflow-hidden border-[#727DA1]/10 bg-[#0F101A] h-[350px]">
+                            <div class="absolute inset-0">
+                                <img width="472" height="350" alt=""
+                                    data-src="https://betterstack.com/assets/v2/ai-sre/aisre-slack-fc889a7f.jpg"
+                                    class=" lazyloaded"
+                                    src="https://betterstack.com/assets/v2/ai-sre/aisre-slack-fc889a7f.jpg">
+                            </div>
+                            <div
+                                class="relative z-10 h-full flex flex-col justify-end max-md:pl-6 max-md:pb-5.5 max-md:pr-3 md:p-7.5">
+                                <h4 class="text-white font-medium">
+                                    Designed for Slack and MS Teams
+                                </h4>
+                                <p class="mt-2 max-w-[380px]">
+                                    Discussing an incident in Slack? Call the AI SRE simply by tagging <span
+                                        class="font-mono text-white rounded-sm border border-[#727DA1]/20 bg-[#727DA1]/10 px-1 py-0.5">@betterstack</span>.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="relative rounded-xl border overflow-hidden border-[#727DA1]/10 bg-[#0F101A] h-[354px]">
+                            <div class="absolute inset-0">
+                                <img width="470" height="354" alt=""
+                                    data-src="https://betterstack.com/assets/v2/ai-sre/robust-mcp-837979b2.jpg"
+                                    class=" lazyloaded"
+                                    src="https://betterstack.com/assets/v2/ai-sre/robust-mcp-837979b2.jpg">
+                            </div>
+                            <div
+                                class="relative z-10 h-full flex flex-col justify-end max-md:pl-6 max-md:pb-5.5 max-md:pr-3 md:p-7.5">
+                                <h4 class="text-white font-medium">
+                                    Robust MCP server
+                                </h4>
+                                <p class="mt-2">
+                                    Integrate your logs, metrics, traces, web events, and errors into your existing LLM
+                                    workflows with a top tier MCP server. Render charts directly in Claude Desktop.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="container mx-auto relative z-10 border-image-t border-separator-gradient max-md:mt-10"
+                id="resolve-faster">
+            <section class="mt-24 md:mt-32 pb-16 md:pb-32 relative z-10 container mx-auto">
+                <div class="mx-auto flex flex-col items-center aos-init aos-animate" data-aos="fade-up">
+                    <h2
+                        class="mt-2 pb-2 logs-text text-transparent font-bold text-center text-[28px] md:text-[40px] leading-[108%] max-w-[350px] md:max-w-[450px]">
+                        Resolve incidents faster, get more stuff done
+                    </h2>
+                    <p
+                        class="mt-3 text-neutral-200 text-center text-md max-w-[340px] md:max-w-[530px] tracking-[-0.01em] leading-[145%]">
+                        Get pull requests for new errors, query your data in natural language, and leverage built-in
+                        incident management with on-call.
+                    </p>
+                </div>
+                <div class="mx-auto relative flex flex-col mt-6 md:mt-16 gap-y-10 md:flex-row max-w-[950px]">
+                    <div class="flex-1 min-w-0 flex items-center">
+                        <div class="flex flex-col">
+                            <img width="579" height="550" alt="" class="md:hidden lazyload"
+                                data-src="https://betterstack.com/assets/v2/ai-sre/auto-pr-sm-9ea851cd.jpg" src="">
+                            <img width="1054" height="833" alt=""
+                                class="hidden md:block md:w-[650px] md:max-w-none md:-ml-32 md:-mt-16 lazyloaded"
+                                data-src="https://betterstack.com/assets/v2/ai-sre/auto-pr-42e46e72.jpg"
+                                src="https://betterstack.com/assets/v2/ai-sre/auto-pr-42e46e72.jpg">
+                            <div class="flex flex-col space-y-3 pl-4">
+                                <p class="text-lg text-white font-bold md:text-[28px] md:max-w-[320px] lg:max-w-none">
+                                    Get pull requests for new errors</p>
+                                <p
+                                    class="text-md -tracking-[0.16px] max-w-[360px] md:max-w-[400px] lg:max-w-[420px] leading-[145%]">
+                                    Got an exception? Get a pull request with a suggested fix waiting for you in GitHub.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col gap-y-5 relative">
+                        <div
+                            class="absolute z-10 -top-2 -right-4 md:-right-12 rotate-[1.305deg] flex items-end gap-x-2">
+                            <div
+                                class="flex px-2 py-[5px] md:px-2.5 md:py-1.5 max-w-[248px] md:max-w-[290px] rounded-[8px] md:rounded-[10px] border-[0.843px] border-[rgba(35,40,56,0.30)] bg-gradient-to-t from-[rgba(41,47,64,0.20)] from-[0.72%] to-[rgba(41,47,64,0.50)] to-[74.8%] backdrop-blur-[14.33px]">
+                                <span class="font-medium text-[10px] md:text-sm max-md:leading-[155%]">
+                                    Did the HTTP latency increase in eu-west too or just in us-east and us-west?
+                                </span>
+                            </div>
+                            <div class="shrink-0 w-[23px] h-[23px]">
+                                <img width="23" height="23" alt=""
+                                    data-src="https://betterstack.com/assets/v2/tracing/chat_icon-8377c81d.jpg"
+                                    class=" lazyloaded"
+                                    src="https://betterstack.com/assets/v2/tracing/chat_icon-8377c81d.jpg">
+                            </div>
+                        </div>
+                        <div
+                            class="relative rounded-xl border overflow-hidden border-[#727DA1]/10 bg-[#0F101A] h-[350px]">
+                            <div class="absolute inset-0">
+                                <img width="707" height="519" alt=""
+                                    class="w-full h-full object-cover object-left-top min-w-[500px] lazyloaded"
+                                    data-src="https://betterstack.com/assets/v2/ai-sre/get-chart-21fd0945.jpg"
+                                    src="https://betterstack.com/assets/v2/ai-sre/get-chart-21fd0945.jpg">
+                            </div>
+                            <div
+                                class="relative z-10 h-full flex flex-col justify-end max-md:pl-6 max-md:pb-5.5 max-md:pr-3 md:p-7.5">
+                                <h4 class="text-white font-medium">
+                                    Ask a question, get a chart
+                                </h4>
+                                <p class="mt-2 max-w-[390px]">
+                                    It's like Claude with all your data built-in. Get recent logs or chart
+                                    visualizations by simply asking in natural language.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="relative rounded-xl border overflow-hidden border-[#727DA1]/10 bg-[#0F101A] h-[356px]">
+                            <div class="absolute inset-0">
+                                <img width="697" height="524" alt=""
+                                    class="w-full h-full object-cover object-left-top min-w-[450px] lazyloaded"
+                                    data-src="https://betterstack.com/assets/v2/ai-sre/incident-management-48758cd1.jpg"
+                                    src="https://betterstack.com/assets/v2/ai-sre/incident-management-48758cd1.jpg">
+                            </div>
+                            <div
+                                class="relative z-10 h-full flex flex-col justify-end max-md:pl-6 max-md:pb-5.5 max-md:pr-3 md:p-7.5">
+                                <h4 class="text-white font-medium">
+                                    Incident management &amp; on-call built-in
+                                </h4>
+                                <p class="mt-2 max-w-[434px]">
+                                    Get a second-by-second timeline of what happened and leverage the built-in on-call
+                                    schedule to escalate the incident to the right person.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="container mx-auto relative z-10 border-image-t border-separator-gradient">
+            <section class="mt-16 md:mt-32 pb-16 container mx-auto max-w-[1104px]">
+                <h2 class="mt-2 pb-2 text-white font-bold text-center mx-auto text-[28px] md:text-[36px] leading-[108%] max-w-[480px] aos-init aos-animate"
+                    data-aos="fade-up">
+                    AI‑native workflows built‑in
+                </h2>
+                <div
+                    class="flex flex-wrap justify-center items-stretch mt-12 mx-auto gap-5.5 md:mt-15 tracking-[-0.16px] max-w-[400px] md:max-w-none">
+                    <div
+                        class="relative flex-1 border rounded-xl overflow-hidden border-[#727DA1]/10 bg-[#0F101A] min-w-full sm:min-w-[336px] sm:max-w-[336px] h-[350px]">
+                        <div class="absolute inset-0">
+                            <img width="336" height="346" alt="" class="w-full lazyloaded"
+                                data-src="https://betterstack.com/assets/v2/ai-sre/ai-linears-ac69f5ec.jpg"
+                                src="https://betterstack.com/assets/v2/ai-sre/ai-linears-ac69f5ec.jpg">
+                        </div>
+                        <div class="relative z-10 h-full flex flex-col justify-end p-5 sm:pl-6 sm:pb-7.5">
+                            <h4 class="text-white font-medium">
+                                Linear tickets suggested by AI
+                            </h4>
+                            <p class="mt-2">
+                                Downtime? Create Linear tickets using AI‑based suggestions.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="relative flex-1 border rounded-xl overflow-hidden border-[#727DA1]/10 bg-[#0F101A] min-w-full sm:min-w-[336px] sm:max-w-[336px] h-[350px]">
+                        <div class="absolute inset-0">
+                            <img width="336" height="348" alt="" class="w-full lazyloaded"
+                                data-src="https://betterstack.com/assets/v2/ai-sre/ai-post-mortem-a0d74174.jpg"
+                                src="https://betterstack.com/assets/v2/ai-sre/ai-post-mortem-a0d74174.jpg">
+                        </div>
+                        <div class="relative z-10 h-full flex flex-col justify-end p-5 sm:pl-6 sm:pb-7.5">
+                            <h4 class="text-white font-medium">
+                                AI written post-mortems
+                            </h4>
+                            <p class="mt-2">
+                                Get an automated post-mortem based on the incident timeline and Slack.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="relative flex-1 border rounded-xl overflow-hidden border-[#727DA1]/10 bg-[#0F101A] min-w-full sm:min-w-[336px] sm:max-w-[336px] h-[350px]">
+                        <div class="absolute inset-0">
+                            <img width="336" height="349" alt="" class="w-full lazyloaded"
+                                data-src="https://betterstack.com/assets/v2/ai-sre/explain-with-ai-9bb83a8d.jpg"
+                                src="https://betterstack.com/assets/v2/ai-sre/explain-with-ai-9bb83a8d.jpg">
+                        </div>
+                        <div class="relative z-10 h-full flex flex-col justify-end p-5 sm:pl-6 sm:pb-7.5">
+                            <h4 class="text-white font-medium">
+                                Explain with AI
+                            </h4>
+                            <p class="mt-2">
+                                Analyze logs, errors, MTR, trace route, SSL certificates or connection errors.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="container mt-6 md:mt-10 lg:mt-20 mx-auto relative z-10 border-image-t border-separator-gradient"
+                id="compliance">
+            <section class="mt-16 md:mt-32 pb-16 relative z-10 container mx-auto">
+                <div class="mx-auto flex flex-col items-center aos-init aos-animate" data-aos="fade-up">
+                    <h2 class="text-white font-bold text-center text-[28px] md:text-[36px]">
+                        Secure, scalable &amp; compliant
+                    </h2>
+                    <h3 class="text-md text-neutral-200 text-center mt-4 max-w-[400px]">
+                        Everything your data privacy officer requires so that you can pass audits with a peace of mind.
+                    </h3>
+                    <div class="mt-9 grid md:grid-cols-3 gap-6 max-w-[906px] w-full">
+                        <div class="border rounded-xl pt-5 pb-6 pl-6 pr-7 border-[#939DB81A] w-full">
+                            <img width="61" height="61" alt=""
+                                data-src="https://betterstack.com/assets/v2/data-warehouse/aicpa_soc-2a6410b5.png"
+                                class=" lazyloaded"
+                                src="https://betterstack.com/assets/v2/data-warehouse/aicpa_soc-2a6410b5.png">
+                            <div class="mt-6 font-medium text-white">
+                                SOC 2 Type 2
+                            </div>
+                            <div class="mt-3 text-base text-neutral-200 max-w-[231px]">
+                                Request our SOC 2 Type 2 attestation upon signing an NDA.
+                            </div>
+                        </div>
+                        <div class="border rounded-xl pt-5 pb-6 pl-6 pr-7 border-[#939DB81A] w-full">
+                            <img width="61" height="61" alt=""
+                                data-src="https://betterstack.com/assets/v2/data-warehouse/gdpr-77228de2.png"
+                                class=" lazyloaded"
+                                src="https://betterstack.com/assets/v2/data-warehouse/gdpr-77228de2.png">
+                            <div class="mt-6 font-medium text-white">
+                                GDPR-compliant
+                            </div>
+                            <div class="mt-3 text-base text-neutral-200 max-w-[231px]">
+                                Comply with European Union’s general data privacy regulation.
+                            </div>
+                        </div>
+                        <div class="border rounded-xl pt-5 pb-6 pl-6 pr-7 border-[#939DB81A] w-full">
+                            <img width="61" height="61" alt=""
+                                data-src="https://betterstack.com/assets/v2/data-warehouse/iso-b0ae15f4.png"
+                                class=" lazyloaded"
+                                src="https://betterstack.com/assets/v2/data-warehouse/iso-b0ae15f4.png">
+                            <div class="mt-6 font-medium text-white">
+                                ISO 27001 data centers
+                            </div>
+                            <div class="mt-3 text-base text-neutral-200 max-w-[231px]">
+                                Ensuring strict data security standards.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="relative mt-4 -mb-20 flex flex-col items-center overflow-hidden">
+                <div class="mx-auto max-w-[1684px]">
+                    <p class="mb-4 md:mb-10 text-neutral-300 text-center text-base md:text-md max-w-[200px] sm:max-w-none aos-init aos-animate"
+                        data-aos="fade-in" data-aos-delay="200">
+                        Relied on by the world’s best engineering teams
+                    </p>
+                </div>
+                <div class="scale-75 md:scale-100">
+                    <div class="customers-scroll flex justify-center">
+                        <svg class="w-[1752px]"
+                            alt="Better Stack customers include Accenture, the Raspberry Pi foundation, Brave browser, Drata, Unicef, the government of Canada, Decathlon and more."
+                            width="1752" style="--currentColor: currentColor;">
+                            <use href="/assets/v2/homepage-v3/customers-6feb4e86.svg#root"></use>
+                        </svg>
+                        <svg class="w-[1752px]" aria-hidden="true" width="1752" style="--currentColor: currentColor;">
+                            <use href="/assets/v2/homepage-v3/customers-6feb4e86.svg#root"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="absolute inset-0 flex justify-center pointer-events-none">
+                    <div class="grow h-full bg-linear-to-r from-[#0B0C14] md:from-50%"></div>
+                    <div class="min-w-[200px] md:min-w-[1000px]"></div>
+                    <div class="grow h-full bg-linear-to-l from-[#0B0C14] md:from-50%"></div>
+                </div>
+                <div class="absolute inset-0 flex justify-center pointer-events-none">
+                    <div class="grow mask-gradient-to-l backdrop-blur-[2px]"></div>
+                    <div class="w-[710px]"></div>
+                    <div class="grow mask-gradient-to-r backdrop-blur-[2px]"></div>
+                </div>
+            </section>
+
+            <div class="mt-14 container mx-auto border-t border-image-t border-separator-gradient border-[#1F2433]">
+            </div>
+            <section class="py-20 lg:pb-36 md:bg-market-presence lg:pt-[130px]">
+                <div class="mx-auto max-w-[540px]">
+                    <div class="md:hidden ml-6 bg-market-presence-sm">
+                        <div class="aspect-350/272"></div>
+                    </div>
+                </div>
+                <div class="container mx-auto mt-[-25%] sm:-mt-24 md:mt-0 max-w-[1000px]">
+                    <div class="mt-14 md:mt-0 md:max-w-[350px] lg:max-w-none">
+                        <div class="flex flex-col items-center md:items-start">
+                            <h2 class="font-helveticaDisplay text-white font-bold max-md:text-center text-[24px] lg:text-[36px] leading-[117%] max-w-[320px] md:max-w-[500px] aos-init aos-animate"
+                                data-aos="fade-up" data-aos-delay="50">
+                                Happy customers, growing market presence
+                            </h2>
+                            <p class="mx-auto md:mx-0 mt-3 px-5 md:px-0 hidden sm:block text-base md:text-md max-w-[400px] max-md:text-center aos-init aos-animate"
+                                data-aos="fade-up" data-aos-delay="150">
+                                Get started today. Try Better Stack risk-free with our 60-day money-back guarantee.
+                            </p>
+                            <p class="mx-auto mt-3 px-5 block sm:hidden text-center text-base max-w-[335px] aos-init aos-animate"
+                                data-aos="fade-up" data-aos-delay="150">
+                                Ship higher-quality software faster. Be the hero of your engineering teams.
+                            </p>
+                        </div>
+                        <div class="w-full lg:max-w-[480px] -mt-4">
+                            <div class="mt-10 w-full sm:w-auto" data-controller="recaptcha">
+                                <form id="recaptcha_signup" data-recaptcha-target="form" action="/users/link"
+                                    accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token"
+                                        value="bNMx9hSjhRz5KWy-8GlQSb5QgTlDekyVWn1NnuxwA3JdTmM52zQheeCD1rBLaxZbxMN-zE_OF30D6ZUIv4Cnmg"
+                                        autocomplete="off">
+                                    <div class="flex flex-col sm:flex-row gap-3 items-center">
+                                        <input autocomplete="email"
+                                            class="appearance-none px-5 border rounded-lg backdrop-blur-2xl text-white h-[48px] w-full md:max-w-[311px] sm:max-w-full border-[#727DA1]/20 bg-[#727DA1]/10 placeholder:text-neutral-300"
+                                            data-1p-ignore="" name="user[email]" placeholder="Your work e-mail"
+                                            required="" type="email">
+                                        <button
+                                            class="cta-button px-6 flex items-center justify-center text-white font-medium whitespace-nowrap h-[48px] w-full sm:w-auto md:max-w-[196px]"
+                                            data-disable-with="spinner" data-recaptcha-target="submit" type="submit"
+                                            data-original-value="
+  Integrate in 5 minutes
+  " data-turbo-submits-with="&lt;svg viewBox=&quot;0 0 24 24&quot; class=&quot;spinner animate-spin&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;g transform=&quot;translate(1 1)&quot; fill-rule=&quot;nonzero&quot; fill=&quot;none&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;11&quot;&gt;&lt;/circle&gt;&lt;path d=&quot;M10.998 22a.846.846 0 0 1 0-1.692 9.308 9.308 0 0 0 0-18.616 9.286 9.286 0 0 0-7.205 3.416.846.846 0 1 1-1.31-1.072A10.978 10.978 0 0 1 10.998 0c6.075 0 11 4.925 11 11s-4.925 11-11 11z&quot; fill=&quot;currentColor&quot;&gt;&lt;/path&gt;&lt;/g&gt;&lt;/svg&gt;">
+                                            Integrate in 5 minutes
+                                        </button>
+                                    </div>
+                                    <input type="hidden" name="_ph"
+                                        value="19cde22d0c04c9-0153f8ebfe4e67-4c657b58-15f900-19cde22d0c1d32"><input
+                                        type="hidden" name="_s"
+                                        value="19cde22d70ab6d-0424207f2ff746-4c657b58-15f900-19cde22d70bf41"><input
+                                        type="hidden" name="_st" value="1773253351177">
+                                </form>
+                                <p
+                                    class="mt-4 pb-2 text-neutral-300 text-center md:text-left text-13 lg:text-[16px] text-[#C9D3EE]">
+                                    Enterprise deployment?
+                                    <a class="text-neutral-200 underline underline-offset-4 transition decoration-[#C9D3EE]/20 hover:decoration-[#C9D3EE]"
+                                        href="https://betterstack.com/book-a-demo" rel="nofollow noopener"
+                                        target="_blank">
+                                        Book a consultation
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <div class="dark">
+            <nav
+                class="bg-white text-base border-t dark:bg-[#0B0C14] border-neutral-300/10 text-[#363D4E] dark:text-neutral-200">
+                <div class="mx-auto px-5 md:px-10 pt-8 max-lg:pb-8 lg:pt-14 md:flex max-w-[1110px]">
+                    <div class="flex-2 lg:grow flex gap-5">
+                        <div class="flex-1 lg:flex-2 flex flex-col lg:flex-row">
+                            <div class="lg:mr-12 flex-1 lg:min-w-[200px]">
+                                <div class="mb-12">
+                                    <div class="font-medium text-black dark:text-white">Solutions</div>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/ai-sre">AI SRE</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/tracing">OpenTelemetry tracing</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/telemetry">Log management</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3"
+                                        href="/infrastructure-monitoring">Infrastructure monitoring</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/error-tracking">Error tracking</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/real-user-monitoring">Real user
+                                        monitoring</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/incident-management">Incident
+                                        management</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/uptime">Uptime monitoring</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/status-page">Status page</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/warehouse">Data warehouse</a>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="mb-12 lg:hidden">
+                                    <div class="font-medium text-black dark:text-white">Company</div>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/careers">Work at Better Stack</a>
+                                    <br class="lg:hidden">
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/careers/engineering">Engineering</a>
+                                    <br class="lg:hidden">
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/security">Security</a>
+
+                                </div>
+                                <div class="mb-12 hidden lg:block">
+                                    <div class="font-medium text-black dark:text-white">Resources</div>
+                                    <a class="inline-block -mx-1 px-1 mt-3 whitespace-nowrap" href="/help">Help &amp;
+                                        Support</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3"
+                                        href="https://betterstack.com/docs/">Documentation</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/enterprise">Enterprise</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/integrations">Integrations</a>
+                                    <br>
+                                    <a class="inline-block -mx-1 px-1 mt-3" href="/dashboards">Dashboards</a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:ml-12 flex-1 flex flex-col">
+                            <div class="mb-12 hidden lg:flex flex-col items-start lg:min-w-[200px]">
+                                <div class="font-medium text-black dark:text-white">Company</div>
+                                <a class="inline-block -mx-1 px-1 mt-3" href="/careers">Work at Better Stack</a>
+                                <br class="lg:hidden">
+                                <a class="inline-block -mx-1 px-1 mt-3" href="/careers/engineering">Engineering</a>
+                                <br class="lg:hidden">
+                                <a class="inline-block -mx-1 px-1 mt-3" href="/security">Security</a>
+
+                            </div>
+                            <div class="mb-12 lg:hidden">
+                                <div class="font-medium text-black dark:text-white">Resources</div>
+                                <a class="inline-block -mx-1 px-1 mt-3 whitespace-nowrap" href="/help">Help &amp;
+                                    Support</a>
+                                <br>
+                                <a class="inline-block -mx-1 px-1 mt-3"
+                                    href="https://betterstack.com/docs/">Documentation</a>
+                                <br>
+                                <a class="inline-block -mx-1 px-1 mt-3" href="/enterprise">Enterprise</a>
+                                <br>
+                                <a class="inline-block -mx-1 px-1 mt-3" href="/integrations">Integrations</a>
+                                <br>
+                                <a class="inline-block -mx-1 px-1 mt-3" href="/dashboards">Dashboards</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:ml-12 flex-1 flex flex-col items-start grow max-w-[450px]">
+                        <div class="md:mb-12">
+                            <div class="font-medium text-black dark:text-white">Community</div>
+                            <a class="inline-block -mx-1 px-1 mt-4"
+                                href="https://betterstack.com/community/guides/incident-management/what-is-incident-management/">What
+                                Is Incident Management? Beginner’s Guide</a>
+                            <a class="inline-block -mx-1 px-1 mt-4"
+                                href="https://betterstack.com/community/comparisons/datadog-log-management-alternatives/">Best
+                                Datadog Alternatives to Consider in 2026</a>
+                            <a class="inline-block -mx-1 px-1 mt-4"
+                                href="https://betterstack.com/community/comparisons/free-status-page-tools/">8 Best Free
+                                &amp; Open Source Status Page Tools in 2026</a>
+                            <a class="inline-block -mx-1 px-1 mt-4"
+                                href="https://betterstack.com/community/comparisons/sentry-alternatives/">13 Best Sentry
+                                Alternatives in 2026</a>
+                            <a class="inline-block -mx-1 px-1 mt-4"
+                                href="https://betterstack.com/community/comparisons/grafana-alternatives/">15 Best
+                                Grafana Alternatives in 2026</a>
+                            <a class="inline-block -mx-1 px-1 mt-4"
+                                href="https://betterstack.com/community/comparisons/incident-io-alternative/">The 10
+                                Best Incident.io Alternatives in 2026</a>
+                            <a class="inline-block -mx-1 px-1 mt-4"
+                                href="https://betterstack.com/community/comparisons/incident-management-tools/">5 Most
+                                Used Incident Management Tools</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <footer class="bg-[#F3F4F7] dark:bg-[#0B0C14]">
+                <div class="mx-auto text-base lg:px-5 max-w-[1110px] text-[#363D4E] dark:text-neutral-200">
+                    <div
+                        class="px-5 lg:px-2 lg:mx-3 pt-7 flex flex-col lg:flex-row justify-between items-center lg:items-end border-t border-neutral-300/10">
+                        <div>
+                            <svg width="154" height="21" alt="" class="text-black dark:text-white scale-75 lg:scale-100"
+                                style="--currentColor: currentColor;">
+                                <use href="/assets/v2/better-stack-logo-f5a76de1.svg#root"></use>
+                            </svg>
+                            <p class="mt-3 hidden lg:block max-w-[342px]">
+                                30x cheaper than Datadog. Predictable pricing. Exceptional customer support.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-6 whitespace-nowrap">
+                            <a class="hidden lg:block -mx-1 px-1" href="tel:+1 (628) 900-3830">+1 (628) 900-3830</a>
+                            <a class="hidden lg:block -mx-1 px-1"
+                                href="mailto:hello@betterstack.com">hello@betterstack.com</a>
+                            <div class="hidden lg:block h-4 border-l border-neutral-300/10"></div>
+                            <div class="hidden lg:flex">
+                                <div class="flex gap-4 text-neutral-300">
+                                    <a aria-label="Better Stack on Instagram"
+                                        href="https://www.instagram.com/betterstackhq/" rel="nofollow noopener"
+                                        target="_blank"><svg width="16" height="17"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/instagram-d9614e51.svg#root"></use>
+                                        </svg></a>
+                                    <a aria-label="Better Stack on TikTok" href="https://www.tiktok.com/@betterstack"
+                                        rel="nofollow noopener" target="_blank"><svg width="16" height="17"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/tiktok-ad9068a9.svg#root"></use>
+                                        </svg></a>
+                                    <a aria-label="Better Stack on LinkedIn"
+                                        href="https://www.linkedin.com/company/betterstack" rel="nofollow noopener"
+                                        target="_blank"><svg width="16" height="17"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/linkedin-143ab64c.svg#root"></use>
+                                        </svg></a>
+                                    <a aria-label="Better Stack on Twitter" href="https://twitter.com/betterstackhq"
+                                        rel="nofollow noopener" target="_blank"><svg width="16" height="16"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/twitter-4512e356.svg#root"></use>
+                                        </svg></a>
+                                    <a aria-label="Better Stack on Github" href="https://github.com/BetterStackHQ/"
+                                        rel="nofollow noopener" target="_blank"><svg width="16" height="17"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/github-8e0718fe.svg#root"></use>
+                                        </svg></a>
+                                    <a aria-label="Better Stack on YouTube" href="https://www.youtube.com/@betterstack"
+                                        rel="nofollow noopener" target="_blank"><svg width="22" height="17"
+                                            style="--currentColor: currentColor;">
+                                            <use href="/assets/v2/youtube-72dade15.svg#root"></use>
+                                        </svg></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="px-5 lg:px-2 lg:mx-3 mt-5 py-3 lg:border-t flex flex-col lg:flex-row justify-between items-center border-neutral-300/10 text-[12px] leading-[18px]">
+                        <div class="flex items-center gap-6 whitespace-nowrap dark:text-neutral-300">
+                            <a class="-mx-1 px-1" href="/terms">Terms of Use</a>
+                            <a class="-mx-1 px-1" href="/privacy">Privacy Policy</a>
+                            <a class="-mx-1 px-1" href="/dpa">GDPR</a>
+                            <a class="hidden sm:block -mx-1 px-1" href="https://status.betterstack.com/"
+                                target="_blank">
+                                <svg width="14" height="15" alt="All services are up" class="mr-1 hidden lg:inline"
+                                    style="--currentColor: currentColor;">
+                                    <use href="/assets/v2/status-green-4e79760e.svg#root"></use>
+                                </svg>
+                                System status
+                            </a>
+                        </div>
+                        <div class="mt-8 mb-2 flex lg:hidden">
+                            <div class="flex gap-4 text-neutral-300">
+                                <a aria-label="Better Stack on Instagram"
+                                    href="https://www.instagram.com/betterstackhq/" rel="nofollow noopener"
+                                    target="_blank"><svg width="16" height="17" style="--currentColor: currentColor;">
+                                        <use href="/assets/v2/instagram-d9614e51.svg#root"></use>
+                                    </svg></a>
+                                <a aria-label="Better Stack on TikTok" href="https://www.tiktok.com/@betterstack"
+                                    rel="nofollow noopener" target="_blank"><svg width="16" height="17"
+                                        style="--currentColor: currentColor;">
+                                        <use href="/assets/v2/tiktok-ad9068a9.svg#root"></use>
+                                    </svg></a>
+                                <a aria-label="Better Stack on LinkedIn"
+                                    href="https://www.linkedin.com/company/betterstack" rel="nofollow noopener"
+                                    target="_blank"><svg width="16" height="17" style="--currentColor: currentColor;">
+                                        <use href="/assets/v2/linkedin-143ab64c.svg#root"></use>
+                                    </svg></a>
+                                <a aria-label="Better Stack on Twitter" href="https://twitter.com/betterstackhq"
+                                    rel="nofollow noopener" target="_blank"><svg width="16" height="16"
+                                        style="--currentColor: currentColor;">
+                                        <use href="/assets/v2/twitter-4512e356.svg#root"></use>
+                                    </svg></a>
+                                <a aria-label="Better Stack on Github" href="https://github.com/BetterStackHQ/"
+                                    rel="nofollow noopener" target="_blank"><svg width="16" height="17"
+                                        style="--currentColor: currentColor;">
+                                        <use href="/assets/v2/github-8e0718fe.svg#root"></use>
+                                    </svg></a>
+                                <a aria-label="Better Stack on YouTube" href="https://www.youtube.com/@betterstack"
+                                    rel="nofollow noopener" target="_blank"><svg width="22" height="17"
+                                        style="--currentColor: currentColor;">
+                                        <use href="/assets/v2/youtube-72dade15.svg#root"></use>
+                                    </svg></a>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-neutral-300">
+                            © 2026 Better Stack, Inc.
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="root"
+                                fill="none" height="15" viewBox="0 0 14 15" width="14"
+                                class="ml-2 transition hover:-rotate-[15deg] hidden lg:inline">
+                                <mask id="a" fill="#000" height="14" maskUnits="userSpaceOnUse" width="14" x=".84082"
+                                    y=".910156">
+                                    <path d="m.84082.910156h14v14h-14z" fill="#fff"></path>
+                                    <path clip-rule="evenodd"
+                                        d="m12.4541 1.91016h-4.37651v.54686h-.54823v.54771 1.85936 1.2038h-.54617v.54725h-.87535v.54642h-.87576v.54777h-.54616v.54551h-.0011-.54589-.54734v-.65488h-.54706v2.84474h.54616v.6549h.54824v.547h.54699v.4392.6557.5469.4376.0003h.65647v-.0003h.43765v-.4376h-.43765v-.5469h.43765v-.6557h.54706v-.5478h.65609v.5472h.43768v.1982h1.09412v-.4377h-.54709v-.8541h.54701v-.5472h.54712v-.87494h.54616v-1.86076h.65821v.43832h.547v-.54706h-.0011v-.43832h-1.20411v-1.2027h.65671v-1.09465h2.1892v-.0002h.5459v-2.40707h-.5459zm-9.41064 5.25148h-.54617v-1.20358h-.65647v3.50119h.54616v.43769h.65648zm7.22294-1.74985h1.6412v.54706h-1.6412zm-1.62526-2.63729h.00042v-.00005h.80045v.00013h.26677v1.06726h-.26682v-.00107h-.8004v-.26582h-.00042zm.26682.79945h.534v-.53268h-.534z"
+                                        fill="#000" fill-rule="evenodd"></path>
+                                </mask>
+                                <path
+                                    d="m8.07759 1.91016v-.952682h-.95268v.952682zm4.37651 0h.9527v-.952682h-.9527zm-4.37651.54686v.95268h.95268v-.95268zm-.54823 0v-.95268h-.95268v.95268zm0 3.61087v.95268h.95268v-.95268zm-.54617 0v-.95268h-.95267v.95268zm0 .54725v.95268h.95268v-.95268zm-.87535 0v-.95268h-.95267v.95268zm0 .54642v.95268h.95268v-.95268zm-.87576 0v-.95268h-.95268v.95268zm0 .54777v.95268h.95268v-.95268zm-.54616 0v-.95268h-.95268v.95268zm0 .54551v.95268h.95268v-.95268zm-1.09433 0h-.95268v.95268h.95268zm0-.65488h.95268v-.95268h-.95268zm-.54706 0v-.95268h-.95268v.95268zm0 2.84474h-.95268v.9527h.95268zm.54616 0h.95268v-.9527h-.95268zm0 .6549h-.95268v.9526h.95268zm.54824 0h.95268v-.9527h-.95268zm0 .547h-.95268v.9527h.95268zm.54699 0h.95268v-.9527h-.95268zm0 2.0797h-.95268v.9527h.95268zm.65647 0v.9527h.95268v-.9527zm0-.0003v-.9526h-.95268v.9526zm.43765 0v.9527h.95268v-.9527zm0-.4376h.95268v-.9527h-.95268zm-.43765 0h-.95268v.9527h.95268zm0-.5469v-.9527h-.95268v.9527zm.43765 0v.9527h.95268v-.9527zm0-.6557v-.9527h-.95268v.9527zm.54706 0v.9527h.95268v-.9527zm0-.5478v-.9526h-.95268v.9526zm.65609 0h.95268v-.9526h-.95268zm0 .5472h-.95267v.9527h.95267zm.43768 0h.95268v-.9527h-.95268zm0 .1982h-.95268v.9526h.95268zm1.09412 0v.9526h.95268v-.9526zm0-.4377h.95268v-.9527h-.95268zm-.54709 0h-.95267v.9527h.95267zm0-.8541v-.9527h-.95267v.9527zm.54701 0v.9527h.95268v-.9527zm0-.5472v-.9527h-.95268v.9527zm.54712 0v.9527h.95267v-.9527zm0-.87494v-.95267h-.95268v.95267zm.54616 0v.95264h.95271v-.95264zm0-1.86076v-.95268h-.95268v.95268zm.65821 0h.9527v-.95268h-.9527zm0 .43832h-.9527v.95268h.9527zm.547 0v.95268h.9527v-.95268zm0-.54706h.9527v-.95268h-.9527zm-.0011 0h-.95264v.95268h.95264zm0-.43832h.9527v-.95268h-.9527zm-1.20411 0h-.95268v.95268h.95268zm0-1.2027v-.95268h-.95268v.95268zm.65671 0v.95268h.9527v-.95268zm0-1.09465v-.95268h-.95267v.95268zm2.1892 0v.95267h.9527v-.95267zm0-.0002v-.95268h-.9527v.95268zm.5459 0v.95267h.9526v-.95267zm0-2.40707h.9526v-.95268h-.9526zm-.5459 0h-.9527v.95268h.9527zm-9.95681 4.70462h-.95268v.95268h.95268zm.54617 0h.95267v-.95268h-.95267zm-.54617-1.20358h.95268v-.95268h-.95268zm-.65647 0v-.95268h-.952678v.95268zm0 3.50119h-.952678v.95265h.952678zm.54616 0h.95268v-.95268h-.95268zm0 .43769h-.95268v.95266h.95268zm.65648 0v.95266h.95267v-.95266zm8.86414-4.48515h.9526v-.95268h-.9526zm-1.6412 0v-.95268h-.9527v.95268zm1.6412.54706v.95268h.9526v-.95268zm-1.6412 0h-.9527v.95268h.9527zm-1.62484-3.18435v.95268h.95268v-.95268zm-.00042 0v-.95268h-.95267v.95268zm.00042-.00005v-.95268h-.95268v.95268zm.80045 0h.95269v-.95268h-.95269zm0 .00013h-.95268v.95268h.95268zm.26677 0h.95272v-.95268h-.95272zm0 1.06726v.95268h.95272v-.95268zm-.26682 0h-.95268v.95268h.95268zm0-.00107h.95264v-.95268h-.95264zm-.8004 0h-.95268v.95267h.95268zm0-.26582h.95268v-.95268h-.95268zm-.00042 0h-.95267v.95268h.95267zm.26682-.001h-.95268v.95268h.95268zm.534 0v.95268h.95264v-.95268zm0-.53268h.95264v-.95268h-.95264zm-.534 0v-.95268h-.95268v.95268zm-.83037-.17844h4.37651v-1.905352h-4.37651zm.95268-.40581v-.54686h-1.90536v.54686zm-1.50091.95268h.54823v-1.90536h-.54823zm.95268-.40497v-.54771h-1.90536v.54771zm0 1.85936v-1.85936h-1.90536v1.85936zm0 1.2038v-1.2038h-1.90536v1.2038zm-1.49885.95268h.54617v-1.90536h-.54617zm.95268-.40543v-.54725h-1.90535v.54725zm-1.82803.95268h.87535v-1.90536h-.87535zm.95268-.40626v-.54642h-1.90535v.54642zm-1.82844.95268h.87576v-1.90536h-.87576zm.95268-.40491v-.54777h-1.90536v.54777zm-1.49884.95268h.54616v-1.90536h-.54616zm.95268-.40717v-.54551h-1.90536v.54551zm-.95378.95268h.0011v-1.90535h-.0011zm-.54589 0h.54589v-1.90535h-.54589zm-.54734 0h.54734v-1.90535h-.54734zm-.95268-1.60756v.65488h1.90536v-.65488zm.40562.95268h.54706v-1.90536h-.54706zm.95268 1.89206v-2.84474h-1.90536v2.84474zm-.40652-.9527h-.54616v1.9054h.54616zm.95268 1.6076v-.6549h-1.90536v.6549zm-.40444-.9527h-.54824v1.9053h.54824zm.95268 1.4997v-.547h-1.90536v.547zm-.40569-.9527h-.54699v1.9054h.54699zm.95268 1.3919v-.4392h-1.90536v.4392zm0 .6557v-.6557h-1.90536v.6557zm0 .5469v-.5469h-1.90536v.5469zm0 .4376v-.4376h-1.90536v.4376zm0 .0003v-.0003h-1.90536v.0003zm-.29621-.9526h-.65647v1.9053h.65647zm-.95268.9523v.0003h1.90536v-.0003zm1.39033-.9526h-.43765v1.9053h.43765zm-.95268.515v.4376h1.90536v-.4376zm.51503.9527h.43765v-1.9054h-.43765zm-.95268-1.4996v.5469h1.90536v-.5469zm1.39033-.9527h-.43765v1.9054h.43765zm-.95268.297v.6557h1.90536v-.6557zm1.49974-.9527h-.54706v1.9054h.54706zm-.95268.4049v.5478h1.90536v-.5478zm1.60877-.9526h-.65609v1.9053h.65609zm.95268 1.4998v-.5472h-1.90535v.5472zm-.515-.9527h-.43768v1.9054h.43768zm.95268 1.1509v-.1982h-1.90536v.1982zm.14144-.9527h-1.09412v1.9053h1.09412zm-.95268.515v.4377h1.90536v-.4377zm.40559.9527h.54709v-1.9054h-.54709zm-.95267-1.8068v.8541h1.90535v-.8541zm1.49968-.9527h-.54701v1.9054h.54701zm-.95268.4055v.5472h1.90536v-.5472zm1.4998-.9527h-.54712v1.9054h.54712zm-.95268.07776v.87494h1.90535v-.87494zm1.49884-.95267h-.54616v1.90531h.54616zm-.95268-.90809v1.86076h1.90539v-1.86076zm1.61089-.95268h-.65821v1.90536h.65821zm.9527 1.391v-.43832h-1.9054v.43832zm-.4057-.95268h-.547v1.90536h.547zm-.95264.40562v.54706h1.90534v-.54706zm.95154.95268h.0011v-1.90536h-.0011zm-.95264-1.391v.43832h1.90534v-.43832zm-.25147.95268h1.20411v-1.90536h-1.20411zm-.95268-2.15538v1.2027h1.90539v-1.2027zm1.60939-.95268h-.65671v1.90536h.65671zm-.95267-.14197v1.09465h1.90537v-1.09465zm3.14187-.95268h-2.1892v1.90535h2.1892zm-.9527.95248v.0002h1.9054v-.0002zm1.4986-.95268h-.5459v1.90535h.5459zm-.9527-1.45439v2.40707h1.9053v-2.40707zm.4068.95268h.5459v-1.90536h-.5459zm-.9527-1.49954v.54686h1.9054v-.54686zm-9.00411 6.20416h.54617v-1.90536h-.54617zm-.95268-2.15626v1.20358h1.90536v-1.20358zm.29621.95268h.65647v-1.90536h-.65647zm.95268 2.54851v-3.50119h-1.905358v3.50119zm-.40652-.95268h-.54616v1.90533h.54616zm.95268 1.39037v-.43769h-1.90536v.43769zm-.2962-.95268h-.65648v1.90534h.65648zm-.95268-1.78262v2.7353h1.90535v-2.7353zm9.81682-2.70253h-1.6412v1.90536h1.6412zm.9526 1.49974v-.54706h-1.9053v.54706zm-2.5938.95268h1.6412v-1.90536h-1.6412zm-.9527-1.49974v.54706h1.9054v-.54706zm-.67214-3.58997h-.00042v1.90536h.00042zm-.95268.95263v.00005h1.90536v-.00005zm1.75313-.95268h-.80045v1.90536h.80045zm.95269.95281v-.00013h-1.90537v.00013zm-.68592-.95268h-.26677v1.90536h.26677zm.95272 2.01994v-1.06726h-1.9054v1.06726zm-1.21954.95268h.26682v-1.90536h-.26682zm-.95268-.95375v.00107h1.90532v-.00107zm.95268-.95268h-.8004v1.90535h.8004zm.15228.95268v-.26582h-1.90536v.26582zm-.9531.68686h.00042v-1.90536h-.00042zm-.95267-1.75313v.80045h1.90535v-.80045zm1.21949 1.75213h.534v-1.90536h-.534zm-.41868-1.48536v.53268h1.90532v-.53268zm.41868.95268h.534v-1.90536h-.534zm.95268-.42v-.53268h-1.90536v.53268z"
+                                    fill="#646e87" mask="url(#a)"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script data-turbo-eval="false" data-turbo-permanent="true" id="front-script"
+            src="https://chat-assets.frontapp.com/v1/chat.bundle.js"></script>
+        <script nonce="" type="module">
+            import { front_identity_path } from 'routes'
+
+            const currentPath = window.location.pathname
+            let identity = JSON.parse(window.localStorage.getItem('frontChat:identity')) || {}
+
+            if (!identity.userHash && (currentPath.startsWith('/settings') || currentPath.startsWith('/onboarding'))) {
+                try {
+                    const response = await fetch(front_identity_path())
+                    identity = await response.json()
+                    window.localStorage.setItem('frontChat:identity', JSON.stringify(identity))
+                } catch (_) { }
+            }
+
+            function initFrontChat() {
+                window?.FrontChat('init', {
+                    chatId: '7ec348734d009c45fc063c20b36d58e1',
+                    useDefaultLauncher: true,
+                    ...identity,
+                })
+                document.getElementById('front-chat-iframe')?.style?.setProperty('color-scheme', 'auto')
+            }
+
+
+            if (window.FrontChat) {
+                initFrontChat()
+            } else {
+                const frontScript = document.getElementById('front-script')
+                frontScript?.addEventListener('load', initFrontChat)
+            }
+        </script>
+
+        <noscript>
+            <img height='1' src='https://www.facebook.com/tr?id=1062799887416376&amp;ev=PageView&amp;noscript=1'
+                style='display:none' width='1'>
+        </noscript>
+        <noscript>
+            <img alt='' height='1' src='https://px.ads.linkedin.com/collect/?pid=3533474&amp;fmt=gif'
+                style='display:none' width='1'>
+        </noscript>
+
+        <script type="application/javascript" nonce="">
+            //<![CDATA[
+            window.recaptchaLoaded = false
+            window.recaptchaSiteKey = '6LcqMUUaAAAAAB9e71hGegt9lvZ2v_mO1lFsvlRX'
+
+            function initialize_recaptcha() {
+                if (!document.getElementById('recaptcha-wrapper')) return;
+                if (document.getElementById('recaptcha-wrapper').childNodes.length === 0) {
+                    grecaptcha.render('recaptcha-wrapper', { sitekey: '6LcqMUUaAAAAAB9e71hGegt9lvZ2v_mO1lFsvlRX', size: 'invisible', callback: 'recaptcha_submit', badge: 'bottomright' })
+                    console.log("Calling reCaptcha after render callback -->", window.recaptchaAfterRender)
+                    window.recaptchaAfterRender && window.recaptchaAfterRender('rendered')
+                }
+            }
+
+            window.recaptcha_onload = function () {
+                grecaptcha.ready(function () {
+                    initialize_recaptcha()
+                })
+
+                document.addEventListener('turbo:load', function () {
+                    initialize_recaptcha()
+                })
+            }
+
+
+            //]]>
+        </script>
+        <div class="hidden fixed bottom-8 inset-x-2 max-w-lg p-5 border rounded-lg backdrop-blur-xl z-[100000000] md:left-8 md:right-auto border-[#939DB81A] bg-[#0F101A]"
+            id="cookie-consent-banner">
+            <h3 class="font-semibold text-white leading-normal text-[13px] md:text-md">Please accept cookies</h3>
+            <p class="mt-2 font-normal text-neutral-200 leading-normal text-[13px] md:text-md">
+                We use cookies to authenticate users, improve the product user experience, and for
+                <a target="_blank" rel="nofollow noopener"
+                    class="border-0 transition text-brand-primary-100 hover:text-neutral-100 focus-visible -m-1 p-1"
+                    href="https://business.safety.google/privacy/">personalized ads</a>.
+                <a target="_blank"
+                    class="border-0 transition text-brand-primary-100 hover:text-neutral-100 focus-visible -m-1 p-1"
+                    href="/privacy">Learn more.</a>
+            </p>
+            <div class="mt-4 flex flex-row gap-3">
+                <button
+                    class="bg-gray-900 px-2 font-medium text-neutral-200 rounded py-0.5 text-[13px] border border-[#939DB833] bg-[#171926]"
+                    id="cookie-deny">Deny</button>
+                <button
+                    class="bg-gray-900 px-2 font-medium text-neutral-200 rounded py-0.5 text-[13px] border border-[#939DB833] bg-[#171926]"
+                    id="cookie-accept-required">Accept required</button>
+                <button class="ml-auto px-2 font-medium text-white rounded bg-button-gradient py-0.5 text-[13px]"
+                    id="cookie-accept-all">Accept all</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -49,9 +49,16 @@ Use the init command for a guided schema creation:
 npx brand-os init \
   --name "Grill House" \
   --description "Charcoal grill restaurant with live fire cooking" \
-  --surfaces landing,menu,promotions \
+  --style warm \
+  --palette amber \
+  --surfaces restaurant \
   --json
 ```
+
+The `--style` flag sets personality, anti-personality, fonts, radius, and shadow. The `--palette` flag selects the color scheme independently. Surface names can be presets (`restaurant`, `saas`, `ecommerce`, `blog`, `portfolio`, `admin`, `promo`) or comma-separated custom names.
+
+Available styles: `warm`, `bold`, `minimal`, `editorial`, `playful`, `luxury`
+Available palettes: `warm`, `cool`, `rose`, `forest`, `slate`, `amber`, `violet`
 
 Or build the schema directly as JSON. The minimal viable schema:
 
@@ -163,7 +170,10 @@ This creates:
 - `*-prompt-pack.json` — surface-specific prompts for design generation
 - `*-parser-contract.json` — class classification rules for the brand
 - `*-parser-fixtures.source.json` — test fixtures for parser validation
-- `*-generated/` — ready-to-use prompts, parser snapshots, manifest
+- `*-generated/brand-brief.md` — consolidated brand context in one file (attach to any LLM)
+- `*-generated/prompts/` — ready-to-use surface prompts
+- `*-generated/parser-fixtures/` — parser snapshots
+- `*-generated/manifest.json` — file inventory
 
 ### Phase 6: Apply constraints and build
 
@@ -284,6 +294,7 @@ tokens.radius                 — Border radius scale
 tokens.shadow                 — Box shadow presets
 tokens.motion                 — Duration, easing, presets
 
+designGrammar.styleDirection      — Style direction keyword (warm, bold, minimal, editorial, playful, luxury)
 designGrammar.shapeLanguage.core  — Visual shape description
 designGrammar.surfaceLanguage     — Surface treatment rules
 designGrammar.imageTreatment      — Photo and illustration guidance
@@ -324,19 +335,36 @@ Everything else is optional. `--bootstrap` generates safe defaults for companion
 # Interactive (human)
 npx brand-os init
 
-# Programmatic (LLM)
+# Programmatic (LLM) — full control
 npx brand-os init \
-  --name "Brand Name" \
-  --description "What this brand is for" \
-  --surfaces landing,menu,blog \
+  --name "Grill House" \
+  --description "Charcoal grill restaurant" \
+  --style warm \
+  --palette amber \
+  --surfaces restaurant \
   --json
 
-# With output path
+# Minimal (defaults to style=warm, palette=warm)
 npx brand-os init \
   --name "Brand Name" \
-  --out .project/my-brand/my-brand.schema.json \
+  --surfaces landing,blog \
+  --json
+
+# With custom output path
+npx brand-os init \
+  --name "Luxe Spa" \
+  --style luxury \
+  --palette rose \
+  --surfaces landing,blog \
+  --out .project/luxe/luxe.schema.json \
   --json
 ```
+
+Flags:
+- `--style` — sets personality, fonts, radius, shadow (warm | bold | minimal | editorial | playful | luxury)
+- `--palette` — sets color tokens (warm | cool | rose | forest | slate | amber | violet)
+- `--surfaces` — preset name or comma-separated list (restaurant | saas | ecommerce | blog | portfolio | admin | promo)
+- `--json` — machine output, skips interactive prompts (required for LLM use)
 
 ### Emit — generate brand artifacts
 
@@ -397,12 +425,14 @@ Create schema with:
 npx brand-os init \
   --name "Grill House Promo" \
   --description "Charcoal grill promo landing with live fire aesthetic" \
-  --surfaces promo-landing \
+  --style warm \
+  --palette amber \
+  --surfaces promo \
   --out .project/grill/grill.schema.json \
   --json
 ```
 
-Enrich the schema with palette, typography, and section archetypes.
+The schema is created with warm personality, amber colors, fire-appropriate typography, and promo-landing page/section archetypes. Review and enrich if needed — add custom section archetypes, adjust voice, add image treatment rules.
 
 ```bash
 npx brand-os --schema .project/grill/grill.schema.json --bootstrap
@@ -410,7 +440,7 @@ npx brand-os --schema .project/grill/grill.schema.json --bootstrap
 
 ### Step 4 — Build with constraints
 
-Read the generated prompt from `*-generated/prompts/promo-landing.md`. Apply it as constraint-first instructions. Build the actual page using the brand tokens, section recipes, and design quality rules.
+Attach `*-generated/brand-brief.md` as full brand context to any LLM conversation. Then use the surface-specific prompt from `*-generated/prompts/promo-landing.md` as constraint-first instructions. Build the actual page using the brand tokens, section recipes, and design quality rules.
 
 ### Step 5 — Validate
 
@@ -421,7 +451,7 @@ npx brand-os --ast-suite .project/grill/grill.schema.json
 
 ## Tips for effective brand creation
 
-1. **Start small** — `meta` + `brandThesis` + `tokens.color.light` + `tokens.typography.families` is enough for `--bootstrap` to generate everything else.
+1. **Start small** — `init --style --palette --surfaces --json` gives a complete schema. Then `--bootstrap` generates everything else, including `brand-brief.md` for instant LLM context.
 2. **Be specific in personality** — "warm, appetizing, celebratory" is better than "nice, professional, clean".
 3. **Anti-personality matters** — it prevents the brand from drifting into generic territory.
 4. **One CTA per surface** — promotional surfaces should have one clear action, not five competing buttons.

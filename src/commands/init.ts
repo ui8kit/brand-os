@@ -9,6 +9,7 @@ interface InitAnswers {
   name: string;
   slug: string;
   description: string;
+  style: string;
   surfaces: string[];
   personality: string[];
   antiPersonality: string[];
@@ -81,14 +82,100 @@ function toSlug(name: string): string {
     .replace(/^-|-$/g, '');
 }
 
+const SURFACE_SECTIONS: Record<string, string[]> = {
+  landing: ['hero', 'features', 'social-proof', 'cta'],
+  menu: ['hero', 'category-nav', 'menu-grid', 'cta'],
+  promotions: ['hero', 'promo-grid', 'featured-promo', 'cta'],
+  blog: ['hero', 'post-grid', 'categories', 'newsletter'],
+  'promo-landing': ['hero', 'value-props', 'gallery', 'testimonials', 'cta'],
+  dashboard: ['stats-overview', 'charts', 'recent-activity', 'quick-actions'],
+  catalog: ['hero', 'filters', 'product-grid', 'pagination'],
+  'product-detail': ['gallery', 'product-info', 'reviews', 'related-products'],
+  cart: ['cart-items', 'order-summary', 'checkout-cta'],
+  settings: ['profile', 'preferences', 'notifications', 'security'],
+  docs: ['sidebar-nav', 'content', 'toc', 'prev-next'],
+  projects: ['hero', 'project-grid', 'case-study-preview'],
+  about: ['hero', 'story', 'team', 'values'],
+  contact: ['hero', 'contact-form', 'map', 'info'],
+  users: ['user-table', 'filters', 'user-detail'],
+  content: ['content-table', 'editor', 'preview'],
+  reservations: ['calendar', 'time-slots', 'booking-form', 'confirmation'],
+  'reservations-cms': ['reservations-table', 'calendar-view', 'settings'],
+};
+
+const SECTION_ARCHETYPES: Record<string, { purpose: string; requiredSlots: string[]; fixedTraits: string[] }> = {
+  hero: {
+    purpose: 'Primary entry point — captures attention and communicates value proposition.',
+    requiredSlots: ['title', 'subtitle', 'cta'],
+    fixedTraits: ['full-width', 'above-fold', 'high-contrast'],
+  },
+  'features': {
+    purpose: 'Showcase key capabilities or offerings in a scannable grid.',
+    requiredSlots: ['icon', 'title', 'description'],
+    fixedTraits: ['grid-layout', 'equal-weight'],
+  },
+  'social-proof': {
+    purpose: 'Build trust through testimonials, logos, or stats.',
+    requiredSlots: ['quote', 'attribution'],
+    fixedTraits: ['muted-background', 'centered'],
+  },
+  cta: {
+    purpose: 'Drive conversion with a focused call-to-action.',
+    requiredSlots: ['headline', 'button'],
+    fixedTraits: ['accent-background', 'centered', 'high-contrast'],
+  },
+  'stats-overview': {
+    purpose: 'Display key metrics at a glance.',
+    requiredSlots: ['metric-value', 'metric-label', 'trend-indicator'],
+    fixedTraits: ['card-grid', 'compact'],
+  },
+  newsletter: {
+    purpose: 'Capture email subscriptions.',
+    requiredSlots: ['headline', 'email-input', 'submit-button'],
+    fixedTraits: ['muted-background', 'centered', 'narrow-width'],
+  },
+};
+
+const STYLE_RADIUS: Record<string, Record<string, string>> = {
+  warm:      { sm: '0.375rem', md: '0.625rem', lg: '1rem', xl: '1.25rem' },
+  bold:      { sm: '0.125rem', md: '0.25rem', lg: '0.5rem', xl: '0.75rem' },
+  minimal:   { sm: '0', md: '0.125rem', lg: '0.25rem', xl: '0.5rem' },
+  editorial: { sm: '0', md: '0.125rem', lg: '0.375rem', xl: '0.5rem' },
+  playful:   { sm: '0.5rem', md: '0.75rem', lg: '1.25rem', xl: '1.5rem' },
+  luxury:    { sm: '0.125rem', md: '0.25rem', lg: '0.5rem', xl: '0.75rem' },
+};
+
+const STYLE_SHADOW: Record<string, Record<string, string>> = {
+  warm:      { sm: '0 1px 3px rgba(0,0,0,0.06)', md: '0 4px 12px rgba(0,0,0,0.08)' },
+  bold:      { sm: '0 2px 4px rgba(0,0,0,0.10)', md: '0 6px 16px rgba(0,0,0,0.14)' },
+  minimal:   { sm: '0 1px 2px rgba(0,0,0,0.03)', md: '0 2px 6px rgba(0,0,0,0.05)' },
+  editorial: { sm: '0 1px 2px rgba(0,0,0,0.04)', md: '0 3px 10px rgba(0,0,0,0.06)' },
+  playful:   { sm: '0 2px 6px rgba(0,0,0,0.08)', md: '0 6px 20px rgba(0,0,0,0.10)' },
+  luxury:    { sm: '0 1px 4px rgba(0,0,0,0.06)', md: '0 4px 16px rgba(0,0,0,0.08)' },
+};
+
 function buildSchema(answers: InitAnswers): BrandOsSchema {
   const pageArchetypes: Record<string, { purpose?: string; requiredSections?: string[] }> = {};
   for (const surface of answers.surfaces) {
+    const sections = SURFACE_SECTIONS[surface] ?? ['hero', 'main-content', 'cta'];
     pageArchetypes[surface] = {
-      purpose: `Create the ${surface.replace(/-/g, ' ')} surface for ${answers.name}.`,
-      requiredSections: ['hero', 'main-content', 'cta'],
+      purpose: `${surface.replace(/-/g, ' ')} surface for ${answers.name}.`,
+      requiredSections: sections,
     };
   }
+
+  const usedSections = new Set(
+    answers.surfaces.flatMap((s) => SURFACE_SECTIONS[s] ?? ['hero', 'main-content', 'cta']),
+  );
+  const sectionArchetypes: Record<string, { purpose?: string; requiredSlots?: string[]; fixedTraits?: string[] }> = {};
+  for (const section of usedSections) {
+    if (SECTION_ARCHETYPES[section]) {
+      sectionArchetypes[section] = SECTION_ARCHETYPES[section];
+    }
+  }
+
+  const radius = STYLE_RADIUS[answers.style] ?? STYLE_RADIUS['warm'];
+  const shadow = STYLE_SHADOW[answers.style] ?? STYLE_SHADOW['warm'];
 
   return {
     meta: {
@@ -135,25 +222,22 @@ function buildSchema(answers: InitAnswers): BrandOsSchema {
           ui: answers.bodyFont,
         },
       },
-      radius: {
-        sm: '0.25rem',
-        md: '0.5rem',
-        lg: '0.75rem',
-        xl: '1rem',
-      },
-      shadow: {
-        sm: '0 1px 2px rgba(0,0,0,0.05)',
-        md: '0 2px 8px rgba(0,0,0,0.10)',
-      },
+      radius,
+      shadow,
     },
     designGrammar: {
+      styleDirection: answers.style,
       shapeLanguage: {
         core: `${answers.personality.slice(0, 3).join(', ')} visual language with clear hierarchy.`,
+      },
+      surfaceLanguage: {
+        base: `Cards and containers use radius-${answers.style === 'minimal' || answers.style === 'editorial' ? 'sharp' : 'rounded'} treatment.`,
+        depthRule: `Shadow depth follows ${answers.style === 'bold' ? 'strong' : answers.style === 'minimal' ? 'minimal' : 'moderate'} elevation scale.`,
       },
     },
     recipes: {
       pageArchetypes,
-      sectionArchetypes: {},
+      sectionArchetypes,
     },
   };
 }
@@ -209,6 +293,7 @@ async function runInteractive(): Promise<InitAnswers> {
       name,
       slug,
       description: description || `Brand operating system for ${name}.`,
+      style,
       surfaces,
       personality: preset.personality,
       antiPersonality: preset.antiPersonality,
@@ -222,20 +307,31 @@ async function runInteractive(): Promise<InitAnswers> {
   }
 }
 
+function resolveSurfaces(raw: string[]): string[] {
+  if (raw.length === 1 && SURFACE_PRESETS[raw[0].toLowerCase()]) {
+    return SURFACE_PRESETS[raw[0].toLowerCase()];
+  }
+  return raw;
+}
+
 function buildFromArgs(args: InitCliArgs): InitAnswers {
   const name = args.name ?? 'My Brand';
   const slug = toSlug(name);
 
-  const surfaces = args.surfaces ?? ['landing'];
+  const surfaces = args.surfaces ? resolveSurfaces(args.surfaces) : ['landing'];
 
-  const preset = PERSONALITY_PRESETS['warm'];
-  const fonts = FONT_SUGGESTIONS['warm'];
-  const colors = COLOR_PRESETS['warm'];
+  const styleKey = args.style?.toLowerCase() ?? 'warm';
+  const paletteKey = args.palette?.toLowerCase() ?? styleKey;
+
+  const preset = PERSONALITY_PRESETS[styleKey] ?? PERSONALITY_PRESETS['warm'];
+  const fonts = FONT_SUGGESTIONS[styleKey] ?? FONT_SUGGESTIONS['warm'];
+  const colors = COLOR_PRESETS[paletteKey] ?? COLOR_PRESETS['warm'];
 
   return {
     name,
     slug,
     description: args.description ?? `Brand operating system for ${name}.`,
+    style: styleKey,
     surfaces,
     personality: preset.personality,
     antiPersonality: preset.antiPersonality,
@@ -276,7 +372,11 @@ export async function runInit(args: InitCliArgs): Promise<void> {
       schemaPath: outputPath,
       slug: answers.slug,
       surfaces: answers.surfaces,
+      style: args.style ?? 'warm',
+      palette: args.palette ?? args.style ?? 'warm',
       personality: answers.personality,
+      fonts: { display: answers.displayFont, body: answers.bodyFont },
+      colors: { primary: answers.primaryColor, accent: answers.accentColor },
     };
     console.log(JSON.stringify(result, null, 2));
     return;
@@ -303,7 +403,9 @@ export function printInitUsage(): string {
     'Options:',
     '  --name <name>           brand name',
     '  --description <text>    brand description (one sentence)',
-    '  --surfaces <list>       comma-separated surfaces (landing,menu,blog)',
+    '  --surfaces <list>       comma-separated surfaces or preset name (restaurant, saas, etc.)',
+    '  --style <direction>     style direction: warm, bold, minimal, editorial, playful, luxury',
+    '  --palette <name>        color palette: warm, cool, rose, forest, slate, amber, violet',
     '  --out <path>            output schema path (default: .project/<slug>/<slug>.schema.json)',
     '  --json                  machine-readable JSON output (skip interactive prompts)',
     '  -h, --help              show help',
@@ -312,8 +414,9 @@ export function printInitUsage(): string {
     '  npx brand-os init',
     '',
     'Programmatic (LLM):',
-    '  npx brand-os init --name "Grill House" --description "Charcoal grill restaurant" --surfaces promo-landing --json',
-    '  npx brand-os init --name "My SaaS" --surfaces landing,dashboard,docs --out ./brand.schema.json --json',
+    '  npx brand-os init --name "Grill House" --style warm --palette amber --surfaces promo-landing --json',
+    '  npx brand-os init --name "My SaaS" --style minimal --palette slate --surfaces saas --json',
+    '  npx brand-os init --name "Luxe Spa" --style luxury --palette rose --surfaces landing,blog --json',
     '',
     'Surface presets:',
     '  restaurant — landing, menu, promotions, blog, reservations-cms, dashboard',
@@ -324,7 +427,21 @@ export function printInitUsage(): string {
     '  admin      — dashboard, settings, users, content',
     '  promo      — promo-landing',
     '',
-    'Style directions (interactive mode):',
-    '  warm, bold, minimal, editorial, playful, luxury',
+    'Style directions:',
+    '  warm       — welcoming, approachable (Fraunces + DM Sans)',
+    '  bold       — confident, high-contrast (DM Serif Display + Inter)',
+    '  minimal    — restrained, clean (Geist)',
+    '  editorial  — sophisticated, typographic (Playfair Display + Lora)',
+    '  playful    — energetic, rounded (Outfit + Nunito)',
+    '  luxury     — refined, premium (Libre Baskerville + Source Sans 3)',
+    '',
+    'Color palettes:',
+    '  warm       — hsl(24 75% 48%) + hsl(38 92% 55%)',
+    '  cool       — hsl(215 85% 54%) + hsl(190 80% 45%)',
+    '  rose       — hsl(346 77% 50%) + hsl(346 80% 92%)',
+    '  forest     — hsl(155 60% 35%) + hsl(45 85% 55%)',
+    '  slate      — hsl(215 20% 35%) + hsl(215 85% 54%)',
+    '  amber      — hsl(35 92% 50%) + hsl(24 85% 45%)',
+    '  violet     — hsl(270 70% 55%) + hsl(280 80% 90%)',
   ].join('\n');
 }
