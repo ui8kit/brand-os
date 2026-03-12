@@ -1,6 +1,7 @@
 import { existsSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { BrandOsCopiedAsset, BrandOsResolvedPaths, BrandOsSchema, ParserFixture, ParserFixtureSource, PromptPack, PromptPackSurface } from './types.js';
+import { ParserContract } from '../ast-parser/types.js';
 import { copyPath, ensureDir, fail, formatBulletList, resolveRelativeToSchemaDir, toTitleCase, writeTextFile } from './utils.js';
 
 function buildPromptMarkdown(
@@ -285,7 +286,7 @@ export function emitBrandOsArtifacts(
   paths: BrandOsResolvedPaths,
   schema: BrandOsSchema,
   promptPack: PromptPack,
-  parserContract: Record<string, unknown>,
+  parserContract: ParserContract,
   fixtureSource: ParserFixtureSource,
 ): { promptCount: number; fixtureCount: number; copiedAssetCount: number } {
   ensureDir(paths.emitDir);

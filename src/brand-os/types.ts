@@ -40,6 +40,7 @@ export interface BrandOsSchema {
     name: string;
     description?: string;
     slug?: string;
+    sourceReference?: { project?: string };
   };
   emit?: BrandOsEmitConfig;
   brandThesis?: {

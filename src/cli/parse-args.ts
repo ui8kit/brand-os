@@ -16,6 +16,7 @@ export interface BrandOsCliArgs {
   parserContract?: string;
   fixtures?: string;
   emitDir?: string;
+  bootstrap: boolean;
   verbose: boolean;
 }
 
@@ -29,7 +30,17 @@ export interface AstParserCliArgs {
   verbose: boolean;
 }
 
-export type CliArgs = ScaffoldCliArgs | BrandOsCliArgs | AstParserCliArgs;
+export interface InitCliArgs {
+  mode: 'init';
+  help: boolean;
+  name?: string;
+  description?: string;
+  surfaces?: string[];
+  out?: string;
+  json: boolean;
+}
+
+export type CliArgs = ScaffoldCliArgs | BrandOsCliArgs | AstParserCliArgs | InitCliArgs;
 
 export const VALID_TEMPLATES: readonly CliTemplateName[] = ['react', 'react-resta'];
 export const DEFAULT_TEMPLATE: CliTemplateName = 'react';
@@ -42,7 +53,7 @@ function fail(message: string): never {
 export function parseArgs(argv: string[]): CliArgs {
   const parsed: {
     help: boolean;
-    mode: 'scaffold' | 'brand-os' | 'ast-parser';
+    mode: 'scaffold' | 'brand-os' | 'ast-parser' | 'init';
     verbose: boolean;
     astInput?: string;
     astOutput?: string;
@@ -53,11 +64,17 @@ export function parseArgs(argv: string[]): CliArgs {
     parserContract?: string;
     fixtures?: string;
     emitDir?: string;
+    bootstrap: boolean;
     target?: string;
     template: CliTemplateName;
     immediate: boolean;
     templateSpecified: boolean;
     immediateSpecified: boolean;
+    initName?: string;
+    initDescription?: string;
+    initSurfaces?: string[];
+    initOut?: string;
+    initJson: boolean;
   } = {
     help: false,
     mode: 'scaffold',
@@ -65,8 +82,10 @@ export function parseArgs(argv: string[]): CliArgs {
     astSuites: [],
     template: DEFAULT_TEMPLATE as CliTemplateName,
     immediate: false,
+    bootstrap: false,
     templateSpecified: false,
     immediateSpecified: false,
+    initJson: false,
   };
 
   const positional: string[] = [];
@@ -76,6 +95,56 @@ export function parseArgs(argv: string[]): CliArgs {
 
     if (arg === '--help' || arg === '-h') {
       parsed.help = true;
+      continue;
+    }
+
+    if (arg === 'init') {
+      parsed.mode = 'init';
+      continue;
+    }
+
+    if (arg === '--name') {
+      const value = argv[i + 1];
+      if (!value || value.startsWith('-')) {
+        fail('--name requires a brand name.');
+      }
+      parsed.initName = value;
+      i += 1;
+      continue;
+    }
+
+    if (arg === '--description') {
+      const value = argv[i + 1];
+      if (!value || value.startsWith('-')) {
+        fail('--description requires a text value.');
+      }
+      parsed.initDescription = value;
+      i += 1;
+      continue;
+    }
+
+    if (arg === '--surfaces') {
+      const value = argv[i + 1];
+      if (!value || value.startsWith('-')) {
+        fail('--surfaces requires a comma-separated list.');
+      }
+      parsed.initSurfaces = value.split(',').map((s) => s.trim()).filter(Boolean);
+      i += 1;
+      continue;
+    }
+
+    if (arg === '--out') {
+      const value = argv[i + 1];
+      if (!value || value.startsWith('-')) {
+        fail('--out requires a file path.');
+      }
+      parsed.initOut = value;
+      i += 1;
+      continue;
+    }
+
+    if (arg === '--json') {
+      parsed.initJson = true;
       continue;
     }
 
@@ -164,6 +233,11 @@ export function parseArgs(argv: string[]): CliArgs {
       continue;
     }
 
+    if (arg === '--bootstrap') {
+      parsed.bootstrap = true;
+      continue;
+    }
+
     if (arg === '--emit-dir') {
       const value = argv[i + 1];
       if (!value || value.startsWith('-')) {
@@ -207,6 +281,18 @@ export function parseArgs(argv: string[]): CliArgs {
   }
 
   if (parsed.help) {
+    if (parsed.mode === 'init') {
+      return {
+        mode: 'init',
+        help: true,
+        name: parsed.initName,
+        description: parsed.initDescription,
+        surfaces: parsed.initSurfaces,
+        out: parsed.initOut,
+        json: parsed.initJson,
+      };
+    }
+
     if (parsed.mode === 'ast-parser') {
       return {
         mode: 'ast-parser',
@@ -228,6 +314,7 @@ export function parseArgs(argv: string[]): CliArgs {
         parserContract: parsed.parserContract,
         fixtures: parsed.fixtures,
         emitDir: parsed.emitDir,
+        bootstrap: parsed.bootstrap,
         verbose: parsed.verbose,
       };
     }
@@ -277,6 +364,22 @@ export function parseArgs(argv: string[]): CliArgs {
     };
   }
 
+  if (parsed.mode === 'init') {
+    if (parsed.templateSpecified || parsed.immediateSpecified) {
+      fail('Scaffold-only flags --template and --immediate are not allowed in init mode.');
+    }
+
+    return {
+      mode: 'init',
+      help: false,
+      name: parsed.initName,
+      description: parsed.initDescription,
+      surfaces: parsed.initSurfaces,
+      out: parsed.initOut,
+      json: parsed.initJson,
+    };
+  }
+
   if (parsed.mode === 'brand-os') {
     if (parsed.templateSpecified || parsed.immediateSpecified) {
       fail('Scaffold-only flags --template and --immediate are not allowed in brand OS mode.');
@@ -298,6 +401,7 @@ export function parseArgs(argv: string[]): CliArgs {
       parserContract: parsed.parserContract,
       fixtures: parsed.fixtures,
       emitDir: parsed.emitDir,
+      bootstrap: parsed.bootstrap,
       verbose: parsed.verbose,
     };
   }

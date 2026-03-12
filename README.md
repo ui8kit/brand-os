@@ -61,6 +61,7 @@ Use this when you want to generate prompt files, parser fixtures, parser-contrac
 ```bash
 npx brand-os --schema "./.project/Tech Brand OS/tech-brand-os.schema.json"
 npx brand-os --schema "./.project/RestA Brand OS/resta-brand-os.schema.json" --emit-dir "./generated/resta"
+npx brand-os --schema "./.project/Tech Brand OS/tech-brand-os.schema.json" --bootstrap
 ```
 
 Main options:
@@ -70,6 +71,7 @@ Main options:
 - `--parser-contract <path>` — override parser contract JSON path
 - `--fixtures <path>` — override parser fixture source JSON path
 - `--emit-dir <path>` — output directory for generated assets
+- `--bootstrap` — create missing companion files from generated defaults
 - `--verbose`
 
 ## 3) AST parser mode

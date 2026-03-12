@@ -12,8 +12,10 @@ export interface ParserContractClassBucket {
 }
 
 export interface ParserContract {
+  schemaVersion?: string;
   id?: string;
   brandId?: string;
+  description?: string;
   stateVariantPolicy?: {
     breakpointPrefixes?: string[];
     interactionPrefixes?: string[];

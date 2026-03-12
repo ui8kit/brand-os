@@ -9,6 +9,7 @@
 import { CliArgs, parseArgs } from './cli/parse-args.js';
 import { printAstParserUsage, runAstParser } from './commands/ast-parser.js';
 import { printBrandOsUsage, runBrandOs } from './commands/brand-os.js';
+import { printInitUsage, runInit } from './commands/init.js';
 import { printScaffoldUsage, runScaffold } from './commands/scaffold.js';
 
 function fail(message: string, code = 2): never {
@@ -17,6 +18,8 @@ function fail(message: string, code = 2): never {
 }
 
 function printUsage(): void {
+  console.log(printInitUsage());
+  console.log('');
   console.log(printScaffoldUsage());
   console.log('');
   console.log(printAstParserUsage());
@@ -40,6 +43,12 @@ async function main(): Promise<void> {
   }
 
   try {
+    if (args.mode === 'init') {
+      await runInit(args);
+      process.exit(0);
+      return;
+    }
+
     if (args.mode === 'ast-parser') {
       const exitCode = await runAstParser(args);
       process.exit(exitCode);
