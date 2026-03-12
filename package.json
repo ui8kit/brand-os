@@ -1,6 +1,6 @@
 {
   "name": "brand-os",
-  "version": "0.1.5",
+  "version": "0.2.1",
   "description": "CLI for brand operating systems, template scaffolding, Brand OS asset emit, and AST parsing",
   "author": "UI8Kit",
   "license": "MIT",
