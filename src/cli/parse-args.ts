@@ -1,4 +1,4 @@
-export type CliTemplateName = 'react' | 'react-resta';
+export type CliTemplateName = 'react' | 'react-resta' | 'tech-blog';
 
 export interface ScaffoldCliArgs {
   mode: 'scaffold';
@@ -44,7 +44,7 @@ export interface InitCliArgs {
 
 export type CliArgs = ScaffoldCliArgs | BrandOsCliArgs | AstParserCliArgs | InitCliArgs;
 
-export const VALID_TEMPLATES: readonly CliTemplateName[] = ['react', 'react-resta'];
+export const VALID_TEMPLATES: readonly CliTemplateName[] = ['react', 'react-resta', 'tech-blog'];
 export const DEFAULT_TEMPLATE: CliTemplateName = 'react';
 
 function fail(message: string): never {

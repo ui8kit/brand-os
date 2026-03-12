@@ -13,8 +13,12 @@
       "@/layouts": ["./src/layouts"],
       "@/blocks/*": ["./src/blocks/*"],
       "@/blocks": ["./src/blocks"],
+      "@/data/*": ["./src/data/*"],
+      "@/data": ["./src/data"],
       "@/lib/*": ["./src/lib/*"],
       "@/lib": ["./src/lib"],
+      "@/partials/*": ["./src/partials/*"],
+      "@/partials": ["./src/partials"],
       "@/variants/*": ["./src/variants/*"],
       "@/variants": ["./src/variants"]
     },
@@ -32,5 +36,5 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["vite/client"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "fixtures/**/*.ts"]
 }

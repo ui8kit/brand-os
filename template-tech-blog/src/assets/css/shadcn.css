@@ -15,6 +15,8 @@
   --color-muted-foreground: hsl(var(--muted-foreground));
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-soft: hsl(var(--accent-soft));
+  --color-accent-soft-foreground: hsl(var(--accent-soft-foreground));
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
   --color-success: hsl(var(--success));
@@ -26,20 +28,29 @@
   --color-promo: hsl(var(--promo));
   --color-promo-foreground: hsl(var(--promo-foreground));
   --color-border: hsl(var(--border));
+  --color-border-subtle: hsl(var(--border-subtle));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   --color-surface-elevated: hsl(var(--surface-elevated));
   --color-surface-subtle: hsl(var(--surface-subtle));
   --color-surface-strong: hsl(var(--surface-strong));
-  --color-cream: hsl(var(--cream));
-  --color-cream-foreground: hsl(var(--cream-foreground));
+  --color-paper-warm: hsl(var(--paper-warm));
+  --color-paper-warm-foreground: hsl(var(--paper-warm-foreground));
+  --color-neutral-ink: hsl(var(--neutral-ink));
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
   --color-category-1: hsl(var(--category-1));
   --color-category-2: hsl(var(--category-2));
   --color-category-3: hsl(var(--category-3));
   --color-category-4: hsl(var(--category-4));
   --color-category-5: hsl(var(--category-5));
   --color-category-6: hsl(var(--category-6));
-  --color-category-7: hsl(var(--category-7));
   --color-chart-1: hsl(var(--chart-1));
   --color-chart-2: hsl(var(--chart-2));
   --color-chart-3: hsl(var(--chart-3));
@@ -58,11 +69,10 @@
   --radius-xl: var(--radius-xl);
   --radius-xs: var(--radius-xs);
   --radius-media: var(--radius-media);
-  --radius-shell: var(--radius-shell);
   --radius-pill: var(--radius-pill);
 
   --shadow-none: var(--shadow-none);
-  --shadow-soft: var(--shadow-soft-token);
+  --shadow-soft: var(--shadow-soft);
   --shadow-elevated: var(--shadow-elevated);
   --shadow-floating: var(--shadow-floating);
 }

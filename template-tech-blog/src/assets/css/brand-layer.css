@@ -1,0 +1,134 @@
+[data-class="site-header-shell"] {
+  background-color: hsl(var(--background) / 0.94);
+  border-bottom: 1px solid hsl(var(--border-subtle));
+  backdrop-filter: blur(18px);
+}
+
+[data-class="site-header-link"],
+[data-class="site-footer-link"],
+[data-class="site-footer-legal-link"] {
+  color: hsl(var(--muted-foreground));
+  height: auto;
+  justify-content: flex-start;
+  padding: 0;
+  text-decoration: none;
+  transition:
+    color 240ms cubic-bezier(0.4, 0, 0.2, 1),
+    text-decoration-color 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-class="site-header-link"]:hover,
+[data-class="site-footer-link"]:hover,
+[data-class="site-footer-legal-link"]:hover {
+  color: hsl(var(--primary));
+}
+
+[data-class="site-header-keyword"] {
+  background-color: hsl(var(--surface-subtle));
+}
+
+[data-class="site-hero-visual-card"],
+[data-class="site-featured-article-card"],
+[data-class="site-book-card"],
+[data-class="site-project-card"],
+[data-class="site-media-highlight-card"],
+[data-class="site-about-portrait-card"],
+[data-class="site-about-principles-card"],
+[data-class="site-about-timeline-card"],
+[data-class="site-newsletter-card"] {
+  box-shadow: var(--shadow-soft);
+}
+
+[data-class="site-hero-highlight-card"],
+[data-class="site-positioning-card"],
+[data-class="site-proof-metric-card"],
+[data-class="site-pillar-card"],
+[data-class="site-platform-card"] {
+  background-color: hsl(var(--surface-elevated));
+}
+
+[data-class="site-proof-metric-value"] {
+  font-family: var(--font-mono);
+  letter-spacing: -0.12px;
+}
+
+[data-class="site-book-card-badge"],
+[data-class="site-book-card-tag"] {
+  background-color: hsl(var(--accent-soft));
+  color: hsl(var(--accent-soft-foreground));
+}
+
+[data-class="site-newsletter-card"] {
+  background: linear-gradient(
+    180deg,
+    hsl(var(--surface-elevated)) 0%,
+    hsl(var(--paper-warm)) 100%
+  );
+}
+
+[data-class="site-newsletter-benefit"],
+[data-class="site-positioning-text"],
+[data-class="site-article-card-excerpt"],
+[data-class="site-project-card-summary"],
+[data-class="site-media-highlight-summary"],
+[data-class="site-about-summary"],
+[data-class="site-about-principle"],
+[data-class="site-about-timeline-item-detail"] {
+  color: hsl(var(--neutral-ink));
+}
+
+[data-class="site-book-card-image"],
+[data-class="site-project-card-image"],
+[data-class="site-media-highlight-image"],
+[data-class="site-article-card-image"],
+[data-class="site-hero-image"],
+[data-class="site-about-portrait-image"] {
+  border: 1px solid hsl(var(--border-subtle));
+  background-color: hsl(var(--surface-subtle));
+}
+
+[data-class="site-about-timeline-item"] {
+  border-top: 1px solid hsl(var(--border-subtle));
+  padding-top: 1rem;
+}
+
+[data-class="site-about-timeline-item"]:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+[data-class="site-footer-shell"] {
+  background-color: hsl(var(--surface-elevated));
+  border-top-color: hsl(var(--border-subtle));
+}
+
+[data-class="site-footer-legal"] {
+  gap: 1.5rem;
+  white-space: nowrap;
+}
+
+[data-class="site-theme-toggle"] {
+  white-space: nowrap;
+}
+
+.dark [data-class="site-header-shell"] {
+  background-color: hsl(var(--background) / 0.92);
+}
+
+.dark [data-class="site-newsletter-card"] {
+  background: linear-gradient(
+    180deg,
+    hsl(var(--surface-elevated)) 0%,
+    hsl(var(--accent-soft)) 100%
+  );
+}
+
+.dark [data-class="site-positioning-text"],
+.dark [data-class="site-article-card-excerpt"],
+.dark [data-class="site-project-card-summary"],
+.dark [data-class="site-media-highlight-summary"],
+.dark [data-class="site-about-summary"],
+.dark [data-class="site-about-principle"],
+.dark [data-class="site-about-timeline-item-detail"] {
+  color: hsl(var(--foreground));
+}

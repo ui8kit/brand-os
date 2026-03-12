@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @import "./shadcn.css";
+@import "./brand-layer.css";
 
 @source "./ui8kit.map.json";
 

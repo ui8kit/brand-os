@@ -1,0 +1,9 @@
+export { AboutNarrativeBlock } from "./AboutNarrativeBlock";
+export { ArticleShowcaseBlock } from "./ArticleShowcaseBlock";
+export { BooksShelfBlock } from "./BooksShelfBlock";
+export { HeroBlock } from "./HeroBlock";
+export { JohnDoePageView } from "./JohnDoePageView";
+export { MediaPresenceBlock } from "./MediaPresenceBlock";
+export { NewsletterBlock } from "./NewsletterBlock";
+export { ProjectsDirectoryBlock } from "./ProjectsDirectoryBlock";
+export { ProofSectionBlock } from "./ProofSectionBlock";

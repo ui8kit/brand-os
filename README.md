@@ -42,7 +42,7 @@ npx brand-os [OPTION]... [DIRECTORY]
 
 ### Scaffolding options
 
-- `-t, --template <name>` — template name (`react` or `react-resta`), default `react`
+- `-t, --template <name>` — template name (`react`, `react-resta`, or `tech-blog`), default `react`
 - `-i, --immediate` — install dependencies and run dev server after creation
 - `-h, --help` — show help
 
@@ -51,6 +51,7 @@ npx brand-os [OPTION]... [DIRECTORY]
 ```bash
 npx brand-os my-app
 npx brand-os my-app --template react-resta
+npx brand-os my-app --template tech-blog
 npx brand-os my-app --template react-resta --immediate
 ```
 
