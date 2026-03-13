@@ -1,6 +1,6 @@
-# brand-os
+# Brand OS
 
-`brand-os` is a Node/Bun CLI for three workflows:
+`npx brand-os` is a Node/Bun CLI for three workflows:
 
 - scaffold UI8Kit-ready Vite + React projects
 - emit generated assets from a Brand OS schema
