@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "mkulgin-brand-os-parser-contract",
+  "brandId": "mkulgin-brand-os",
+  "description": "Auto-generated minimal parser contract for MKulgin Brand OS.",
+  "stateVariantPolicy": {
+    "breakpointPrefixes": [
+      "sm",
+      "md",
+      "lg",
+      "xl",
+      "2xl"
+    ],
+    "interactionPrefixes": [
+      "hover",
+      "focus",
+      "focus-visible",
+      "active",
+      "disabled",
+      "dark"
+    ],
+    "rule": "Strip state and breakpoint prefixes before base class classification."
+  },
+  "classes": {
+    "structural": {
+      "prefixes": [
+        "container",
+        "block",
+        "inline",
+        "flex",
+        "grid",
+        "gap-",
+        "space-",
+        "justify-",
+        "items-",
+        "self-",
+        "w-",
+        "h-",
+        "min-",
+        "max-",
+        "p-",
+        "px-",
+        "py-",
+        "pt-",
+        "pr-",
+        "pb-",
+        "pl-",
+        "m-",
+        "mx-",
+        "my-",
+        "mt-",
+        "mr-",
+        "mb-",
+        "ml-",
+        "top-",
+        "right-",
+        "bottom-",
+        "left-",
+        "inset-",
+        "overflow-",
+        "relative",
+        "absolute",
+        "fixed",
+        "sticky"
+      ],
+      "exactUtilities": [
+        "mx-auto",
+        "w-full",
+        "h-full",
+        "min-h-screen"
+      ],
+      "customUtilities": [
+        "container"
+      ]
+    },
+    "semantic": {
+      "prefixes": [
+        "bg-",
+        "text-",
+        "rounded-",
+        "border-",
+        "shadow-",
+        "ring-",
+        "font-",
+        "tracking-",
+        "leading-",
+        "transition"
+      ],
+      "exactUtilities": [
+        "bg-background",
+        "bg-foreground",
+        "text-background",
+        "text-foreground",
+        "bg-white",
+        "text-white",
+        "rounded-full",
+        "rounded-md",
+        "shadow-sm",
+        "shadow",
+        "font-medium",
+        "font-semibold",
+        "font-bold"
+      ],
+      "customUtilities": []
+    },
+    "decorative": {
+      "prefixes": [
+        "bg-gradient-",
+        "from-",
+        "via-",
+        "to-",
+        "opacity-",
+        "blur",
+        "backdrop-",
+        "drop-shadow",
+        "hover:",
+        "group-hover:"
+      ],
+      "exactUtilities": [
+        "transform",
+        "backdrop-blur-sm",
+        "shadow-lg"
+      ]
+    }
+  },
+  "brandExceptions": {
+    "structuralCustomUtilities": {},
+    "semanticCustomUtilities": {}
+  }
+}

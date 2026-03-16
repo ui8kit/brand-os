@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Maksim Kulgin — IT entrepreneur from Saint Petersburg. Systems, data infrastructure, click fraud defense. 30+ years in IT, 3 engineering books, bootstrapped SaaS products.">
+  <meta property="og:title" content="Maksim Kulgin — Systems. Data. Defense.">
+  <meta property="og:description" content="Engineer, entrepreneur, author. Building real internet products without hype since the 1990s.">
+  <meta property="og:type" content="website">
+  <title>Maksim Kulgin — Systems. Data. Defense.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNiZTg3NjAiIHN0cm9rZS13aWR0aD0iMi4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1oZWFydC1oYW5kc2hha2UtaWNvbiBsdWNpZGUtaGVhcnQtaGFuZHNoYWtlIj48cGF0aCBkPSJNMTkuNDE0IDE0LjQxNEMyMSAxMi44MjggMjIgMTEuNSAyMiA5LjVhNS41IDUuNSAwIDAgMC05LjU5MS0zLjY3Ni42LjYgMCAwIDEtLjgxOC4wMDFBNS41IDUuNSAwIDAgMCAyIDkuNWMwIDIuMyAxLjUgNCAzIDUuNWw1LjUzNSA1LjM2MmEyIDIgMCAwIDAgMi44NzkuMDUyIDIuMTIgMi4xMiAwIDAgMC0uMDA0LTMgMi4xMjQgMi4xMjQgMCAxIDAgMy0zIDIuMTI0IDIuMTI0IDAgMCAwIDMuMDA0IDAgMiAyIDAgMCAwIDAtMi44MjhsLTEuODgxLTEuODgyYTIuNDEgMi40MSAwIDAgMC0zLjQwOSAwbC0xLjcxIDEuNzFhMiAyIDAgMCAxLTIuODI4IDAgMiAyIDAgMCAxIDAtMi44MjhsMi44MjMtMi43NjIiLz48L3N2Zz4=" type="image/svg+xml">
+  <style>
+    /* Lang toggle */
+    .mk-lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid hsl(var(--border));
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      height: 2rem;
+      flex-shrink: 0;
+    }
+    .mk-lang-btn {
+      padding: 0 0.625rem;
+      height: 100%;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: hsl(var(--muted-foreground));
+      transition: all 150ms ease;
+      line-height: 1;
+    }
+    .mk-lang-btn.active {
+      background: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+    }
+    .mk-lang-btn:hover:not(.active) {
+      background: hsl(var(--secondary));
+      color: hsl(var(--foreground));
+    }
+    /* Portrait image */
+    .mk-portrait-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border-radius: var(--radius-media);
+      filter: grayscale(15%) contrast(1.02);
+      transition: filter 400ms ease;
+    }
+    .dark .mk-portrait-img {
+      filter: grayscale(35%) contrast(0.95) brightness(0.9);
+    }
+    .mk-portrait-img:hover {
+      filter: grayscale(0%) contrast(1.04);
+    }
+    .dark .mk-portrait-img:hover {
+      filter: grayscale(10%) contrast(1.0) brightness(0.95);
+    }
+    /* Amber accent line on portrait */
+    .mk-portrait-wrap {
+      position: relative;
+    }
+    .mk-portrait-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 1rem;
+      right: 1rem;
+      height: 3px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(to right, hsl(var(--accent)), transparent);
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     Navigation
+     ============================================================ -->
+<header class="mk-nav" role="banner">
+  <div class="mk-shell">
+    <nav class="mk-nav-inner" aria-label="Main navigation">
+      <a href="/" class="mk-logo" aria-label="Maksim Kulgin — Home">
+        <span class="mk-logo-dot" aria-hidden="true"></span>
+        <span data-i18n="name">Maksim Kulgin</span>
+      </a>
+      <ul class="mk-nav-links" role="list">
+        <li><a href="/" class="mk-nav-link active" aria-current="page" data-i18n="nav.home">Home</a></li>
+        <li><a href="/blog/" class="mk-nav-link" data-i18n="nav.blog">Journal</a></li>
+        <li><a href="/projects/" class="mk-nav-link" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="/about/" class="mk-nav-link" data-i18n="nav.about">About</a></li>
+        <li><a href="/contact/" class="mk-nav-link" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <!-- Lang toggle -->
+        <div class="mk-lang-toggle" role="group" aria-label="Language">
+          <button class="mk-lang-btn active" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
+          <button class="mk-lang-btn" id="lang-ru" data-lang="ru" aria-pressed="false">RU</button>
+        </div>
+        <!-- Dark mode toggle -->
+        <button class="mk-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="mk-icon" id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <svg class="mk-icon" id="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <!-- Mobile menu btn -->
+        <button class="mk-mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+    <!-- Mobile nav -->
+    <nav id="mobile-nav" class="mk-mobile-nav" aria-label="Mobile navigation">
+      <a href="/" class="mk-mobile-nav-link" data-i18n="nav.home">Home</a>
+      <a href="/blog/" class="mk-mobile-nav-link" data-i18n="nav.blog">Journal</a>
+      <a href="/projects/" class="mk-mobile-nav-link" data-i18n="nav.projects">Projects</a>
+      <a href="/about/" class="mk-mobile-nav-link" data-i18n="nav.about">About</a>
+      <a href="/contact/" class="mk-mobile-nav-link" data-i18n="nav.contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <!-- ============================================================
+       Hero
+       ============================================================ -->
+  <section class="mk-section-lg mk-hero-bg" aria-labelledby="hero-title">
+    <div class="mk-shell">
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:4rem;align-items:center;">
+        <div>
+          <p class="mk-eyebrow" style="margin-bottom:1.25rem;" data-i18n="hero.eyebrow">IT Entrepreneur · Saint Petersburg</p>
+          <h1 id="hero-title" style="font-size:clamp(2.25rem,5vw,3.5rem);font-weight:700;margin:0 0 0.75rem;line-height:1.05;" data-i18n="hero.title">Maksim Kulgin</h1>
+          <p style="font-family:var(--font-display);font-size:1.375rem;font-weight:400;color:hsl(var(--muted-foreground));margin:0 0 1.5rem;font-style:italic;" data-i18n="hero.subtitle">Systems. Data. Defense.</p>
+          <p style="font-size:1.0625rem;color:hsl(var(--muted-foreground));line-height:1.7;max-width:560px;margin:0 0 2rem;" data-i18n="hero.description">
+            Over 30 years in IT — from network engineering and e-commerce to a portfolio of bootstrapped SaaS products. Author of three engineering books on network infrastructure. Building real technology products without hype.
+          </p>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="/blog/" class="mk-btn mk-btn-primary" data-i18n="hero.cta_primary">Read the Journal</a>
+            <a href="/projects/" class="mk-btn mk-btn-outline" data-i18n="hero.cta_secondary">Projects &amp; Cases</a>
+          </div>
+        </div>
+        <!-- Portrait — real photo -->
+        <div class="mk-portrait-wrap">
+          <div class="mk-portrait" style="height:360px;width:300px;" aria-label="Maksim Kulgin portrait">
+            <img
+              src="/static/img/mkulgin.png"
+              alt="Maksim Kulgin"
+              width="300"
+              height="360"
+              loading="eager"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Path Timeline
+       ============================================================ -->
+  <section class="mk-section" style="background-color:hsl(var(--surface-subtle));" aria-labelledby="path-title">
+    <div class="mk-shell">
+      <p class="mk-eyebrow" style="margin-bottom:1rem;" data-i18n="path.eyebrow">Career Path</p>
+      <h2 id="path-title" style="font-size:1.75rem;font-weight:700;margin:0 0 2.5rem;" data-i18n="path.title">From Networks to Ecosystem</h2>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;position:relative;">
+        <div style="position:absolute;top:1.25rem;left:10%;right:10%;height:1px;background:linear-gradient(to right,hsl(var(--accent)),hsl(var(--primary)),hsl(var(--accent)));opacity:0.35;pointer-events:none;" aria-hidden="true"></div>
+        <!-- Step 1 -->
+        <div style="text-align:center;position:relative;">
+          <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:hsl(var(--primary));border:3px solid hsl(var(--background));margin:0 auto 0.875rem;display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6" y2="6"/><line x1="6" y1="18" x2="6" y2="18"/></svg>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:0.6875rem;color:hsl(var(--accent));font-weight:700;letter-spacing:0.06em;margin:0 0 0.25rem;" data-i18n="path.steps.0.year">1990s</p>
+          <p style="font-weight:700;font-size:0.875rem;font-family:var(--font-display);margin:0 0 0.25rem;color:hsl(var(--foreground));" data-i18n="path.steps.0.label">Network Engineer</p>
+          <p style="font-size:0.8rem;color:hsl(var(--muted-foreground));line-height:1.4;margin:0;" data-i18n="path.steps.0.note">IP/IPX protocols, sysadmin</p>
+        </div>
+        <!-- Step 2 -->
+        <div style="text-align:center;position:relative;">
+          <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:hsl(var(--accent));border:3px solid hsl(var(--background));margin:0 auto 0.875rem;display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:0.6875rem;color:hsl(var(--accent));font-weight:700;letter-spacing:0.06em;margin:0 0 0.25rem;" data-i18n="path.steps.1.year">1998–2003</p>
+          <p style="font-weight:700;font-size:0.875rem;font-family:var(--font-display);margin:0 0 0.25rem;color:hsl(var(--foreground));" data-i18n="path.steps.1.label">Author</p>
+          <p style="font-size:0.8rem;color:hsl(var(--muted-foreground));line-height:1.4;margin:0;" data-i18n="path.steps.1.note">3 engineering books published</p>
+        </div>
+        <!-- Step 3 -->
+        <div style="text-align:center;position:relative;">
+          <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:hsl(var(--primary));border:3px solid hsl(var(--background));margin:0 auto 0.875rem;display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:0.6875rem;color:hsl(var(--accent));font-weight:700;letter-spacing:0.06em;margin:0 0 0.25rem;" data-i18n="path.steps.2.year">2000s</p>
+          <p style="font-weight:700;font-size:0.875rem;font-family:var(--font-display);margin:0 0 0.25rem;color:hsl(var(--foreground));" data-i18n="path.steps.2.label">E-commerce</p>
+          <p style="font-size:0.8rem;color:hsl(var(--muted-foreground));line-height:1.4;margin:0;" data-i18n="path.steps.2.note">Large online retail operations</p>
+        </div>
+        <!-- Step 4 -->
+        <div style="text-align:center;position:relative;">
+          <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:hsl(var(--accent));border:3px solid hsl(var(--background));margin:0 auto 0.875rem;display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:0.6875rem;color:hsl(var(--accent));font-weight:700;letter-spacing:0.06em;margin:0 0 0.25rem;" data-i18n="path.steps.3.year">2010s</p>
+          <p style="font-weight:700;font-size:0.875rem;font-family:var(--font-display);margin:0 0 0.25rem;color:hsl(var(--foreground));" data-i18n="path.steps.3.label">SaaS Founder</p>
+          <p style="font-size:0.8rem;color:hsl(var(--muted-foreground));line-height:1.4;margin:0;" data-i18n="path.steps.3.note">clickfraud, xmldatafeed, offlinecrm</p>
+        </div>
+        <!-- Step 5 -->
+        <div style="text-align:center;position:relative;">
+          <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:hsl(var(--primary));border:3px solid hsl(var(--background));margin:0 auto 0.875rem;display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:0.6875rem;color:hsl(var(--accent));font-weight:700;letter-spacing:0.06em;margin:0 0 0.25rem;" data-i18n="path.steps.4.year">2020s</p>
+          <p style="font-weight:700;font-size:0.875rem;font-family:var(--font-display);margin:0 0 0.25rem;color:hsl(var(--foreground));" data-i18n="path.steps.4.label">Ecosystem</p>
+          <p style="font-size:0.8rem;color:hsl(var(--muted-foreground));line-height:1.4;margin:0;" data-i18n="path.steps.4.note">40M+ RUB/year, grants, community</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Proof Metrics
+       ============================================================ -->
+  <section class="mk-section" aria-label="Key metrics">
+    <div class="mk-shell">
+      <div class="mk-grid-4">
+        <div class="mk-metric" style="padding:1.5rem;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:var(--radius-xl);">
+          <p class="mk-metric-value" data-i18n="metrics.0.value">30+</p>
+          <p class="mk-metric-label" data-i18n="metrics.0.label">Years in IT</p>
+        </div>
+        <div class="mk-metric" style="padding:1.5rem;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:var(--radius-xl);">
+          <p class="mk-metric-value" data-i18n="metrics.1.value">3</p>
+          <p class="mk-metric-label" data-i18n="metrics.1.label">Engineering books</p>
+        </div>
+        <div class="mk-metric" style="padding:1.5rem;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:var(--radius-xl);">
+          <p class="mk-metric-value" data-i18n="metrics.2.value">40M+</p>
+          <p class="mk-metric-label" style="font-size:0.75rem;" data-i18n="metrics.2.label">RUB revenue / year</p>
+        </div>
+        <div class="mk-metric" style="padding:1.5rem;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:var(--radius-xl);">
+          <p class="mk-metric-value" data-i18n="metrics.3.value">5</p>
+          <p class="mk-metric-label" data-i18n="metrics.3.label">Active products</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Content Pillars
+       ============================================================ -->
+  <section class="mk-section" style="background-color:hsl(var(--paper-warm));" aria-labelledby="pillars-title">
+    <div class="mk-shell">
+      <div style="margin-bottom:2.5rem;">
+        <p class="mk-eyebrow" style="margin-bottom:0.75rem;" data-i18n="pillars.eyebrow">Areas of Practice</p>
+        <h2 id="pillars-title" style="font-size:1.75rem;font-weight:700;margin:0;" data-i18n="pillars.title">What This Journal Covers</h2>
+      </div>
+      <div class="mk-grid-4">
+        <div class="mk-card">
+          <div style="width:2.5rem;height:2.5rem;border-radius:var(--radius-md);background:hsl(var(--primary)/0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;margin:0 0 0.5rem;font-family:var(--font-display);" data-i18n="pillars.items.0.title">Data &amp; Parsing</h3>
+          <p style="font-size:0.875rem;color:hsl(var(--muted-foreground));line-height:1.6;margin:0;" data-i18n="pillars.items.0.desc">Web scraping, price monitoring, data feeds — built at scale for real B2B clients.</p>
+        </div>
+        <div class="mk-card">
+          <div style="width:2.5rem;height:2.5rem;border-radius:var(--radius-md);background:hsl(var(--accent)/0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--accent))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;margin:0 0 0.5rem;font-family:var(--font-display);" data-i18n="pillars.items.1.title">Traffic Defense</h3>
+          <p style="font-size:0.875rem;color:hsl(var(--muted-foreground));line-height:1.6;margin:0;" data-i18n="pillars.items.1.desc">Click fraud protection and anti-bot systems that protect advertising budgets.</p>
+        </div>
+        <div class="mk-card">
+          <div style="width:2.5rem;height:2.5rem;border-radius:var(--radius-md);background:hsl(var(--primary)/0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;margin:0 0 0.5rem;font-family:var(--font-display);" data-i18n="pillars.items.2.title">Internet Systems</h3>
+          <p style="font-size:0.875rem;color:hsl(var(--muted-foreground));line-height:1.6;margin:0;" data-i18n="pillars.items.2.desc">Infrastructure thinking applied to modern products — from IP/IPX to distributed data pipelines.</p>
+        </div>
+        <div class="mk-card">
+          <div style="width:2.5rem;height:2.5rem;border-radius:var(--radius-md);background:hsl(var(--accent)/0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--accent))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;margin:0 0 0.5rem;font-family:var(--font-display);" data-i18n="pillars.items.3.title">Bootstrapped Growth</h3>
+          <p style="font-size:0.875rem;color:hsl(var(--muted-foreground));line-height:1.6;margin:0;" data-i18n="pillars.items.3.desc">From 0 to 40M+ revenue per year without venture capital. Real numbers, real mistakes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Latest Journal Posts
+       ============================================================ -->
+  <section class="mk-section" aria-labelledby="journal-title">
+    <div class="mk-shell">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <p class="mk-eyebrow" style="margin-bottom:0.5rem;" data-i18n="journal.eyebrow">Journal</p>
+          <h2 id="journal-title" style="font-size:1.75rem;font-weight:700;margin:0;" data-i18n="journal.title">Recent Posts</h2>
+        </div>
+        <a href="/blog/" class="mk-btn mk-btn-ghost" style="font-size:0.875rem;" data-i18n="journal.all_link">All posts →</a>
+      </div>
+      <div>
+        <a href="#" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;">
+          <div class="mk-post-meta">
+            <span class="mk-tag mk-tag-primary" data-i18n="journal.posts.0.tag">Data</span>
+            <span class="mk-post-date" data-i18n="journal.posts.0.date">Aug 14, 2023</span>
+            <span class="mk-post-read" data-i18n="journal.posts.0.read">12 min read</span>
+          </div>
+          <h3 class="mk-post-title" data-i18n="journal.posts.0.title">20M Rubles a Year on Web Scraping</h3>
+          <p class="mk-post-excerpt" data-i18n="journal.posts.0.excerpt">How an engineering team turned a parsing infrastructure into a sustainable B2B business collecting only public data. Real revenue breakdown and legal framework.</p>
+        </a>
+        <a href="#" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;">
+          <div class="mk-post-meta">
+            <span class="mk-tag mk-tag-accent" data-i18n="journal.posts.1.tag">Business</span>
+            <span class="mk-post-date" data-i18n="journal.posts.1.date">Mar 7, 2023</span>
+            <span class="mk-post-read" data-i18n="journal.posts.1.read">18 min read</span>
+          </div>
+          <h3 class="mk-post-title" data-i18n="journal.posts.1.title">From 0 to 430,000 RUB/Month. SaaS in Russia, Slowly</h3>
+          <p class="mk-post-excerpt" data-i18n="journal.posts.1.excerpt">Month-by-month account of growing a SaaS product without venture capital. Including the failures, the plateaus, and what actually moved the needle.</p>
+        </a>
+        <a href="#" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;border-bottom:none;">
+          <div class="mk-post-meta">
+            <span class="mk-tag" data-i18n="journal.posts.2.tag">Grants</span>
+            <span class="mk-post-date" data-i18n="journal.posts.2.date">Nov 20, 2022</span>
+            <span class="mk-post-read" data-i18n="journal.posts.2.read">10 min read</span>
+          </div>
+          <h3 class="mk-post-title" data-i18n="journal.posts.2.title">How clickfraud.ru Won an 8M Ruble State Grant</h3>
+          <p class="mk-post-excerpt" data-i18n="journal.posts.2.excerpt">We applied to the Foundation for Innovation Assistance and won. How we evaluated the market, structured the application, and defended the project before experts.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Projects Preview
+       ============================================================ -->
+  <section class="mk-section" style="background-color:hsl(var(--surface-subtle));" aria-labelledby="projects-title">
+    <div class="mk-shell">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <p class="mk-eyebrow" style="margin-bottom:0.5rem;" data-i18n="products.eyebrow">Ecosystem</p>
+          <h2 id="projects-title" style="font-size:1.75rem;font-weight:700;margin:0;" data-i18n="products.title">Active Products</h2>
+        </div>
+        <a href="/projects/" class="mk-btn mk-btn-ghost" style="font-size:0.875rem;" data-i18n="products.all_link">All projects →</a>
+      </div>
+      <div class="mk-grid-3">
+        <article class="mk-card" aria-label="clickfraud.ru project">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:1rem;">
+            <div style="width:2.5rem;height:2.5rem;border-radius:var(--radius-md);background:hsl(var(--primary)/0.1);display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="mk-status" style="color:hsl(var(--success));" data-i18n="products.status_label">Active</span>
+          </div>
+          <h3 style="font-family:var(--font-mono);font-size:0.9375rem;font-weight:700;margin:0 0 0.375rem;color:hsl(var(--foreground));" data-i18n="products.items.0.name">clickfraud.ru</h3>
+          <p style="font-size:0.8125rem;color:hsl(var(--muted-foreground));margin:0 0 1rem;line-height:1.55;" data-i18n="products.items.0.desc">Click fraud protection for Russian advertisers. Machine learning + behavioral analysis.</p>
+          <span class="mk-tag mk-tag-primary" data-i18n="products.items.0.tag">Traffic Defense</span>
+        </article>
+        <article class="mk-card" aria-label="xmldatafeed.com project">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:1rem;">
+            <div style="width:2.5rem;height:2.5rem;border-radius:var(--radius-md);background:hsl(var(--accent)/0.1);display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--accent))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <span class="mk-status" style="color:hsl(var(--success));" data-i18n="products.status_label">Active</span>
+          </div>
+          <h3 style="font-family:var(--font-mono);font-size:0.9375rem;font-weight:700;margin:0 0 0.375rem;color:hsl(var(--foreground));" data-i18n="products.items.1.name">xmldatafeed.com</h3>
+          <p style="font-size:0.8125rem;color:hsl(var(--muted-foreground));margin:0 0 1rem;line-height:1.55;" data-i18n="products.items.1.desc">Web scraping and price monitoring at scale. 20M+ RUB/year revenue.</p>
+          <span class="mk-tag mk-tag-accent" data-i18n="products.items.1.tag">Data &amp; Parsing</span>
+        </article>
+        <article class="mk-card" aria-label="offlinecrm.ru project">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:1rem;">
+            <div style="width:2.5rem;height:2.5rem;border-radius:var(--radius-md);background:hsl(var(--primary)/0.1);display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <span class="mk-status" style="color:hsl(var(--warning));">Development</span>
+          </div>
+          <h3 style="font-family:var(--font-mono);font-size:0.9375rem;font-weight:700;margin:0 0 0.375rem;color:hsl(var(--foreground));" data-i18n="products.items.2.name">offlinecrm.ru</h3>
+          <p style="font-size:0.8125rem;color:hsl(var(--muted-foreground));margin:0 0 1rem;line-height:1.55;" data-i18n="products.items.2.desc">Simple free CRM for small businesses. No enterprise complexity required.</p>
+          <span class="mk-tag" data-i18n="products.items.2.tag">Business Tools</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Quote Callout
+       ============================================================ -->
+  <section class="mk-section-sm" aria-label="Brand quote">
+    <div class="mk-prose">
+      <blockquote class="mk-quote">
+        <p data-i18n="quote.text">No success theater. No marketing fluff. Real revenue, real mistakes, real outcomes.</p>
+        <cite data-i18n="quote.source">— bezsmuzi channel principle</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Media / Platforms
+       ============================================================ -->
+  <section class="mk-section" style="background-color:hsl(var(--paper-warm));" aria-labelledby="platforms-title">
+    <div class="mk-shell">
+      <div style="margin-bottom:2rem;">
+        <p class="mk-eyebrow" style="margin-bottom:0.5rem;" data-i18n="platforms.eyebrow">Where to Follow</p>
+        <h2 id="platforms-title" style="font-size:1.75rem;font-weight:700;margin:0;" data-i18n="platforms.title">Public Platforms</h2>
+      </div>
+      <div class="mk-grid-4">
+        <a href="https://habr.com/ru/users/makasin4ik/" class="mk-platform" target="_blank" rel="noopener noreferrer" aria-label="Read on Habr">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>
+          Habr
+        </a>
+        <a href="https://vc.ru/id20452" class="mk-platform" target="_blank" rel="noopener noreferrer" aria-label="Read on vc.ru">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          vc.ru
+        </a>
+        <a href="https://www.youtube.com/@MaximKulgin" class="mk-platform" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          YouTube
+        </a>
+        <a href="https://t.me/bezsmuzi" class="mk-platform" target="_blank" rel="noopener noreferrer" aria-label="Follow on Telegram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Telegram
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     Footer
+     ============================================================ -->
+<footer class="mk-footer" role="contentinfo">
+  <div class="mk-shell">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <div style="display:flex;align-items:center;gap:0.625rem;">
+        <span class="mk-logo-dot" aria-hidden="true"></span>
+        <p class="mk-footer-copy" data-i18n="footer.copy">© 2025 Maksim Kulgin. No hype. Real practice.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul style="list-style:none;margin:0;padding:0;display:flex;gap:1.25rem;flex-wrap:wrap;">
+          <li><a href="/blog/" style="font-size:0.8125rem;color:hsl(var(--muted-foreground));" data-i18n="nav.blog">Journal</a></li>
+          <li><a href="/projects/" style="font-size:0.8125rem;color:hsl(var(--muted-foreground));" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="/about/" style="font-size:0.8125rem;color:hsl(var(--muted-foreground));" data-i18n="nav.about">About</a></li>
+          <li><a href="/contact/" style="font-size:0.8125rem;color:hsl(var(--muted-foreground));" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     Scripts: theme + lang
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  // ── Embedded translations (loaded inline, no fetch needed) ────────────────
+  var TRANSLATIONS = {};
+
+  // Flatten nested object to dot-notation keys: { "hero.title": "..." }
+  function flatten(obj, prefix) {
+    var result = {};
+    prefix = prefix || '';
+    for (var key in obj) {
+      if (!obj.hasOwnProperty(key)) continue;
+      var fullKey = prefix ? prefix + '.' + key : key;
+      if (Array.isArray(obj[key])) {
+        obj[key].forEach(function (item, idx) {
+          if (typeof item === 'object' && item !== null) {
+            var sub = flatten(item, fullKey + '.' + idx);
+            for (var k in sub) { result[k] = sub[k]; }
+          } else {
+            result[fullKey + '.' + idx] = item;
+          }
+        });
+      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+        var sub = flatten(obj[key], fullKey);
+        for (var k in sub) { result[k] = sub[k]; }
+      } else {
+        result[fullKey] = obj[key];
+      }
+    }
+    return result;
+  }
+
+  // ── Apply translations to DOM ─────────────────────────────────────────────
+  function applyLang(lang) {
+    if (!TRANSLATIONS[lang]) return;
+    var t = TRANSLATIONS[lang];
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) {
+        el.textContent = t[key];
+      }
+    });
+    // Update lang toggle buttons
+    document.querySelectorAll('.mk-lang-btn').forEach(function (btn) {
+      var active = btn.getAttribute('data-lang') === lang;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    localStorage.setItem('mk-lang', lang);
+  }
+
+  // ── Inline EN data ────────────────────────────────────────────────────────
+  var enData = {"name":"Maksim Kulgin","hero":{"eyebrow":"IT Entrepreneur · Saint Petersburg","title":"Maksim Kulgin","subtitle":"Systems. Data. Defense.","description":"Over 30 years in IT — from network engineering and e-commerce to a portfolio of bootstrapped SaaS products. Author of three engineering books on network infrastructure. Building real technology products without hype.","cta_primary":"Read the Journal","cta_secondary":"Projects & Cases"},"path":{"eyebrow":"Career Path","title":"From Networks to Ecosystem","steps":[{"year":"1990s","label":"Network Engineer","note":"IP/IPX protocols, sysadmin"},{"year":"1998–2003","label":"Author","note":"3 engineering books published"},{"year":"2000s","label":"E-commerce","note":"Large online retail operations"},{"year":"2010s","label":"SaaS Founder","note":"clickfraud, xmldatafeed, offlinecrm"},{"year":"2020s","label":"Ecosystem","note":"40M+ RUB/year, grants, community"}]},"metrics":[{"value":"30+","label":"Years in IT"},{"value":"3","label":"Engineering books"},{"value":"40M+","label":"RUB revenue / year"},{"value":"5","label":"Active products"}],"pillars":{"eyebrow":"Areas of Practice","title":"What This Journal Covers","items":[{"title":"Data & Parsing","desc":"Web scraping, price monitoring, data feeds — built at scale for real B2B clients."},{"title":"Traffic Defense","desc":"Click fraud protection and anti-bot systems that protect advertising budgets."},{"title":"Internet Systems","desc":"Infrastructure thinking applied to modern products — from IP/IPX to distributed data pipelines."},{"title":"Bootstrapped Growth","desc":"From 0 to 40M+ revenue per year without venture capital. Real numbers, real mistakes."}]},"journal":{"eyebrow":"Journal","title":"Recent Posts","all_link":"All posts →","posts":[{"tag":"Data","date":"Aug 14, 2023","read":"12 min read","title":"20M Rubles a Year on Web Scraping","excerpt":"How an engineering team turned a parsing infrastructure into a sustainable B2B business collecting only public data. Real revenue breakdown and legal framework."},{"tag":"Business","date":"Mar 7, 2023","read":"18 min read","title":"From 0 to 430,000 RUB/Month. SaaS in Russia, Slowly","excerpt":"Month-by-month account of growing a SaaS product without venture capital. Including the failures, the plateaus, and what actually moved the needle."},{"tag":"Grants","date":"Nov 20, 2022","read":"10 min read","title":"How clickfraud.ru Won an 8M Ruble State Grant","excerpt":"We applied to the Foundation for Innovation Assistance and won. How we evaluated the market, structured the application, and defended the project before experts."}]},"products":{"eyebrow":"Ecosystem","title":"Active Products","all_link":"All projects →","items":[{"name":"clickfraud.ru","desc":"Click fraud protection for Russian advertisers. Machine learning + behavioral analysis.","tag":"Traffic Defense"},{"name":"xmldatafeed.com","desc":"Web scraping and price monitoring at scale. 20M+ RUB/year revenue.","tag":"Data & Parsing"},{"name":"offlinecrm.ru","desc":"Simple free CRM for small businesses. No enterprise complexity required.","tag":"Business Tools"}],"status_label":"Active"},"quote":{"text":"No success theater. No marketing fluff. Real revenue, real mistakes, real outcomes.","source":"— bezsmuzi channel principle"},"platforms":{"eyebrow":"Where to Follow","title":"Public Platforms"},"nav":{"home":"Home","blog":"Journal","projects":"Projects","about":"About","contact":"Contact"},"footer":{"copy":"© 2025 Maksim Kulgin. No hype. Real practice."}};
+  TRANSLATIONS['en'] = flatten(enData);
+
+  // ── Inline RU data ────────────────────────────────────────────────────────
+  var ruData = {"name":"Максим Кульгин","hero":{"eyebrow":"ИТ-предприниматель · Санкт-Петербург","title":"Максим Кульгин","subtitle":"Системы. Данные. Защита.","description":"Более 30 лет в ИТ — от сетевой инженерии и e-commerce до портфеля бутстрап-SaaS продуктов. Автор трёх инженерных книг по сетевой инфраструктуре. Строю реальные технологические продукты без хайпа.","cta_primary":"Читать журнал","cta_secondary":"Проекты и кейсы"},"path":{"eyebrow":"Карьерный путь","title":"От сетей к экосистеме","steps":[{"year":"1990-е","label":"Сетевой инженер","note":"Протоколы IP/IPX, системное администрирование"},{"year":"1998–2003","label":"Автор","note":"3 инженерные книги по сетям"},{"year":"2000-е","label":"E-commerce","note":"Крупный онлайн-ритейл"},{"year":"2010-е","label":"SaaS-основатель","note":"clickfraud, xmldatafeed, offlinecrm"},{"year":"2020-е","label":"Экосистема","note":"40М+ руб./год, гранты, сообщество"}]},"metrics":[{"value":"30+","label":"Лет в ИТ"},{"value":"3","label":"Инженерные книги"},{"value":"40М+","label":"Руб. выручки / год"},{"value":"5","label":"Активных продуктов"}],"pillars":{"eyebrow":"Направления работы","title":"О чём этот журнал","items":[{"title":"Данные и парсинг","desc":"Веб-скрапинг, мониторинг цен, фиды данных — построено в масштабе для реальных B2B-клиентов."},{"title":"Защита трафика","desc":"Защита от кликфрода и антибот-системы для рекламных бюджетов."},{"title":"Интернет-системы","desc":"Инженерное мышление в современных продуктах — от IP/IPX до распределённых пайплайнов данных."},{"title":"Бутстрап-рост","desc":"От 0 до 40М+ выручки в год без венчурных денег. Реальные цифры, реальные ошибки."}]},"journal":{"eyebrow":"Журнал","title":"Последние материалы","all_link":"Все материалы →","posts":[{"tag":"Данные","date":"14 авг 2023","read":"12 мин","title":"20 млн рублей в год на парсинге сайтов","excerpt":"Как инженерная команда превратила парсинговую инфраструктуру в устойчивый B2B-бизнес, собирая только публичные данные. Структура выручки, клиенты и правовые ограничения."},{"tag":"Бизнес","date":"7 мар 2023","read":"18 мин","title":"С нуля до 430 000 руб./мес. SaaS в России. Медленно всё","excerpt":"Помесячный разбор роста SaaS-продукта без венчурных денег. Включая провалы, плато и то, что реально двигало иглу."},{"tag":"Гранты","date":"20 ноя 2022","read":"10 мин","title":"Как clickfraud.ru получил грант 8 млн рублей","excerpt":"Мы подали заявку в Фонд содействия инновациям и выиграли. Как оценивали рынок, структурировали заявку и защищали проект перед экспертами."}]},"products":{"eyebrow":"Экосистема","title":"Активные продукты","all_link":"Все проекты →","items":[{"name":"clickfraud.ru","desc":"Защита от кликфрода для российских рекламодателей. Машинное обучение + поведенческий анализ.","tag":"Защита трафика"},{"name":"xmldatafeed.com","desc":"Веб-скрапинг и мониторинг цен в масштабе. Выручка 20М+ руб./год.","tag":"Данные и парсинг"},{"name":"offlinecrm.ru","desc":"Простая бесплатная CRM для малого бизнеса. Без лишней сложности.","tag":"Инструменты"}],"status_label":"Активен"},"quote":{"text":"Никакого успешного успеха. Только то, что подтверждается нашей практикой.","source":"— принцип канала bezsmuzi"},"platforms":{"eyebrow":"Где следить","title":"Публичные платформы"},"nav":{"home":"Главная","blog":"Журнал","projects":"Проекты","about":"О себе","contact":"Контакты"},"footer":{"copy":"© 2025 Максим Кульгин. Без хайпа. Реальная практика."}};
+  TRANSLATIONS['ru'] = flatten(ruData);
+
+  // ── Dark mode ─────────────────────────────────────────────────────────────
+  var themeToggle = document.getElementById('theme-toggle');
+  var iconSun = document.getElementById('icon-sun');
+  var iconMoon = document.getElementById('icon-moon');
+  var html = document.documentElement;
+
+  function applyTheme(dark) {
+    if (dark) {
+      html.classList.add('dark');
+      iconSun.style.display = 'none';
+      iconMoon.style.display = '';
+    } else {
+      html.classList.remove('dark');
+      iconSun.style.display = '';
+      iconMoon.style.display = 'none';
+    }
+  }
+
+  var storedTheme = localStorage.getItem('mk-theme');
+  applyTheme(storedTheme ? storedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  themeToggle.addEventListener('click', function () {
+    var isDark = html.classList.contains('dark');
+    applyTheme(!isDark);
+    localStorage.setItem('mk-theme', isDark ? 'light' : 'dark');
+  });
+
+  // ── Language init + toggle ─────────────────────────────────────────────────
+  var storedLang = localStorage.getItem('mk-lang');
+  var browserLang = (navigator.language || navigator.userLanguage || 'en').slice(0, 2).toLowerCase();
+  var initLang = storedLang || (browserLang === 'ru' ? 'ru' : 'en');
+  applyLang(initLang);
+
+  document.querySelectorAll('.mk-lang-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      applyLang(btn.getAttribute('data-lang'));
+    });
+  });
+
+  // ── Mobile menu ───────────────────────────────────────────────────────────
+  var mobileBtn = document.getElementById('mobile-menu-btn');
+  var mobileNav = document.getElementById('mobile-nav');
+  mobileBtn.addEventListener('click', function () {
+    var open = mobileNav.classList.toggle('open');
+    mobileBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+})();
+</script>
+</body>
+</html>

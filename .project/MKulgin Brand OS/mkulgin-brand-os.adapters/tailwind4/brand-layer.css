@@ -1,0 +1,190 @@
+@import "../shared/tokens.css";
+
+.mk-prose-surface {
+  background-color: hsl(var(--card));
+  color: hsl(var(--neutral-ink));
+}
+
+.mk-paper-card {
+  background-color: hsl(var(--surface-elevated));
+  border: 1px solid hsl(var(--border-subtle));
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+}
+
+.mk-proof-card {
+  background-color: hsl(var(--paper-warm));
+  border: 1px solid hsl(var(--border-subtle));
+  border-radius: var(--radius-lg);
+  color: hsl(var(--paper-warm-foreground));
+}
+
+.mk-proof-metric {
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-micro);
+}
+
+.mk-proof-label {
+  color: hsl(var(--muted-foreground));
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.mk-editorial-lead {
+  color: hsl(var(--neutral-ink));
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-normal);
+}
+
+.mk-editorial-meta {
+  color: hsl(var(--muted-foreground));
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+}
+
+.mk-quote-callout {
+  background-color: hsl(var(--accent-soft));
+  border-left: 3px solid hsl(var(--accent));
+  border-radius: var(--radius-md);
+  color: hsl(var(--accent-soft-foreground));
+  padding: 1rem 1.25rem;
+}
+
+.mk-book-chip,
+.mk-tag-books {
+  background-color: hsl(var(--category-4));
+  color: hsl(var(--foreground));
+}
+
+.mk-tag-systems {
+  background-color: hsl(var(--category-1));
+  color: hsl(var(--foreground));
+}
+
+.mk-tag-data {
+  background-color: hsl(var(--category-2));
+  color: hsl(var(--foreground));
+}
+
+.mk-tag-business {
+  background-color: hsl(var(--category-3));
+  color: hsl(var(--foreground));
+}
+
+.mk-tag-media {
+  background-color: hsl(var(--category-5));
+  color: hsl(var(--foreground));
+}
+
+.mk-tag-traffic-defense {
+  background-color: hsl(var(--category-6));
+  color: hsl(var(--foreground));
+}
+
+.mk-link-subtle {
+  color: hsl(var(--primary));
+  text-decoration: none;
+  transition:
+    color var(--duration-normal) var(--ease-standard),
+    text-decoration-color var(--duration-normal) var(--ease-standard);
+}
+
+.mk-link-subtle:hover {
+  color: hsl(var(--accent));
+}
+
+.mk-section-divider {
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(
+    to right,
+    transparent 0%,
+    hsl(var(--border-subtle)) 20%,
+    hsl(var(--primary) / 0.35) 50%,
+    hsl(var(--border-subtle)) 80%,
+    transparent 100%
+  ) 1;
+}
+
+.mk-portrait-frame {
+  overflow: hidden;
+  border-radius: var(--radius-media);
+  background-color: hsl(var(--surface-subtle));
+}
+
+.mk-portrait-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mk-platform-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-pill);
+  background-color: hsl(var(--surface-subtle));
+  color: hsl(var(--muted-foreground));
+  padding: 0.35rem 0.75rem;
+  font-size: var(--text-xs);
+  line-height: var(--leading-flat);
+}
+
+.mk-book-shelf-card {
+  border: 1px solid hsl(var(--border-subtle));
+  border-radius: var(--radius-lg);
+  background-color: hsl(var(--card));
+  overflow: hidden;
+  transition:
+    transform var(--duration-normal) var(--ease-standard),
+    box-shadow var(--duration-normal) var(--ease-standard);
+}
+
+.mk-book-shelf-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.mk-inline-rule {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2px;
+  background-color: hsl(var(--accent));
+  vertical-align: middle;
+}
+
+.mk-evidence-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.mk-evidence-grid[data-density="comfortable"] {
+  gap: 1.5rem;
+}
+
+.mk-evidence-grid[data-density="compact"] {
+  gap: 0.75rem;
+}
+
+.mk-subtle-hover {
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard);
+}
+
+.mk-subtle-hover:hover {
+  background-color: hsl(var(--surface-subtle));
+  border-color: hsl(var(--primary) / 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-book-shelf-card:hover,
+  .mk-subtle-hover:hover {
+    transform: none !important;
+  }
+}

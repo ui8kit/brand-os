@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How an engineering team turned a web scraping infrastructure into a sustainable B2B business. Real revenue breakdown, client structure, legal framework. 20M RUB per year.">
+  <title>20M Rubles a Year on Web Scraping — Maksim Kulgin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNiZTg3NjAiIHN0cm9rZS13aWR0aD0iMi4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1oZWFydC1oYW5kc2hha2UtaWNvbiBsdWNpZGUtaGVhcnQtaGFuZHNoYWtlIj48cGF0aCBkPSJNMTkuNDE0IDE0LjQxNEMyMSAxMi44MjggMjIgMTEuNSAyMiA5LjVhNS41IDUuNSAwIDAgMC05LjU5MS0zLjY3Ni42LjYgMCAwIDEtLjgxOC4wMDFBNS41IDUuNSAwIDAgMCAyIDkuNWMwIDIuMyAxLjUgNCAzIDUuNWw1LjUzNSA1LjM2MmEyIDIgMCAwIDAgMi44NzkuMDUyIDIuMTIgMi4xMiAwIDAgMC0uMDA0LTMgMi4xMjQgMi4xMjQgMCAxIDAgMy0zIDIuMTI0IDIuMTI0IDAgMCAwIDMuMDA0IDAgMiAyIDAgMCAwIDAtMi44MjhsLTEuODgxLTEuODgyYTIuNDEgMi40MSAwIDAgMC0zLjQwOSAwbC0xLjcxIDEuNzFhMiAyIDAgMCAxLTIuODI4IDAgMiAyIDAgMCAxIDAtMi44MjhsMi44MjMtMi43NjIiLz48L3N2Zz4=" type="image/svg+xml">
+  
+  <style>
+    .mk-prose-body { max-width: 680px; margin: 0 auto; }
+    .mk-prose-body p { font-size: 1.0625rem; line-height: 1.8; color: hsl(var(--foreground)); margin: 0 0 1.375rem; }
+    .mk-prose-body h2 { font-size: 1.375rem; font-weight: 700; margin: 2.5rem 0 1rem; font-family: var(--font-display); letter-spacing: -0.02em; }
+    .mk-prose-body h3 { font-size: 1.125rem; font-weight: 700; margin: 2rem 0 0.75rem; font-family: var(--font-display); }
+    .mk-prose-body ul, .mk-prose-body ol { padding-left: 1.375rem; margin: 0 0 1.375rem; }
+    .mk-prose-body li { font-size: 1.0625rem; line-height: 1.75; margin-bottom: 0.375rem; color: hsl(var(--foreground)); }
+    .mk-prose-body code { font-family: var(--font-mono); font-size: 0.875em; background: hsl(var(--surface-subtle)); border: 1px solid hsl(var(--border)); border-radius: var(--radius-sm); padding: 0.1em 0.4em; }
+    .mk-evidence { background: hsl(var(--surface-subtle)); border: 1px solid hsl(var(--border)); border-radius: var(--radius-xl); padding: 1.25rem 1.5rem; margin: 2rem 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .mk-evidence-item { text-align: center; }
+    .mk-evidence-num { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: hsl(var(--foreground)); line-height: 1; margin-bottom: 0.25rem; }
+    .mk-evidence-lbl { font-size: 0.75rem; color: hsl(var(--muted-foreground)); line-height: 1.4; }
+    .mk-related { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.5rem; }
+    .mk-related-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius-xl); padding: 1.25rem; text-decoration: none; color: inherit; transition: box-shadow 200ms ease, border-color 200ms ease; }
+    .mk-related-card:hover { box-shadow: var(--shadow-elevated); border-color: hsl(var(--primary)/0.4); }
+    .mk-related-card .mk-post-title { font-size: 0.9375rem; margin: 0.375rem 0 0; }
+    @media (max-width: 640px) {
+      .mk-evidence { grid-template-columns: 1fr 1fr; }
+      .mk-related { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="mk-nav" role="banner">
+  <div class="mk-shell">
+    <nav class="mk-nav-inner" aria-label="Main navigation">
+      <a href="/" class="mk-logo" aria-label="Maksim Kulgin — Home">
+        <span class="mk-logo-dot" aria-hidden="true"></span>
+        Maksim Kulgin
+      </a>
+      <ul class="mk-nav-links" role="list">
+        <li><a href="/" class="mk-nav-link">Home</a></li>
+        <li><a href="/blog/" class="mk-nav-link active">Journal</a></li>
+        <li><a href="/projects/" class="mk-nav-link">Projects</a></li>
+        <li><a href="/about/" class="mk-nav-link">About</a></li>
+        <li><a href="/contact/" class="mk-nav-link">Contact</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <button class="mk-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg id="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="mk-mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </nav>
+    <nav id="mobile-nav" class="mk-mobile-nav" aria-label="Mobile navigation">
+      <a href="/" class="mk-mobile-nav-link">Home</a>
+      <a href="/blog/" class="mk-mobile-nav-link">Journal</a>
+      <a href="/projects/" class="mk-mobile-nav-link">Projects</a>
+      <a href="/about/" class="mk-mobile-nav-link">About</a>
+      <a href="/contact/" class="mk-mobile-nav-link">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <!-- Article hero -->
+  <section class="mk-section" style="background-color:hsl(var(--surface-subtle));" aria-labelledby="article-title">
+    <div class="mk-prose">
+      <nav aria-label="Breadcrumb" style="margin-bottom:1.5rem;">
+        <ol style="list-style:none;padding:0;margin:0;display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;color:hsl(var(--muted-foreground));">
+          <li><a href="/blog/" style="color:hsl(var(--primary));">Journal</a></li>
+          <li aria-hidden="true" style="opacity:0.4;">/</li>
+          <li aria-current="page" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px;">20M Rubles a Year on Web Scraping</li>
+        </ol>
+      </nav>
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+        <span class="mk-tag mk-tag-primary">Data &amp; Parsing</span>
+        <time class="mk-post-date" datetime="2023-08-14">Aug 14, 2023</time>
+        <span class="mk-post-read">12 min read</span>
+      </div>
+      <h1 id="article-title" style="font-size:clamp(1.625rem,4vw,2.5rem);font-weight:700;margin:0 0 1.25rem;line-height:1.1;">20M Rubles a Year on Web Scraping</h1>
+      <p style="font-family:var(--font-display);font-size:1.125rem;font-style:italic;color:hsl(var(--muted-foreground));line-height:1.6;margin:0;">
+        How an engineering team turned a parsing infrastructure into a sustainable B2B business collecting only public data. Real revenue breakdown, client structure, and legal framework.
+      </p>
+    </div>
+  </section>
+
+  <!-- Evidence metrics strip -->
+  <div class="mk-content" style="padding-top:2rem;">
+    <div class="mk-evidence" role="region" aria-label="Key figures">
+      <div class="mk-evidence-item">
+        <p class="mk-evidence-num">20M+</p>
+        <p class="mk-evidence-lbl">RUB annual revenue</p>
+      </div>
+      <div class="mk-evidence-item">
+        <p class="mk-evidence-num">100%</p>
+        <p class="mk-evidence-lbl">Public data only</p>
+      </div>
+      <div class="mk-evidence-item">
+        <p class="mk-evidence-num">10+</p>
+        <p class="mk-evidence-lbl">Years operating</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Article body -->
+  <article class="mk-section" aria-label="Article content">
+    <div class="mk-prose">
+      <div class="mk-prose-body">
+
+        <p>Web scraping gets discussed mostly in the abstract — as a technique, a legal grey zone, or an AI training problem. We've been running a scraping business for over a decade. Here's what it actually looks like at 20M+ RUB per year in revenue.</p>
+
+        <h2>What we actually do</h2>
+        <p>xmldatafeed.com collects publicly available pricing and catalog data from Russian e-commerce sites, classified portals, and product databases. We sell this data as structured feeds to retailers, price comparison services, analytics firms, and procurement teams.</p>
+        <p>The model is B2B subscription. Clients define what categories and sources they need. We collect, clean, normalize, and deliver. Most clients receive daily or hourly updates via XML or JSON API.</p>
+
+        <h2>Revenue structure</h2>
+        <p>The 20M figure represents combined annual revenue from recurring subscriptions. No single client is dominant — the portfolio is diversified across retail, logistics, and market research. The largest segment is e-commerce price intelligence for mid-market retailers.</p>
+        <p>We've never taken venture capital. The business grew from near zero through organic content, Habr publications, and word of mouth. Paid advertising has never been a meaningful channel for us.</p>
+
+        <blockquote class="mk-quote" style="margin:2rem 0;">
+          <p>Growing without paid channels is slower. It's also more durable. Every client who finds you through your own writing is already pre-qualified by what you said.</p>
+          <cite>— from the Habr article series, 2023</cite>
+        </blockquote>
+
+        <h2>The legal question</h2>
+        <p>Every discussion of scraping eventually reaches the same question. Our answer: we only collect data that is publicly accessible without authentication, we do not bypass any technical access controls, and we comply with reasonable crawling rates that don't affect site performance.</p>
+        <p>Russian law on publicly available information is reasonably clear. Data published without access restrictions can be collected and redistributed, provided it doesn't contain personal data under 152-ФЗ and doesn't reproduce copyrighted content verbatim in its entirety.</p>
+        <p>We've operated this way since the beginning and have never faced a legal challenge. We also don't collect pricing data from sites that explicitly prohibit it in their ToS if those sites are operated by clients in our network — that's a business relationship issue, not just a legal one.</p>
+
+        <h2>Technical architecture</h2>
+        <p>The stack has evolved significantly over ten years, but the core principle hasn't: reliability beats cleverness. Most of our collection infrastructure is based on simple scheduled crawlers with deterministic retry logic. We use Elasticsearch for normalization and deduplication. Delivery is via a straightforward REST API.</p>
+        <p>We've tried ML-based extraction a few times. It works well for well-structured sites, poorly for everything else, and is difficult to debug when it silently degrades. For production scraping at scale, explicit rules and manual maintenance of extractors is more reliable than a model you can't interrogate.</p>
+
+        <h2>What doesn't work</h2>
+        <p>Several things we've tried and abandoned:</p>
+        <ul>
+          <li>Automated extraction using vision models — impressive demos, production reliability around 70%, which isn't good enough for billing data</li>
+          <li>Self-service onboarding — most clients need help configuring what they actually need, not what they think they need</li>
+          <li>Trying to cover every source — depth and reliability in fewer categories beats breadth across many</li>
+        </ul>
+
+        <h2>What actually works</h2>
+        <p>The business works because the problem is unglamorous and persistent. Every retailer needs to know what competitors charge. That need doesn't go away. The market for reliable, clean, structured price data is not going to be replaced by an AI wrapper — it requires operational infrastructure that most companies don't want to build in-house.</p>
+        <p>That's the actual product: not clever technology, but operational reliability at a price point that makes in-house alternatives look expensive.</p>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- Author signoff -->
+  <section class="mk-section-sm" aria-label="Author">
+    <div class="mk-prose">
+      <hr class="mk-divider" style="margin-bottom:2rem;">
+      <div style="display:flex;align-items:center;gap:1.25rem;">
+        <div class="mk-portrait-avatar" style="width:3rem;height:3rem;">
+          <img src="/static/img/mkulgin.png" alt="Maksim Kulgin">
+        </div>
+        <div>
+          <p style="font-weight:700;font-size:0.9375rem;margin:0 0 0.125rem;font-family:var(--font-display);">Maksim Kulgin</p>
+          <p style="font-size:0.8125rem;color:hsl(var(--muted-foreground));margin:0;">Founder of xmldatafeed.com · Saint Petersburg</p>
+        </div>
+        <a href="/about/" class="mk-btn mk-btn-outline" style="margin-left:auto;font-size:0.8125rem;">About the author</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related articles -->
+  <section class="mk-section" style="background-color:hsl(var(--surface-subtle));" aria-labelledby="related-title">
+    <div class="mk-prose">
+      <h2 id="related-title" style="font-size:1.25rem;font-weight:700;margin:0 0 1.25rem;font-family:var(--font-display);">Related Reading</h2>
+      <div class="mk-related">
+        <a href="/blog/saas-from-zero-to-430k/" class="mk-related-card">
+          <span class="mk-tag mk-tag-accent" style="margin-bottom:0.5rem;display:inline-flex;">Business</span>
+          <h3 class="mk-post-title">From 0 to 430,000 RUB/Month. SaaS in Russia, Slowly</h3>
+        </a>
+        <a href="/blog/40m-revenue-2021/" class="mk-related-card">
+          <span class="mk-tag mk-tag-accent" style="margin-bottom:0.5rem;display:inline-flex;">Business</span>
+          <h3 class="mk-post-title">Zero to 40M: Building a Software and Parsing Business</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="mk-footer" role="contentinfo">
+  <div class="mk-shell">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <div style="display:flex;align-items:center;gap:0.625rem;">
+        <span class="mk-logo-dot" aria-hidden="true"></span>
+        <p class="mk-footer-copy">© 2025 Maksim Kulgin. No hype. Real practice.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul style="list-style:none;margin:0;padding:0;display:flex;gap:1.25rem;flex-wrap:wrap;">
+          <li><a href="/blog/" style="font-size:0.8125rem;color:hsl(var(--muted-foreground));">Journal</a></li>
+          <li><a href="/projects/" style="font-size:0.8125rem;color:hsl(var(--muted-foreground));">Projects</a></li>
+          <li><a href="/about/" style="font-size:0.8125rem;color:hsl(var(--muted-foreground));">About</a></li>
+          <li><a href="/contact/" style="font-size:0.8125rem;color:hsl(var(--muted-foreground));">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var t=document.getElementById('theme-toggle'),s=document.getElementById('icon-sun'),m=document.getElementById('icon-moon'),h=document.documentElement;
+    function ap(d){if(d){h.classList.add('dark');s.style.display='none';m.style.display='';}else{h.classList.remove('dark');s.style.display='';m.style.display='none';}}
+    var st=localStorage.getItem('mk-theme');ap(st?st==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches);
+    t.addEventListener('click',function(){var d=h.classList.contains('dark');ap(!d);localStorage.setItem('mk-theme',d?'light':'dark');});
+    var mb=document.getElementById('mobile-menu-btn'),mn=document.getElementById('mobile-nav');
+    mb.addEventListener('click',function(){var o=mn.classList.toggle('open');mb.setAttribute('aria-expanded',o?'true':'false');});
+  })();
+</script>
+</body>
+</html>

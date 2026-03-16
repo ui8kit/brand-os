@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-03-16T13:24:33.020Z",
+  "brandName": "MKulgin Brand OS",
+  "outputDir": "E:\\_@Bun\\@ui8kit-brand-os\\.project\\MKulgin Brand OS\\mkulgin-brand-os-generated",
+  "files": {
+    "promptCount": 13,
+    "prompts": [
+      "prompts/landing.md",
+      "prompts/tech-blog.md",
+      "prompts/article-detail.md",
+      "prompts/about.md",
+      "prompts/library.md",
+      "prompts/projects.md",
+      "prompts/media.md",
+      "prompts/newsletter.md",
+      "prompts/community.md",
+      "prompts/catalog.md",
+      "prompts/grants.md",
+      "prompts/events.md",
+      "prompts/archive.md"
+    ],
+    "fixtureCount": 0,
+    "fixtureIndex": "parser-fixtures/index.json",
+    "copiedAssets": [
+      "adapters/shared/tokens.css",
+      "adapters/tailwind4/shadcn.css",
+      "adapters/tailwind4/brand-layer.css"
+    ]
+  }
+}

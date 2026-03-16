@@ -1,0 +1,677 @@
+{
+  "sharedContext": {
+    "brandSummary": "MKulgin Brand OS: tech-media hub (journal + community club + catalog + ecosystem). Baltic Tech Editorial + Network Operator Journal + Amber accent. Cold tech base with warm human accent. System Operator + Founder Publisher archetype.",
+    "visualFormula": "Baltic Tech Editorial + Network Operator Journal + Amber accent",
+    "styleKeywords": [
+      "calm",
+      "mature",
+      "editorial",
+      "practical",
+      "skeptical-of-hype",
+      "system-driven",
+      "humanly-warm",
+      "honest"
+    ],
+    "negativeStyleKeywords": [
+      "generic-saas-gloss",
+      "neon-cyberpunk",
+      "infobusiness-guru",
+      "startup-hype-machine",
+      "over-polished-luxury",
+      "performative-edginess"
+    ],
+    "crossSurfaceRules": [
+      "guru language",
+      "visionary cliches",
+      "thought leadership filler",
+      "fake disruption rhetoric",
+      "pretending failure does not exist",
+      "Keep one clear information architecture per surface.",
+      "Preserve semantic consistency across public and operational surfaces."
+    ],
+    "implementationBias": {
+      "preferredStack": "Tailwind CSS + shadcn-compatible system components",
+      "systemLayer": [
+        "Button",
+        "Input",
+        "Textarea",
+        "Dialog",
+        "Accordion",
+        "Tabs",
+        "Card"
+      ],
+      "brandLayer": [
+        "Hero shells",
+        "Section wrappers",
+        "Feature blocks",
+        "Promo blocks"
+      ]
+    },
+    "motionBias": {
+      "defaultLevel": "css-only",
+      "allowedEscalation": [
+        "subtle fade",
+        "gentle hover emphasis"
+      ],
+      "forbiddenWithoutJustification": [
+        "heavy motion",
+        "conflicting parallel animations"
+      ]
+    }
+  },
+  "surfaces": {
+    "landing": {
+      "goal": "Introduce Maksim Kulgin as the central node of a tech-media hub: journal, community club, catalog, and ecosystem. Hero with portrait and thesis, path timeline, proof, and clear CTAs.",
+      "requiredInputs": [
+        "editorialHero",
+        "pathTimeline",
+        "positioningStrip",
+        "usefulnessBlock",
+        "latestMaterials",
+        "latestVideo",
+        "contentPillars",
+        "communityPreview",
+        "catalogPreview",
+        "projectDirectory",
+        "grantsPreview",
+        "mediaMentions",
+        "newsletterPanel",
+        "finalCtaBlock"
+      ],
+      "optionalInputs": [
+        "landingAudience",
+        "landingTone",
+        "landingConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "editorial-hero",
+        "path-timeline",
+        "positioning-strip",
+        "usefulness-block",
+        "latest-materials",
+        "latest-video",
+        "content-pillars",
+        "community-preview",
+        "catalog-preview",
+        "project-directory",
+        "grants-preview",
+        "media-mentions",
+        "newsletter-panel",
+        "final-cta-block"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on landing.",
+        "Paper-like backgrounds, steel blue structural accents, restrained copper highlights (strokes only, never large planes), calm editorial typography, mono evidence fragments, network routes and index markers.",
+        "Path timeline: sysadmin -> e-commerce -> startups -> data/antibot/community."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a landing in MKulgin Brand OS.",
+        "Input: {{editorialHero}}",
+        "Input: {{pathTimeline}}",
+        "Input: {{positioningStrip}}",
+        "Input: {{usefulnessBlock}}",
+        "Input: {{latestMaterials}}",
+        "Input: {{latestVideo}}",
+        "Input: {{contentPillars}}",
+        "Input: {{communityPreview}}",
+        "Input: {{catalogPreview}}",
+        "Input: {{projectDirectory}}",
+        "Input: {{grantsPreview}}",
+        "Input: {{mediaMentions}}",
+        "Input: {{newsletterPanel}}",
+        "Input: {{finalCtaBlock}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does landing keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "tech-blog": {
+      "goal": "List essays, case studies, and operator notes with editorial rhythm and strong topical categorization.",
+      "requiredInputs": [
+        "blogHero",
+        "contentPillars",
+        "articleList",
+        "quoteCallout",
+        "newsletterPanel"
+      ],
+      "optionalInputs": [
+        "tech-blogAudience",
+        "tech-blogTone",
+        "tech-blogConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "blog-hero",
+        "content-pillars",
+        "article-list",
+        "quote-callout",
+        "newsletter-panel"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on tech-blog.",
+        "Paper-like backgrounds, steel blue structural accents, restrained copper highlights, calm editorial typography, mono evidence fragments, and low-noise layouts with clear hierarchy."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a tech blog in MKulgin Brand OS.",
+        "Input: {{blogHero}}",
+        "Input: {{contentPillars}}",
+        "Input: {{articleList}}",
+        "Input: {{quoteCallout}}",
+        "Input: {{newsletterPanel}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does tech-blog keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "article-detail": {
+      "goal": "Present long-form technical or business writing with high readability, clear metadata, and evidence-oriented callouts.",
+      "requiredInputs": [
+        "articleHero",
+        "articleBody",
+        "evidenceCallouts",
+        "relatedReading",
+        "authorSignoff"
+      ],
+      "optionalInputs": [
+        "article-detailAudience",
+        "article-detailTone",
+        "article-detailConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "article-hero",
+        "article-body",
+        "evidence-callouts",
+        "related-reading",
+        "author-signoff"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on article-detail.",
+        "Paper-like backgrounds, steel blue structural accents, restrained copper highlights, calm editorial typography, mono evidence fragments, and low-noise layouts with clear hierarchy."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a article detail in MKulgin Brand OS.",
+        "Input: {{articleHero}}",
+        "Input: {{articleBody}}",
+        "Input: {{evidenceCallouts}}",
+        "Input: {{relatedReading}}",
+        "Input: {{authorSignoff}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does article-detail keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "about": {
+      "goal": "Explain the biography, values, and working philosophy behind the brand without hype or self-mythologizing.",
+      "requiredInputs": [
+        "aboutHero",
+        "narrativeBio",
+        "timeline",
+        "principles",
+        "proofStrip"
+      ],
+      "optionalInputs": [
+        "aboutAudience",
+        "aboutTone",
+        "aboutConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "about-hero",
+        "narrative-bio",
+        "timeline",
+        "principles",
+        "proof-strip"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on about.",
+        "Paper-like backgrounds, steel blue structural accents, restrained copper highlights, calm editorial typography, mono evidence fragments, and low-noise layouts with clear hierarchy."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a about in MKulgin Brand OS.",
+        "Input: {{aboutHero}}",
+        "Input: {{narrativeBio}}",
+        "Input: {{timeline}}",
+        "Input: {{principles}}",
+        "Input: {{proofStrip}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does about keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "library": {
+      "goal": "Present books, engineering foundations, and intellectual capital as part of the brand's trust layer.",
+      "requiredInputs": [
+        "libraryHero",
+        "booksShelf",
+        "bookContext",
+        "quoteCallout"
+      ],
+      "optionalInputs": [
+        "libraryAudience",
+        "libraryTone",
+        "libraryConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "library-hero",
+        "books-shelf",
+        "book-context",
+        "quote-callout"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on library.",
+        "Paper-like backgrounds, steel blue structural accents, restrained copper highlights, calm editorial typography, mono evidence fragments, and low-noise layouts with clear hierarchy."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a library in MKulgin Brand OS.",
+        "Input: {{libraryHero}}",
+        "Input: {{booksShelf}}",
+        "Input: {{bookContext}}",
+        "Input: {{quoteCallout}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does library keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "projects": {
+      "goal": "Show products, services, and business cases as evidence of operating experience rather than startup theater.",
+      "requiredInputs": [
+        "projectsHero",
+        "projectDirectory",
+        "caseGrid",
+        "proofMetrics"
+      ],
+      "optionalInputs": [
+        "projectsAudience",
+        "projectsTone",
+        "projectsConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "projects-hero",
+        "project-directory",
+        "case-grid",
+        "proof-metrics"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on projects.",
+        "Paper-like backgrounds, steel blue structural accents, restrained copper highlights, calm editorial typography, mono evidence fragments, and low-noise layouts with clear hierarchy."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a projects in MKulgin Brand OS.",
+        "Input: {{projectsHero}}",
+        "Input: {{projectDirectory}}",
+        "Input: {{caseGrid}}",
+        "Input: {{proofMetrics}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does projects keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "media": {
+      "goal": "Collect videos, interviews, external media, and platform presence into a coherent proof surface.",
+      "requiredInputs": [
+        "mediaHero",
+        "mediaList",
+        "platformGrid",
+        "quoteCallout"
+      ],
+      "optionalInputs": [
+        "mediaAudience",
+        "mediaTone",
+        "mediaConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "media-hero",
+        "media-list",
+        "platform-grid",
+        "quote-callout"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on media.",
+        "Paper-like backgrounds, steel blue structural accents, restrained copper highlights, calm editorial typography, mono evidence fragments, and low-noise layouts with clear hierarchy."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a media in MKulgin Brand OS.",
+        "Input: {{mediaHero}}",
+        "Input: {{mediaList}}",
+        "Input: {{platformGrid}}",
+        "Input: {{quoteCallout}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does media keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "newsletter": {
+      "goal": "Convert readers into subscribers through clear value exchange and low-noise trust signals.",
+      "requiredInputs": [
+        "newsletterHero",
+        "newsletterPanel",
+        "proofStrip"
+      ],
+      "optionalInputs": [
+        "newsletterAudience",
+        "newsletterTone",
+        "newsletterConstraints",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "newsletter-hero",
+        "newsletter-panel",
+        "proof-strip"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on newsletter.",
+        "Paper-like backgrounds, steel blue structural accents, restrained copper highlights, calm editorial typography, mono evidence fragments, and low-noise layouts with clear hierarchy."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a newsletter in MKulgin Brand OS.",
+        "Input: {{newsletterHero}}",
+        "Input: {{newsletterPanel}}",
+        "Input: {{proofStrip}}",
+        "Return an implementation plan and component mapping.",
+        "Keep semantic layers clear and reusable."
+      ],
+      "auditChecklist": [
+        "Does newsletter keep the same brand language as other surfaces?",
+        "Are semantic tokens used before decorative utilities?",
+        "Is the surface easy to scan and action-focused?"
+      ]
+    },
+    "community": {
+      "goal": "Club space for systematic people: topic channels, weekly digest, pinned threads, archivable discussions. Not a chat clone — a smart club space where discussions can be read and found.",
+      "requiredInputs": [
+        "communityHero",
+        "channelList",
+        "pinnedThreads",
+        "topicRooms",
+        "digestPreview",
+        "newsletterPanel"
+      ],
+      "optionalInputs": [
+        "communityAudience",
+        "communityTone",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "community-hero",
+        "channel-list",
+        "pinned-threads",
+        "topic-rooms",
+        "digest-preview",
+        "newsletter-panel"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on community.",
+        "Club tone: structured, archivable, topic-aware. No Telegram UI clone."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a community page in MKulgin Brand OS.",
+        "Input: {{communityHero}}",
+        "Input: {{channelList}}",
+        "Input: {{pinnedThreads}}",
+        "Input: {{topicRooms}}",
+        "Input: {{digestPreview}}",
+        "Input: {{newsletterPanel}}",
+        "Return an implementation plan and component mapping."
+      ],
+      "auditChecklist": [
+        "Does community keep the same brand language as other surfaces?",
+        "Is it a club space, not a chat clone?",
+        "Are discussions archivable and findable?"
+      ]
+    },
+    "catalog": {
+      "goal": "Curated B2B catalog of community participants: services, products, teams, studios, experts, founders. A trusted professional network showcase.",
+      "requiredInputs": [
+        "catalogHero",
+        "participantFilters",
+        "participantGrid",
+        "submitCta"
+      ],
+      "optionalInputs": [
+        "catalogAudience",
+        "catalogTone",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "catalog-hero",
+        "participant-filters",
+        "participant-grid",
+        "submit-cta"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on catalog.",
+        "Participant cards: name, what they do, product, who it helps, category, city, contacts, status."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a catalog page in MKulgin Brand OS.",
+        "Input: {{catalogHero}}",
+        "Input: {{participantFilters}}",
+        "Input: {{participantGrid}}",
+        "Input: {{submitCta}}",
+        "Return an implementation plan and component mapping."
+      ],
+      "auditChecklist": [
+        "Does catalog keep the same brand language as other surfaces?",
+        "Are participant cards structured and evidence-heavy?",
+        "Is the submit CTA clear but restrained?"
+      ]
+    },
+    "grants": {
+      "goal": "How to prepare applications, real mistakes, win/loss stories, fund breakdowns, materials for founders, templates and checklists.",
+      "requiredInputs": [
+        "grantsHero",
+        "contentPillars",
+        "articleList",
+        "quoteCallout",
+        "newsletterPanel"
+      ],
+      "optionalInputs": [
+        "grantsAudience",
+        "grantsTone",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "grants-hero",
+        "content-pillars",
+        "article-list",
+        "quote-callout",
+        "newsletter-panel"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on grants.",
+        "Amber accent for grants highlights, badges, practical emphasis."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design a grants page in MKulgin Brand OS.",
+        "Input: {{grantsHero}}",
+        "Input: {{contentPillars}}",
+        "Input: {{articleList}}",
+        "Input: {{quoteCallout}}",
+        "Input: {{newsletterPanel}}",
+        "Return an implementation plan and component mapping."
+      ],
+      "auditChecklist": [
+        "Does grants keep the same brand language as other surfaces?",
+        "Is amber accent used for grants highlights?",
+        "Is content practical and evidence-based?"
+      ]
+    },
+    "events": {
+      "goal": "Announcements, AMA, online/offline meetings, community gatherings.",
+      "requiredInputs": [
+        "eventsHero",
+        "upcomingList",
+        "archiveList",
+        "newsletterPanel"
+      ],
+      "optionalInputs": [
+        "eventsAudience",
+        "eventsTone",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "events-hero",
+        "upcoming-list",
+        "archive-list",
+        "newsletter-panel"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on events.",
+        "Chronological, clean, archivable."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design an events page in MKulgin Brand OS.",
+        "Input: {{eventsHero}}",
+        "Input: {{upcomingList}}",
+        "Input: {{archiveList}}",
+        "Input: {{newsletterPanel}}",
+        "Return an implementation plan and component mapping."
+      ],
+      "auditChecklist": [
+        "Does events keep the same brand language as other surfaces?",
+        "Are upcoming and archive lists clear?",
+        "Is the layout chronological?"
+      ]
+    },
+    "archive": {
+      "goal": "Long-range credibility: internet of 90s and 2000s, network protocols, how e-commerce changed, lessons from old systems for new startups.",
+      "requiredInputs": [
+        "archiveHero",
+        "contentPillars",
+        "articleList",
+        "quoteCallout"
+      ],
+      "optionalInputs": [
+        "archiveAudience",
+        "archiveTone",
+        "accessibilityRequirements"
+      ],
+      "sectionExpectations": [
+        "archive-hero",
+        "content-pillars",
+        "article-list",
+        "quote-callout"
+      ],
+      "surfaceOverrides": [
+        "Use MKulgin Brand OS shapes and spacing consistently on archive.",
+        "Credibility, long-range, operator history. Network operator motifs."
+      ],
+      "deliverables": [
+        "surface architecture",
+        "visual grammar",
+        "implementation-ready output"
+      ],
+      "promptTemplate": [
+        "Design an archive page in MKulgin Brand OS.",
+        "Input: {{archiveHero}}",
+        "Input: {{contentPillars}}",
+        "Input: {{articleList}}",
+        "Input: {{quoteCallout}}",
+        "Return an implementation plan and component mapping."
+      ],
+      "auditChecklist": [
+        "Does archive keep the same brand language as other surfaces?",
+        "Does it convey long-range credibility?",
+        "Are network operator motifs present?"
+      ]
+    }
+  },
+  "auditPromptAddendum": [
+    "List what stays system-level and what becomes a custom wrapper.",
+    "Check that reusable components are named and repeatable.",
+    "Remove redundant motion and decorative noise where possible."
+  ]
+}

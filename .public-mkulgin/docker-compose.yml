@@ -1,0 +1,9 @@
+services:
+  landing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mkulgin-landing:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
