@@ -1,9 +1,8 @@
 services:
   landing:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: mkulgin-landing:latest
+    image: public.ecr.aws/docker/library/nginx:1.27-alpine
     restart: unless-stopped
-    ports:
-      - "8080:80"
+    expose:
+      - "80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
