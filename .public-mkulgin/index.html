@@ -46,40 +46,8 @@
       background: hsl(var(--secondary));
       color: hsl(var(--foreground));
     }
-    /* Portrait image */
-    .mk-portrait-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      border-radius: var(--radius-media);
-      filter: grayscale(15%) contrast(1.02);
-      transition: filter 400ms ease;
-    }
-    .dark .mk-portrait-img {
-      filter: grayscale(35%) contrast(0.95) brightness(0.9);
-    }
-    .mk-portrait-img:hover {
-      filter: grayscale(0%) contrast(1.04);
-    }
-    .dark .mk-portrait-img:hover {
-      filter: grayscale(10%) contrast(1.0) brightness(0.95);
-    }
-    /* Amber accent line on portrait */
     .mk-portrait-wrap {
       position: relative;
-    }
-    .mk-portrait-wrap::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 1rem;
-      right: 1rem;
-      height: 3px;
-      border-radius: var(--radius-pill);
-      background: linear-gradient(to right, hsl(var(--accent)), transparent);
-      opacity: 0.7;
     }
   </style>
 </head>
@@ -143,27 +111,41 @@
        ============================================================ -->
   <section class="mk-section-lg mk-hero-bg" aria-labelledby="hero-title">
     <div class="mk-shell">
-      <div style="display:grid;grid-template-columns:1fr 300px;gap:4rem;align-items:center;">
+      <div class="mk-hero-grid">
         <div>
           <p class="mk-eyebrow" style="margin-bottom:1.25rem;" data-i18n="hero.eyebrow">IT Entrepreneur · Saint Petersburg</p>
-          <h1 id="hero-title" style="font-size:clamp(2.25rem,5vw,3.5rem);font-weight:700;margin:0 0 0.75rem;line-height:1.05;" data-i18n="hero.title">Maksim Kulgin</h1>
-          <p style="font-family:var(--font-display);font-size:1.375rem;font-weight:400;color:hsl(var(--muted-foreground));margin:0 0 1.5rem;font-style:italic;" data-i18n="hero.subtitle">Systems. Data. Defense.</p>
-          <p style="font-size:1.0625rem;color:hsl(var(--muted-foreground));line-height:1.7;max-width:560px;margin:0 0 2rem;" data-i18n="hero.description">
-            Over 30 years in IT — from network engineering and e-commerce to a portfolio of bootstrapped SaaS products. Author of three engineering books on network infrastructure. Building real technology products without hype.
-          </p>
+          <h1 id="hero-title" style="font-size:clamp(2.25rem,5vw,3.25rem);font-weight:700;margin:0 0 0.625rem;line-height:1.08;" data-i18n="hero.title">Maksim Kulgin</h1>
+          <p class="mk-hero-prompt" data-i18n="hero.subtitle"><span class="mk-hero-prompt-chevron" aria-hidden="true">&gt;</span> systems · data · defense<span class="mk-hero-prompt-cursor" aria-hidden="true"></span></p>
+
+          <!-- Evidence strip -->
+          <div class="mk-hero-evidence" aria-label="Key facts">
+            <span class="mk-hero-evidence-item"><span class="mk-hero-evidence-value" data-i18n="hero.ev.yrs_val">30+</span> <span data-i18n="hero.ev.yrs_lbl">yrs</span></span>
+            <span class="mk-hero-evidence-sep" aria-hidden="true"></span>
+            <span class="mk-hero-evidence-item"><span class="mk-hero-evidence-value" data-i18n="hero.ev.prod_val">7</span> <span data-i18n="hero.ev.prod_lbl">products</span></span>
+            <span class="mk-hero-evidence-sep" aria-hidden="true"></span>
+            <span class="mk-hero-evidence-item"><span class="mk-hero-evidence-value" data-i18n="hero.ev.books_val">3</span> <span data-i18n="hero.ev.books_lbl">books</span></span>
+            <span class="mk-hero-evidence-sep" aria-hidden="true"></span>
+            <span class="mk-hero-evidence-item"><span class="mk-hero-evidence-value" data-i18n="hero.ev.parsed_val">20M+</span> <span data-i18n="hero.ev.parsed_lbl">parsed</span></span>
+          </div>
+
+          <!-- Quote bar -->
+          <blockquote class="mk-hero-quote">
+            <p style="margin:0;" data-i18n="hero.quote">Building real technology products without hype for 30 years.</p>
+          </blockquote>
+
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
             <a href="/blog/" class="mk-btn mk-btn-primary" data-i18n="hero.cta_primary">Read the Journal</a>
             <a href="/projects/" class="mk-btn mk-btn-outline" data-i18n="hero.cta_secondary">Projects &amp; Cases</a>
           </div>
         </div>
-        <!-- Portrait — real photo -->
+        <!-- Portrait -->
         <div class="mk-portrait-wrap">
-          <div class="mk-portrait" style="height:360px;width:300px;" aria-label="Maksim Kulgin portrait">
+          <div class="mk-portrait" style="height:340px;width:280px;" aria-label="Maksim Kulgin portrait">
             <img
               src="/static/img/mkulgin.png"
               alt="Maksim Kulgin"
-              width="300"
-              height="360"
+              width="280"
+              height="340"
               loading="eager"
             >
           </div>
@@ -179,8 +161,8 @@
     <div class="mk-shell">
       <p class="mk-eyebrow" style="margin-bottom:1rem;" data-i18n="path.eyebrow">Career Path</p>
       <h2 id="path-title" style="font-size:1.75rem;font-weight:700;margin:0 0 2.5rem;" data-i18n="path.title">From Networks to Ecosystem</h2>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;position:relative;">
-        <div style="position:absolute;top:1.25rem;left:10%;right:10%;height:1px;background:linear-gradient(to right,hsl(var(--accent)),hsl(var(--primary)),hsl(var(--accent)));opacity:0.35;pointer-events:none;" aria-hidden="true"></div>
+      <div class="mk-timeline-grid">
+        <div class="mk-timeline-line" aria-hidden="true"></div>
         <!-- Step 1 -->
         <div style="text-align:center;position:relative;">
           <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:hsl(var(--primary));border:3px solid hsl(var(--background));margin:0 auto 0.875rem;display:flex;align-items:center;justify-content:center;" aria-hidden="true">
@@ -515,11 +497,11 @@
   }
 
   // ── Inline EN data ────────────────────────────────────────────────────────
-  var enData = {"name":"Maksim Kulgin","hero":{"eyebrow":"IT Entrepreneur · Saint Petersburg","title":"Maksim Kulgin","subtitle":"Systems. Data. Defense.","description":"Over 30 years in IT — from network engineering and e-commerce to a portfolio of bootstrapped SaaS products. Author of three engineering books on network infrastructure. Building real technology products without hype.","cta_primary":"Read the Journal","cta_secondary":"Projects & Cases"},"path":{"eyebrow":"Career Path","title":"From Networks to Ecosystem","steps":[{"year":"1990s","label":"Network Engineer","note":"IP/IPX protocols, sysadmin"},{"year":"1998–2003","label":"Author","note":"3 engineering books published"},{"year":"2000s","label":"E-commerce","note":"Large online retail operations"},{"year":"2010s","label":"SaaS Founder","note":"clickfraud, xmldatafeed, offlinecrm"},{"year":"2020s","label":"Ecosystem","note":"40M+ RUB/year, grants, community"}]},"metrics":[{"value":"30+","label":"Years in IT"},{"value":"3","label":"Engineering books"},{"value":"40M+","label":"RUB revenue / year"},{"value":"5","label":"Active products"}],"pillars":{"eyebrow":"Areas of Practice","title":"What This Journal Covers","items":[{"title":"Data & Parsing","desc":"Web scraping, price monitoring, data feeds — built at scale for real B2B clients."},{"title":"Traffic Defense","desc":"Click fraud protection and anti-bot systems that protect advertising budgets."},{"title":"Internet Systems","desc":"Infrastructure thinking applied to modern products — from IP/IPX to distributed data pipelines."},{"title":"Bootstrapped Growth","desc":"From 0 to 40M+ revenue per year without venture capital. Real numbers, real mistakes."}]},"journal":{"eyebrow":"Journal","title":"Recent Posts","all_link":"All posts →","posts":[{"tag":"Data","date":"Aug 14, 2023","read":"12 min read","title":"20M Rubles a Year on Web Scraping","excerpt":"How an engineering team turned a parsing infrastructure into a sustainable B2B business collecting only public data. Real revenue breakdown and legal framework."},{"tag":"Business","date":"Mar 7, 2023","read":"18 min read","title":"From 0 to 430,000 RUB/Month. SaaS in Russia, Slowly","excerpt":"Month-by-month account of growing a SaaS product without venture capital. Including the failures, the plateaus, and what actually moved the needle."},{"tag":"Grants","date":"Nov 20, 2022","read":"10 min read","title":"How clickfraud.ru Won an 8M Ruble State Grant","excerpt":"We applied to the Foundation for Innovation Assistance and won. How we evaluated the market, structured the application, and defended the project before experts."}]},"products":{"eyebrow":"Ecosystem","title":"Active Products","all_link":"All projects →","items":[{"name":"clickfraud.ru","desc":"Click fraud protection for Russian advertisers. Machine learning + behavioral analysis.","tag":"Traffic Defense"},{"name":"xmldatafeed.com","desc":"Web scraping and price monitoring at scale. 20M+ RUB/year revenue.","tag":"Data & Parsing"},{"name":"offlinecrm.ru","desc":"Simple free CRM for small businesses. No enterprise complexity required.","tag":"Business Tools"}],"status_label":"Active"},"quote":{"text":"No success theater. No marketing fluff. Real revenue, real mistakes, real outcomes.","source":"— bezsmuzi channel principle"},"platforms":{"eyebrow":"Where to Follow","title":"Public Platforms"},"nav":{"home":"Home","blog":"Journal","projects":"Projects","about":"About","contact":"Contact"},"footer":{"copy":"© 2025 Maksim Kulgin. No hype. Real practice."}};
+  var enData = {"name":"Maksim Kulgin","hero":{"eyebrow":"IT Entrepreneur · Saint Petersburg","title":"Maksim Kulgin","subtitle":"> systems · data · defense","quote":"Building real technology products without hype for 30 years.","ev":{"yrs_val":"30+","yrs_lbl":"yrs","prod_val":"7","prod_lbl":"products","books_val":"3","books_lbl":"books","parsed_val":"20M+","parsed_lbl":"parsed"},"cta_primary":"Read the Journal","cta_secondary":"Projects & Cases"},"path":{"eyebrow":"Career Path","title":"From Networks to Ecosystem","steps":[{"year":"1990s","label":"Network Engineer","note":"IP/IPX protocols, sysadmin"},{"year":"1998–2003","label":"Author","note":"3 engineering books published"},{"year":"2000s","label":"E-commerce","note":"Large online retail operations"},{"year":"2010s","label":"SaaS Founder","note":"clickfraud, xmldatafeed, offlinecrm"},{"year":"2020s","label":"Ecosystem","note":"40M+ RUB/year, grants, community"}]},"metrics":[{"value":"30+","label":"Years in IT"},{"value":"3","label":"Engineering books"},{"value":"40M+","label":"RUB revenue / year"},{"value":"5","label":"Active products"}],"pillars":{"eyebrow":"Areas of Practice","title":"What This Journal Covers","items":[{"title":"Data & Parsing","desc":"Web scraping, price monitoring, data feeds — built at scale for real B2B clients."},{"title":"Traffic Defense","desc":"Click fraud protection and anti-bot systems that protect advertising budgets."},{"title":"Internet Systems","desc":"Infrastructure thinking applied to modern products — from IP/IPX to distributed data pipelines."},{"title":"Bootstrapped Growth","desc":"From 0 to 40M+ revenue per year without venture capital. Real numbers, real mistakes."}]},"journal":{"eyebrow":"Journal","title":"Recent Posts","all_link":"All posts →","posts":[{"tag":"Data","date":"Aug 14, 2023","read":"12 min read","title":"20M Rubles a Year on Web Scraping","excerpt":"How an engineering team turned a parsing infrastructure into a sustainable B2B business collecting only public data. Real revenue breakdown and legal framework."},{"tag":"Business","date":"Mar 7, 2023","read":"18 min read","title":"From 0 to 430,000 RUB/Month. SaaS in Russia, Slowly","excerpt":"Month-by-month account of growing a SaaS product without venture capital. Including the failures, the plateaus, and what actually moved the needle."},{"tag":"Grants","date":"Nov 20, 2022","read":"10 min read","title":"How clickfraud.ru Won an 8M Ruble State Grant","excerpt":"We applied to the Foundation for Innovation Assistance and won. How we evaluated the market, structured the application, and defended the project before experts."}]},"products":{"eyebrow":"Ecosystem","title":"Active Products","all_link":"All projects →","items":[{"name":"clickfraud.ru","desc":"Click fraud protection for Russian advertisers. Machine learning + behavioral analysis.","tag":"Traffic Defense"},{"name":"xmldatafeed.com","desc":"Web scraping and price monitoring at scale. 20M+ RUB/year revenue.","tag":"Data & Parsing"},{"name":"offlinecrm.ru","desc":"Simple free CRM for small businesses. No enterprise complexity required.","tag":"Business Tools"}],"status_label":"Active"},"quote":{"text":"No success theater. No marketing fluff. Real revenue, real mistakes, real outcomes.","source":"— bezsmuzi channel principle"},"platforms":{"eyebrow":"Where to Follow","title":"Public Platforms"},"nav":{"home":"Home","blog":"Journal","projects":"Projects","about":"About","contact":"Contact"},"footer":{"copy":"© 2025 Maksim Kulgin. No hype. Real practice."}};
   TRANSLATIONS['en'] = flatten(enData);
 
   // ── Inline RU data ────────────────────────────────────────────────────────
-  var ruData = {"name":"Максим Кульгин","hero":{"eyebrow":"ИТ-предприниматель · Санкт-Петербург","title":"Максим Кульгин","subtitle":"Системы. Данные. Защита.","description":"Более 30 лет в ИТ — от сетевой инженерии и e-commerce до портфеля бутстрап-SaaS продуктов. Автор трёх инженерных книг по сетевой инфраструктуре. Строю реальные технологические продукты без хайпа.","cta_primary":"Читать журнал","cta_secondary":"Проекты и кейсы"},"path":{"eyebrow":"Карьерный путь","title":"От сетей к экосистеме","steps":[{"year":"1990-е","label":"Сетевой инженер","note":"Протоколы IP/IPX, системное администрирование"},{"year":"1998–2003","label":"Автор","note":"3 инженерные книги по сетям"},{"year":"2000-е","label":"E-commerce","note":"Крупный онлайн-ритейл"},{"year":"2010-е","label":"SaaS-основатель","note":"clickfraud, xmldatafeed, offlinecrm"},{"year":"2020-е","label":"Экосистема","note":"40М+ руб./год, гранты, сообщество"}]},"metrics":[{"value":"30+","label":"Лет в ИТ"},{"value":"3","label":"Инженерные книги"},{"value":"40М+","label":"Руб. выручки / год"},{"value":"5","label":"Активных продуктов"}],"pillars":{"eyebrow":"Направления работы","title":"О чём этот журнал","items":[{"title":"Данные и парсинг","desc":"Веб-скрапинг, мониторинг цен, фиды данных — построено в масштабе для реальных B2B-клиентов."},{"title":"Защита трафика","desc":"Защита от кликфрода и антибот-системы для рекламных бюджетов."},{"title":"Интернет-системы","desc":"Инженерное мышление в современных продуктах — от IP/IPX до распределённых пайплайнов данных."},{"title":"Бутстрап-рост","desc":"От 0 до 40М+ выручки в год без венчурных денег. Реальные цифры, реальные ошибки."}]},"journal":{"eyebrow":"Журнал","title":"Последние материалы","all_link":"Все материалы →","posts":[{"tag":"Данные","date":"14 авг 2023","read":"12 мин","title":"20 млн рублей в год на парсинге сайтов","excerpt":"Как инженерная команда превратила парсинговую инфраструктуру в устойчивый B2B-бизнес, собирая только публичные данные. Структура выручки, клиенты и правовые ограничения."},{"tag":"Бизнес","date":"7 мар 2023","read":"18 мин","title":"С нуля до 430 000 руб./мес. SaaS в России. Медленно всё","excerpt":"Помесячный разбор роста SaaS-продукта без венчурных денег. Включая провалы, плато и то, что реально двигало иглу."},{"tag":"Гранты","date":"20 ноя 2022","read":"10 мин","title":"Как clickfraud.ru получил грант 8 млн рублей","excerpt":"Мы подали заявку в Фонд содействия инновациям и выиграли. Как оценивали рынок, структурировали заявку и защищали проект перед экспертами."}]},"products":{"eyebrow":"Экосистема","title":"Активные продукты","all_link":"Все проекты →","items":[{"name":"clickfraud.ru","desc":"Защита от кликфрода для российских рекламодателей. Машинное обучение + поведенческий анализ.","tag":"Защита трафика"},{"name":"xmldatafeed.com","desc":"Веб-скрапинг и мониторинг цен в масштабе. Выручка 20М+ руб./год.","tag":"Данные и парсинг"},{"name":"offlinecrm.ru","desc":"Простая бесплатная CRM для малого бизнеса. Без лишней сложности.","tag":"Инструменты"}],"status_label":"Активен"},"quote":{"text":"Никакого успешного успеха. Только то, что подтверждается нашей практикой.","source":"— принцип канала bezsmuzi"},"platforms":{"eyebrow":"Где следить","title":"Публичные платформы"},"nav":{"home":"Главная","blog":"Журнал","projects":"Проекты","about":"О себе","contact":"Контакты"},"footer":{"copy":"© 2025 Максим Кульгин. Без хайпа. Реальная практика."}};
+  var ruData = {"name":"Максим Кульгин","hero":{"eyebrow":"ИТ-предприниматель · Санкт-Петербург","title":"Максим Кульгин","subtitle":"> системы · данные · защита","quote":"Строю реальные технологические продукты без хайпа уже 30 лет.","ev":{"yrs_val":"30+","yrs_lbl":"лет","prod_val":"7","prod_lbl":"продуктов","books_val":"3","books_lbl":"книги","parsed_val":"20М+","parsed_lbl":"парсинг"},"cta_primary":"Читать журнал","cta_secondary":"Проекты и кейсы"},"path":{"eyebrow":"Карьерный путь","title":"От сетей к экосистеме","steps":[{"year":"1990-е","label":"Сетевой инженер","note":"Протоколы IP/IPX, системное администрирование"},{"year":"1998–2003","label":"Автор","note":"3 инженерные книги по сетям"},{"year":"2000-е","label":"E-commerce","note":"Крупный онлайн-ритейл"},{"year":"2010-е","label":"SaaS-основатель","note":"clickfraud, xmldatafeed, offlinecrm"},{"year":"2020-е","label":"Экосистема","note":"40М+ руб./год, гранты, сообщество"}]},"metrics":[{"value":"30+","label":"Лет в ИТ"},{"value":"3","label":"Инженерные книги"},{"value":"40М+","label":"Руб. выручки / год"},{"value":"5","label":"Активных продуктов"}],"pillars":{"eyebrow":"Направления работы","title":"О чём этот журнал","items":[{"title":"Данные и парсинг","desc":"Веб-скрапинг, мониторинг цен, фиды данных — построено в масштабе для реальных B2B-клиентов."},{"title":"Защита трафика","desc":"Защита от кликфрода и антибот-системы для рекламных бюджетов."},{"title":"Интернет-системы","desc":"Инженерное мышление в современных продуктах — от IP/IPX до распределённых пайплайнов данных."},{"title":"Бутстрап-рост","desc":"От 0 до 40М+ выручки в год без венчурных денег. Реальные цифры, реальные ошибки."}]},"journal":{"eyebrow":"Журнал","title":"Последние материалы","all_link":"Все материалы →","posts":[{"tag":"Данные","date":"14 авг 2023","read":"12 мин","title":"20 млн рублей в год на парсинге сайтов","excerpt":"Как инженерная команда превратила парсинговую инфраструктуру в устойчивый B2B-бизнес, собирая только публичные данные. Структура выручки, клиенты и правовые ограничения."},{"tag":"Бизнес","date":"7 мар 2023","read":"18 мин","title":"С нуля до 430 000 руб./мес. SaaS в России. Медленно всё","excerpt":"Помесячный разбор роста SaaS-продукта без венчурных денег. Включая провалы, плато и то, что реально двигало иглу."},{"tag":"Гранты","date":"20 ноя 2022","read":"10 мин","title":"Как clickfraud.ru получил грант 8 млн рублей","excerpt":"Мы подали заявку в Фонд содействия инновациям и выиграли. Как оценивали рынок, структурировали заявку и защищали проект перед экспертами."}]},"products":{"eyebrow":"Экосистема","title":"Активные продукты","all_link":"Все проекты →","items":[{"name":"clickfraud.ru","desc":"Защита от кликфрода для российских рекламодателей. Машинное обучение + поведенческий анализ.","tag":"Защита трафика"},{"name":"xmldatafeed.com","desc":"Веб-скрапинг и мониторинг цен в масштабе. Выручка 20М+ руб./год.","tag":"Данные и парсинг"},{"name":"offlinecrm.ru","desc":"Простая бесплатная CRM для малого бизнеса. Без лишней сложности.","tag":"Инструменты"}],"status_label":"Активен"},"quote":{"text":"Никакого успешного успеха. Только то, что подтверждается нашей практикой.","source":"— принцип канала bezsmuzi"},"platforms":{"eyebrow":"Где следить","title":"Публичные платформы"},"nav":{"home":"Главная","blog":"Журнал","projects":"Проекты","about":"О себе","contact":"Контакты"},"footer":{"copy":"© 2025 Максим Кульгин. Без хайпа. Реальная практика."}};
   TRANSLATIONS['ru'] = flatten(ruData);
 
   // ── Dark mode ─────────────────────────────────────────────────────────────
