@@ -12,38 +12,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/styles.css">
-  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNiZTg3NjAiIHN0cm9rZS13aWR0aD0iMi4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1oZWFydC1oYW5kc2hha2UtaWNvbiBsdWNpZGUtaGVhcnQtaGFuZHNoYWtlIj48cGF0aCBkPSJNMTkuNDE0IDE0LjQxNEMyMSAxMi44MjggMjIgMTEuNSAyMiA5LjVhNS41IDUuNSAwIDAgMC05LjU5MS0zLjY3Ni42LjYgMCAwIDEtLjgxOC4wMDFBNS41IDUuNSAwIDAgMCAyIDkuNWMwIDIuMyAxLjUgNCAzIDUuNWw1LjUzNSA1LjM2MmEyIDIgMCAwIDAgMi44NzkuMDUyIDIuMTIgMi4xMiAwIDAgMC0uMDA0LTMgMi4xMjQgMi4xMjQgMCAxIDAgMy0zIDIuMTI0IDIuMTI0IDAgMCAwIDMuMDA0IDAgMiAyIDAgMCAwIDAtMi44MjhsLTEuODgxLTEuODgyYTIuNDEgMi40MSAwIDAgMC0zLjQwOSAwbC0xLjcxIDEuNzFhMiAyIDAgMCAxLTIuODI4IDAgMiAyIDAgMCAxIDAtMi44MjhsMi44MjMtMi43NjIiLz48L3N2Zz4=" type="image/svg+xml">
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM1Yzg1YTYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1oYW5kc2hha2UtaWNvbiBsdWNpZGUtaGFuZHNoYWtlIj48cGF0aCBkPSJtMTEgMTcgMiAyYTEgMSAwIDEgMCAzLTMiLz48cGF0aCBkPSJtMTQgMTQgMi41IDIuNWExIDEgMCAxIDAgMy0zbC0zLjg4LTMuODhhMyAzIDAgMCAwLTQuMjQgMGwtLjg4Ljg4YTEgMSAwIDEgMS0zLTNsMi44MS0yLjgxYTUuNzkgNS43OSAwIDAgMSA3LjA2LS44N2wuNDcuMjhhMiAyIDAgMCAwIDEuNDIuMjVMMjEgNCIvPjxwYXRoIGQ9Im0yMSAzIDEgMTFoLTIiLz48cGF0aCBkPSJNMyAzIDIgMTRsNi41IDYuNWExIDEgMCAxIDAgMy0zIi8+PHBhdGggZD0iTTMgNGg4Ii8+PC9zdmc+" type="image/svg+xml">
   <style>
-    /* Lang toggle */
+    /* Lang toggle — same style as theme toggle */
     .mk-lang-toggle {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid hsl(var(--border));
-      border-radius: var(--radius-pill);
-      overflow: hidden;
+      width: 2rem;
       height: 2rem;
-      flex-shrink: 0;
-    }
-    .mk-lang-btn {
-      padding: 0 0.625rem;
-      height: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid hsl(var(--border));
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--font-mono);
       font-size: 0.6875rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      background: transparent;
-      border: none;
-      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.02em;
       color: hsl(var(--muted-foreground));
       transition: all 150ms ease;
-      line-height: 1;
+      flex-shrink: 0;
     }
-    .mk-lang-btn.active {
-      background: hsl(var(--primary));
-      color: hsl(var(--primary-foreground));
-    }
-    .mk-lang-btn:hover:not(.active) {
-      background: hsl(var(--secondary));
+    .mk-lang-toggle:hover {
+      background-color: hsl(var(--secondary));
       color: hsl(var(--foreground));
     }
     .mk-portrait-wrap {
@@ -72,10 +63,7 @@
       </ul>
       <div style="display:flex;align-items:center;gap:0.5rem;">
         <!-- Lang toggle -->
-        <div class="mk-lang-toggle" role="group" aria-label="Language">
-          <button class="mk-lang-btn active" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
-          <button class="mk-lang-btn" id="lang-ru" data-lang="ru" aria-pressed="false">RU</button>
-        </div>
+        <button class="mk-lang-toggle" id="lang-toggle" aria-label="Toggle language" aria-pressed="false">En</button>
         <!-- Dark mode toggle -->
         <button class="mk-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <svg class="mk-icon" id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -142,7 +130,7 @@
         <div class="mk-portrait-wrap">
           <div class="mk-portrait" style="height:340px;width:280px;" aria-label="Maksim Kulgin portrait">
             <img
-              src="/static/img/mkulgin.png"
+              src="/static/img/mkulgin-2.png"
               alt="Maksim Kulgin"
               width="280"
               height="340"
@@ -293,7 +281,7 @@
         <a href="/blog/" class="mk-btn mk-btn-ghost" style="font-size:0.875rem;" data-i18n="journal.all_link">All posts →</a>
       </div>
       <div>
-        <a href="#" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;">
+        <a href="/blog/parsing-20m-per-year/" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;">
           <div class="mk-post-meta">
             <span class="mk-tag mk-tag-primary" data-i18n="journal.posts.0.tag">Data</span>
             <span class="mk-post-date" data-i18n="journal.posts.0.date">Aug 14, 2023</span>
@@ -302,7 +290,7 @@
           <h3 class="mk-post-title" data-i18n="journal.posts.0.title">20M Rubles a Year on Web Scraping</h3>
           <p class="mk-post-excerpt" data-i18n="journal.posts.0.excerpt">How an engineering team turned a parsing infrastructure into a sustainable B2B business collecting only public data. Real revenue breakdown and legal framework.</p>
         </a>
-        <a href="#" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;">
+        <a href="/blog/saas-from-zero-to-430k/" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;">
           <div class="mk-post-meta">
             <span class="mk-tag mk-tag-accent" data-i18n="journal.posts.1.tag">Business</span>
             <span class="mk-post-date" data-i18n="journal.posts.1.date">Mar 7, 2023</span>
@@ -311,7 +299,7 @@
           <h3 class="mk-post-title" data-i18n="journal.posts.1.title">From 0 to 430,000 RUB/Month. SaaS in Russia, Slowly</h3>
           <p class="mk-post-excerpt" data-i18n="journal.posts.1.excerpt">Month-by-month account of growing a SaaS product without venture capital. Including the failures, the plateaus, and what actually moved the needle.</p>
         </a>
-        <a href="#" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;border-bottom:none;">
+        <a href="/blog/clickfraud-grant-8m/" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;border-bottom:none;">
           <div class="mk-post-meta">
             <span class="mk-tag" data-i18n="journal.posts.2.tag">Grants</span>
             <span class="mk-post-date" data-i18n="journal.posts.2.date">Nov 20, 2022</span>
@@ -487,12 +475,12 @@
         el.textContent = t[key];
       }
     });
-    // Update lang toggle buttons
-    document.querySelectorAll('.mk-lang-btn').forEach(function (btn) {
-      var active = btn.getAttribute('data-lang') === lang;
-      btn.classList.toggle('active', active);
-      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-    });
+    // Update lang toggle button text (En / Ru)
+    var langBtn = document.getElementById('lang-toggle');
+    if (langBtn) {
+      langBtn.textContent = lang === 'ru' ? 'Ru' : 'En';
+      langBtn.setAttribute('aria-pressed', lang === 'ru' ? 'true' : 'false');
+    }
     localStorage.setItem('mk-lang', lang);
   }
 
@@ -537,11 +525,13 @@
   var initLang = storedLang || (browserLang === 'ru' ? 'ru' : 'en');
   applyLang(initLang);
 
-  document.querySelectorAll('.mk-lang-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      applyLang(btn.getAttribute('data-lang'));
+  var langToggle = document.getElementById('lang-toggle');
+  if (langToggle) {
+    langToggle.addEventListener('click', function () {
+      var current = document.documentElement.getAttribute('lang') || 'en';
+      applyLang(current === 'ru' ? 'en' : 'ru');
     });
-  });
+  }
 
   // ── Mobile menu ───────────────────────────────────────────────────────────
   var mobileBtn = document.getElementById('mobile-menu-btn');

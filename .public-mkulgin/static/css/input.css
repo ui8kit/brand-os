@@ -81,7 +81,7 @@
   --muted-foreground: 214 10% 70%;
   --accent: 25 42% 56%;
   --accent-foreground: 216 20% 10%;
-  --accent-soft: 25 26% 18%;
+  --accent-soft: 217 10% 16%;
   --accent-soft-foreground: 31 58% 74%;
   --destructive: 0 72% 60%;
   --destructive-foreground: 0 0% 100%;
@@ -100,7 +100,7 @@
   --surface-elevated: 216 16% 14%;
   --surface-subtle: 217 10% 16%;
   --surface-strong: 217 10% 22%;
-  --paper-warm: 25 12% 18%;
+  --paper-warm: 217 10% 16%;
   --paper-warm-foreground: 42 24% 89%;
   --neutral-ink: 42 18% 82%;
 }
