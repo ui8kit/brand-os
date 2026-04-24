@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Components — Auth Fly Design System</title>
+
+  <link rel="icon" type="image/png" href="img/favicon-32x32.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=Nunito+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <link rel="stylesheet" href="css/latty.css" />
+  <link rel="stylesheet" href="_shared/tweaks.css" />
+  <link rel="stylesheet" href="_shared/preview.css" />
+  <link rel="stylesheet" href="_shared/tweaks-dock.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="app-header" role="banner">
+    <div class="app-header__inner">
+      <a href="index.html" class="brand-mark"><span class="brand-mark__logo" aria-hidden="true"><i class="latty latty-shield"></i></span>Auth&nbsp;Fly</a>
+      <nav class="app-nav" role="navigation" aria-label="Primary">
+        <a class="app-nav__link" href="index.html">Overview</a>
+        <a class="app-nav__link" href="tokens.html">Tokens</a>
+        <a class="app-nav__link" aria-current="page" href="components.html">Components</a>
+        <a class="app-nav__link" href="typography.html">Typography</a>
+      </nav>
+      <div class="app-header__actions">
+        <button id="ui8kit-theme-toggle" class="btn btn-ghost btn-icon" aria-pressed="true" type="button"
+          data-switch-to-light-label="Switch to light theme" data-switch-to-dark-label="Switch to dark theme">
+          <i id="theme-toggle-icon" class="latty latty-sun" aria-hidden="true"></i>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <header class="page-header">
+      <div class="page-header__inner">
+        <span class="t-eyebrow">UI Kit</span>
+        <h1 class="t-display" style="font-size: clamp(2rem, 3vw + 1rem, 3.5rem);">Components</h1>
+        <p class="t-lead container-narrow" style="padding-inline:0;">
+          A coherent toolkit for the Auth Fly hosted-UI: every component reads its surface, density, motion, radius and
+          depth from the same tokens you saw on the previous page. Open the Tweaks dock and watch them respond.
+        </p>
+      </div>
+    </header>
+
+    <section class="section section-tight section-divider container">
+
+      <!-- Buttons -------------------------------------------------- -->
+      <article id="buttons" aria-labelledby="buttons-title" class="stack" style="margin-bottom:3rem;">
+        <header class="row-between">
+          <div class="stack-tight"><span class="t-eyebrow">01</span><h2 id="buttons-title" class="t-h1">Buttons</h2></div>
+          <span class="t-muted">5 intents · 3 sizes · live density</span>
+        </header>
+
+        <div class="card stack">
+          <div class="row">
+            <button class="btn btn-primary" type="button">Primary</button>
+            <button class="btn btn-secondary" type="button">Secondary</button>
+            <button class="btn" type="button">Outline</button>
+            <button class="btn btn-ghost" type="button">Ghost</button>
+            <button class="btn btn-destructive" type="button">Destructive</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary btn-lg" type="button"><i class="latty latty-server" aria-hidden="true"></i>Deploy</button>
+            <button class="btn btn-primary" type="button">Default</button>
+            <button class="btn btn-primary btn-sm" type="button">Small</button>
+            <button class="btn btn-secondary btn-icon" type="button" aria-label="Settings"><i class="latty latty-menu" aria-hidden="true"></i></button>
+            <button class="btn btn-primary" type="button" disabled style="opacity:.5; cursor:not-allowed;">Disabled</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Forms ---------------------------------------------------- -->
+      <article id="forms" aria-labelledby="forms-title" class="stack" style="margin-bottom:3rem;">
+        <header class="row-between">
+          <div class="stack-tight"><span class="t-eyebrow">02</span><h2 id="forms-title" class="t-h1">Forms &amp; auth flow</h2></div>
+          <span class="t-muted">SSO + email · WebAuthn-ready</span>
+        </header>
+
+        <div class="grid grid-2" style="align-items:start;">
+          <form class="card card-elevated stack" aria-label="Sign in" novalidate>
+            <h3 class="t-h3">Sign in</h3>
+
+            <div class="sso-grid">
+              <button type="button" class="btn btn-secondary"><i class="latty latty-server" aria-hidden="true"></i>SAML SSO</button>
+              <button type="button" class="btn btn-secondary"><i class="latty latty-shield" aria-hidden="true"></i>Passkey</button>
+            </div>
+
+            <div class="auth-divider" role="separator">or</div>
+
+            <div class="field">
+              <label class="field__label" for="form-email">Work email</label>
+              <input class="input" id="form-email" type="email" autocomplete="email" placeholder="alex@yourcompany.com" required aria-required="true" />
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="form-pass">
+                Password
+                <a href="#" class="field__label-aux" tabindex="-1">Forgot?</a>
+              </label>
+              <input class="input" id="form-pass" type="password" autocomplete="current-password" placeholder="••••••••" required aria-required="true" aria-describedby="form-pass-hint" />
+              <span id="form-pass-hint" class="field__hint">8+ characters with letters, numbers and a symbol.</span>
+            </div>
+
+            <label class="checkbox"><input type="checkbox" /> Trust this device for 30 days</label>
+
+            <button type="submit" class="btn btn-primary">Continue</button>
+          </form>
+
+          <form class="card stack" aria-label="OIDC connection setup" novalidate>
+            <h3 class="t-h3">Connect an OIDC provider</h3>
+            <div class="field">
+              <label class="field__label" for="oidc-issuer">Issuer URL</label>
+              <input class="input" id="oidc-issuer" type="url" value="https://idp.example.com" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="oidc-client">Client ID</label>
+              <input class="input" id="oidc-client" type="text" value="auth-fly-prod" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="oidc-secret">Client secret</label>
+              <input class="input" id="oidc-secret" type="password" value="••••••••••••" />
+            </div>
+            <div class="row" style="justify-content:space-between;">
+              <button type="button" class="btn btn-ghost btn-sm">Test connection</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </article>
+
+      <!-- Cards / Status ------------------------------------------- -->
+      <article id="cards" aria-labelledby="cards-title" class="stack" style="margin-bottom:3rem;">
+        <header class="row-between">
+          <div class="stack-tight"><span class="t-eyebrow">03</span><h2 id="cards-title" class="t-h1">Cards &amp; surfaces</h2></div>
+          <span class="t-muted">Container queries · adaptive elevation</span>
+        </header>
+
+        <div class="grid grid-3">
+          <article class="card stack-tight">
+            <div class="row"><span class="dot dot-online" aria-hidden="true"></span><span class="t-eyebrow">Online</span></div>
+            <h3 class="t-h3">Production IdP</h3>
+            <p class="t-muted">Signing key healthy. 412 active sessions across 14 origins.</p>
+            <div class="row" style="margin-top:.5rem;">
+              <button class="btn btn-sm">View logs</button>
+              <button class="btn btn-ghost btn-sm">Rotate key</button>
+            </div>
+          </article>
+
+          <article class="card stack-tight">
+            <div class="row"><span class="dot dot-pending" aria-hidden="true"></span><span class="t-eyebrow">Pending</span></div>
+            <h3 class="t-h3">Staging IdP</h3>
+            <p class="t-muted">SCIM bridge waiting on tenant approval.</p>
+            <div class="row" style="margin-top:.5rem;">
+              <button class="btn btn-sm">Approve</button>
+              <button class="btn btn-ghost btn-sm">Decline</button>
+            </div>
+          </article>
+
+          <article class="card card-elevated stack-tight">
+            <div class="row"><span class="pill pill-primary"><span class="pill-dot"></span>New</span></div>
+            <h3 class="t-h3">Passkey rollout</h3>
+            <p class="t-muted">Phased enablement for 12% of internal staff. Full rollout next week.</p>
+            <div class="row" style="margin-top:.5rem;">
+              <button class="btn btn-primary btn-sm">Continue rollout</button>
+            </div>
+          </article>
+        </div>
+      </article>
+
+      <!-- Data ----------------------------------------------------- -->
+      <article id="data" aria-labelledby="data-title" class="stack" style="margin-bottom:3rem;">
+        <header class="row-between">
+          <div class="stack-tight"><span class="t-eyebrow">04</span><h2 id="data-title" class="t-h1">Data display</h2></div>
+          <span class="t-muted">Audit log · streaming</span>
+        </header>
+
+        <div class="card" style="padding:0; overflow:hidden;">
+          <table class="data-table" aria-label="Recent audit events">
+            <thead>
+              <tr>
+                <th scope="col">Event</th>
+                <th scope="col">Actor</th>
+                <th scope="col">Origin</th>
+                <th scope="col">When</th>
+                <th scope="col" style="text-align:right;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>user.login.success</strong><div class="mono">sess_a1f2…7c9</div></td>
+                <td>alex@yourcompany.com</td>
+                <td>app.yourcompany.com</td>
+                <td class="mono">10:42:11</td>
+                <td style="text-align:right;"><span class="pill pill-success"><span class="pill-dot"></span>OK</span></td>
+              </tr>
+              <tr>
+                <td><strong>passkey.enroll.started</strong><div class="mono">flow_b8…3e1</div></td>
+                <td>sarah@yourcompany.com</td>
+                <td>app.yourcompany.com</td>
+                <td class="mono">10:38:02</td>
+                <td style="text-align:right;"><span class="pill pill-warning"><span class="pill-dot"></span>Pending</span></td>
+              </tr>
+              <tr>
+                <td><strong>oidc.connection.test</strong><div class="mono">conn_pro…</div></td>
+                <td>system</td>
+                <td>idp.yourcompany.com</td>
+                <td class="mono">10:31:55</td>
+                <td style="text-align:right;"><span class="pill pill-success"><span class="pill-dot"></span>OK</span></td>
+              </tr>
+              <tr>
+                <td><strong>user.login.failed</strong><div class="mono">attempt_f2…</div></td>
+                <td>unknown</td>
+                <td>app.yourcompany.com</td>
+                <td class="mono">10:00:43</td>
+                <td style="text-align:right;"><span class="pill pill-danger"><span class="pill-dot"></span>Blocked</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Navigation ----------------------------------------------- -->
+      <article id="nav" aria-labelledby="nav-title" class="stack" style="margin-bottom:3rem;">
+        <header class="row-between">
+          <div class="stack-tight"><span class="t-eyebrow">05</span><h2 id="nav-title" class="t-h1">Navigation</h2></div>
+          <span class="t-muted">Tabs · Breadcrumbs · Pills</span>
+        </header>
+
+        <div class="card stack-loose">
+          <div role="tablist" class="tablist" aria-label="Account tabs">
+            <button role="tab" aria-selected="true" class="tablist__tab">Account</button>
+            <button role="tab" aria-selected="false" class="tablist__tab">Password</button>
+            <button role="tab" aria-selected="false" class="tablist__tab">MFA</button>
+            <button role="tab" aria-selected="false" class="tablist__tab">Sessions</button>
+            <button role="tab" aria-selected="false" class="tablist__tab">Audit</button>
+          </div>
+
+          <nav aria-label="Breadcrumb">
+            <ol class="row" style="list-style:none; padding:0; margin:0; font-size:.8125rem;">
+              <li><a href="#" style="color:var(--muted-foreground); text-decoration:none;">Settings</a></li>
+              <li class="t-muted">/</li>
+              <li><a href="#" style="color:var(--muted-foreground); text-decoration:none;">Security</a></li>
+              <li class="t-muted">/</li>
+              <li aria-current="page" style="color:var(--foreground); font-weight:700;">WebAuthn keys</li>
+            </ol>
+          </nav>
+
+          <div class="row">
+            <span class="pill"><span class="pill-dot"></span>Default</span>
+            <span class="pill pill-primary"><span class="pill-dot"></span>Primary</span>
+            <span class="pill pill-success"><span class="pill-dot"></span>Healthy</span>
+            <span class="pill pill-warning"><span class="pill-dot"></span>Pending</span>
+            <span class="pill pill-danger"><span class="pill-dot"></span>Blocked</span>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <div class="app-footer__inner">
+      <span>UI Kit · Authfly Design System.</span>
+      <a href="typography.html" class="row">Next: Typography <i class="latty latty-log-out" aria-hidden="true"></i></a>
+    </div>
+  </footer>
+
+  <script src="_shared/tweaks-runtime.js"></script>
+  <script src="_shared/tweaks-dock.js"></script>
+  <script src="js/theme.js"></script>
+</body>
+</html>

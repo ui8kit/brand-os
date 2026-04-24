@@ -4,6 +4,9 @@ import { dirname, resolve } from 'node:path';
 import { InitCliArgs } from '../cli/parse-args.js';
 import { BrandOsSchema } from '../brand-os/types.js';
 import { ensureDir, writeTextFile } from '../brand-os/utils.js';
+import { buildDefaultBrandMarks, buildDefaultIllustration } from '../brand-os/defaults/schema.js';
+import { buildDefaultTweaks } from '../brand-os/defaults/tweaks.js';
+import { buildDefaultThemes, resolveColorModes } from '../brand-os/defaults/themes.js';
 
 interface InitAnswers {
   name: string;
@@ -177,7 +180,7 @@ function buildSchema(answers: InitAnswers): BrandOsSchema {
   const radius = STYLE_RADIUS[answers.style] ?? STYLE_RADIUS['warm'];
   const shadow = STYLE_SHADOW[answers.style] ?? STYLE_SHADOW['warm'];
 
-  return {
+  const baseSchema: BrandOsSchema = {
     meta: {
       name: answers.name,
       slug: answers.slug,
@@ -221,25 +224,97 @@ function buildSchema(answers: InitAnswers): BrandOsSchema {
           body: answers.bodyFont,
           ui: answers.bodyFont,
         },
+        sizes: {
+          'display-lg': '3.5rem',
+          'display-md': '2.75rem',
+          'heading-lg': '2rem',
+          'body-md': '1rem',
+          'body-sm': '0.875rem',
+          'label-md': '0.875rem',
+          'label-sm': '0.75rem',
+        },
+      },
+      spacing: {
+        baseUnit: 4,
+        scale: {
+          xs: '0.25rem',
+          sm: '0.5rem',
+          md: '1rem',
+          lg: '1.5rem',
+          xl: '3rem',
+        },
+        sectionRhythm: {
+          compact: '1.5rem',
+          default: '2.5rem',
+          spacious: '4rem',
+        },
+        container: {
+          reading: '42rem',
+          content: '64rem',
+          wide: '80rem',
+        },
       },
       radius,
       shadow,
+      motion: {
+        durations: {
+          fast: '120ms',
+          normal: '180ms',
+          slow: '260ms',
+        },
+        easings: {
+          standard: 'cubic-bezier(0.2, 0.8, 0.2, 1)',
+          emphasized: 'cubic-bezier(0.2, 0, 0, 1)',
+        },
+      },
     },
     designGrammar: {
       styleDirection: answers.style,
+      densityModes: {
+        comfortable: 'Default reading density with generous section rhythm.',
+        compact: 'Higher information density for admin and dashboard surfaces.',
+        cozy: 'Relaxed spacing for editorial, hospitality, and presentation work.',
+      },
       shapeLanguage: {
         core: `${answers.personality.slice(0, 3).join(', ')} visual language with clear hierarchy.`,
       },
       surfaceLanguage: {
         base: `Cards and containers use radius-${answers.style === 'minimal' || answers.style === 'editorial' ? 'sharp' : 'rounded'} treatment.`,
         depthRule: `Shadow depth follows ${answers.style === 'bold' ? 'strong' : answers.style === 'minimal' ? 'minimal' : 'moderate'} elevation scale.`,
+        accentRule: 'Keep accent usage scarce and meaningful. Reserve the strongest contrast for the primary CTA and key emphasis moments.',
+        contrastRule: 'Preserve AA contrast in both light and dark surfaces before adding decorative treatments.',
       },
+      imageTreatment: {
+        style: answers.style === 'editorial' || answers.style === 'luxury' ? 'editorial' : 'photographic',
+        preferred: ['brand-led compositions', 'clear focal subject', 'authentic material texture'],
+        avoid: ['generic stock poses', 'flat AI gradients', 'overprocessed imagery'],
+      },
+      contentVoice: {
+        adjectives: answers.personality.slice(0, 4),
+        avoid: ['generic filler text', 'corporate jargon', 'empty urgency'],
+      },
+    },
+    componentPolicy: {
+      keepStandard: ['Button', 'Input', 'Textarea', 'Dialog', 'Card'],
+      wrapEarly: ['Hero', 'Section shell', 'Feature grid'],
+      customBlocks: ['brand hero', 'testimonial strip', 'CTA banner'],
+      avoid: ['generic feature card stacks', 'over-decorated controls'],
     },
     recipes: {
       pageArchetypes,
       sectionArchetypes,
     },
   };
+
+  const colors = resolveColorModes(baseSchema);
+  baseSchema.tokens.color.light = colors.light;
+  baseSchema.tokens.color.dark = colors.dark;
+  baseSchema.themes = buildDefaultThemes(baseSchema);
+  baseSchema.tweaks = buildDefaultTweaks(baseSchema);
+  baseSchema.brandMarks = buildDefaultBrandMarks(baseSchema);
+  baseSchema.illustration = buildDefaultIllustration(baseSchema);
+
+  return baseSchema;
 }
 
 function prompt(rl: ReturnType<typeof createInterface>, question: string): Promise<string> {
@@ -390,7 +465,7 @@ export async function runInit(args: InitCliArgs): Promise<void> {
   console.log(`\n  Next steps:`);
   console.log(`  1. Review and refine the schema`);
   console.log(`  2. npx brand-os --schema "${outputPath}" --bootstrap`);
-  console.log(`  3. Use generated prompts from *-generated/prompts/\n`);
+  console.log(`  3. Attach *-generated/DESIGN.md and wire tweaks/* into your host preview\n`);
 }
 
 export function printInitUsage(): string {

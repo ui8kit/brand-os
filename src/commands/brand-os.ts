@@ -301,7 +301,6 @@ function ensureFixtureSource(
   schema: BrandOsSchema,
   paths: {
     schemaPath: string;
-    promptPackPath: string;
     parserContractPath: string;
     fixturesPath: string;
     emitDir: string;
@@ -319,33 +318,10 @@ function ensureFixtureSource(
   );
 }
 
-function ensurePromptPack(
-  schema: BrandOsSchema,
-  paths: {
-    schemaPath: string;
-    promptPackPath: string;
-    parserContractPath: string;
-    fixturesPath: string;
-    emitDir: string;
-    schemaFileName: string;
-  },
-  args: BrandOsCliArgs,
-): PromptPack {
-  return loadBrandArtifact(
-    'Prompt pack',
-    paths.promptPackPath,
-    Boolean(args.promptPack),
-    false,
-    args.bootstrap,
-    () => buildPromptPack(schema),
-  );
-}
-
 function ensureParserContract(
   schema: BrandOsSchema,
   paths: {
     schemaPath: string;
-    promptPackPath: string;
     parserContractPath: string;
     fixturesPath: string;
     emitDir: string;
@@ -363,25 +339,6 @@ function ensureParserContract(
   );
 }
 
-function ensurePromptPackCompat(
-  paths: {
-    schemaPath: string;
-    promptPackPath: string;
-    parserContractPath: string;
-    fixturesPath: string;
-    emitDir: string;
-    schemaFileName: string;
-  },
-  args: BrandOsCliArgs,
-): { promptPack: PromptPack; parserContract: ParserContract; fixtures: ParserFixtureSource } {
-  const schema = readJsonFile<BrandOsSchema>(paths.schemaPath);
-  return {
-    promptPack: ensurePromptPack(schema, paths, args),
-    parserContract: ensureParserContract(schema, paths, args),
-    fixtures: ensureFixtureSource(schema, paths, args),
-  };
-}
-
 export async function runBrandOs(args: BrandOsCliArgs): Promise<void> {
   const rawSchemaPath = args.schema;
   if (!existsSync(rawSchemaPath)) {
@@ -390,7 +347,6 @@ export async function runBrandOs(args: BrandOsCliArgs): Promise<void> {
 
   const schemaPreview = readJsonFile<BrandOsSchema>(rawSchemaPath);
   const paths = resolveBrandOsPaths(rawSchemaPath, schemaPreview, {
-    promptPack: args.promptPack,
     parserContract: args.parserContract,
     fixtures: args.fixtures,
     emitDir: args.emitDir,
@@ -401,21 +357,37 @@ export async function runBrandOs(args: BrandOsCliArgs): Promise<void> {
   }
 
   const schema = readJsonFile<BrandOsSchema>(paths.schemaPath);
-  const { promptPack, parserContract, fixtures: fixtureSource } = ensurePromptPackCompat(paths, args);
-  const isBootstrapUsed = !existsSync(paths.promptPackPath) || !existsSync(paths.parserContractPath) || !existsSync(paths.fixturesPath);
+  const promptPack = buildPromptPack(schema);
+  const parserContract = ensureParserContract(schema, paths, args);
+  const fixtureSource = ensureFixtureSource(schema, paths, args);
+  const isBootstrapUsed = !existsSync(paths.parserContractPath) || !existsSync(paths.fixturesPath);
+
+  if (args.promptPack) {
+    console.warn(`Deprecated: --prompt-pack is accepted for compatibility but ignored. Prompt packs are now composed in memory.`);
+  }
 
   const result = emitBrandOsArtifacts(paths, schema, promptPack, parserContract, fixtureSource);
 
   console.log(`Brand OS emitted to: ${paths.emitDir}`);
-  console.log(`- prompts/${result.promptCount} surface prompt(s)`);
+  console.log(`- DESIGN.md`);
+  console.log(`- tweaks/`);
+  console.log(`- brand-marks/`);
   console.log(`- parser-fixtures/${result.fixtureCount} fixture(s)`);
   console.log(`- copied adapter asset(s): ${result.copiedAssetCount}`);
+  if (result.renamedBrandBrief) {
+    console.log(`- renamed brand-brief.md to DESIGN.md`);
+  }
+  if (result.warnings.length > 0) {
+    console.warn(`Contrast warnings: ${result.warnings.length}`);
+    for (const warning of result.warnings) {
+      console.warn(`  - ${warning}`);
+    }
+  }
   if (isBootstrapUsed && args.bootstrap) {
     console.log('Bootstrap: generated missing companion artifacts.');
   }
   if (args.verbose) {
     console.log(`Schema: ${paths.schemaPath}`);
-    console.log(`Prompt pack: ${paths.promptPackPath}`);
     console.log(`Parser contract: ${paths.parserContractPath}`);
     console.log(`Fixtures: ${paths.fixturesPath}`);
   }
@@ -428,7 +400,6 @@ export function printBrandOsUsage(): string {
     '',
     'Options:',
     '  --schema <path>           brand OS schema path (required)',
-    '  --prompt-pack <path>      prompt pack JSON path',
     '  --parser-contract <path>  parser contract JSON path',
     '  --fixtures <path>         parser fixture source JSON path',
     '  --emit-dir <path>         output directory for generated artifacts',

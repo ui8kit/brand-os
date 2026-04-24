@@ -57,7 +57,7 @@ npx brand-os my-app --template react-resta --immediate
 
 ## 2) Brand OS emit mode
 
-Use this when you want to generate prompt files, parser fixtures, parser-contract snapshots, and brand-owned adapter assets from a Brand OS schema:
+Use this when you want to generate `DESIGN.md`, tweaks assets, brand mark contracts, parser fixtures, parser-contract snapshots, and brand-owned adapter assets from a Brand OS schema:
 
 ```bash
 npx brand-os --schema "./.project/Tech Brand OS/tech-brand-os.schema.json"
@@ -68,7 +68,6 @@ npx brand-os --schema "./.project/Tech Brand OS/tech-brand-os.schema.json" --boo
 Main options:
 
 - `--schema <path>` — path to the Brand OS schema file
-- `--prompt-pack <path>` — override prompt pack JSON path
 - `--parser-contract <path>` — override parser contract JSON path
 - `--fixtures <path>` — override parser fixture source JSON path
 - `--emit-dir <path>` — output directory for generated assets
@@ -105,7 +104,6 @@ The minimal brand package consists of:
 
 - `*.schema.json` — base Brand OS definition
 - `*-parser-contract.json` — class classifier rules
-- `*-prompt-pack.json` — prompt templates
 - `*-parser-fixtures.source.json` — sample-based classifier tests
 
 Typical file layout:
@@ -113,7 +111,6 @@ Typical file layout:
 ```txt
 .project/my-brand/my-brand.schema.json
 .project/my-brand/my-brand-parser-contract.json
-.project/my-brand/my-brand-prompt-pack.json
 .project/my-brand/my-brand-parser-fixtures.source.json
 ```
 
@@ -132,7 +129,6 @@ The schema can define:
 
 By default, companion files are auto-discovered with these suffixes based on the schema `slug`:
 
-- `-prompt-pack.json`
 - `-parser-contract.json`
 - `-parser-fixtures.source.json`
 - output directory: `<slug>-generated`
@@ -142,11 +138,19 @@ Optional custom names:
 ```bash
 npx brand-os \
   --schema ".project/my-brand/my-brand.schema.json" \
-  --prompt-pack ".project/my-brand/my-prompts.json" \
   --parser-contract ".project/my-brand/contracts/my-contract.json" \
   --fixtures ".project/my-brand/fixtures/my-fixtures.json" \
   --emit-dir ".project/my-brand/generated"
 ```
+
+Generated output now includes:
+
+- `DESIGN.md`
+- `tweaks/`
+- `brand-marks/`
+- `parser-contract.json`
+- `parser-fixtures/`
+- `manifest.json`
 
 Validate brand parsing fixtures:
 
@@ -347,44 +351,9 @@ Use this starter block as a starting point for a brand.
 }
 ```
 
-`my-brand-prompt-pack.json`
-
-```json
-{
-  "sharedContext": {
-    "brandSummary": "My Brand OS focuses on clarity, speed, and conversion-first UI.",
-    "styleKeywords": ["clean", "confident", "modern", "accessible"],
-    "crossSurfaceRules": [
-      "Preserve consistent spacing rhythm across landing, docs, dashboard, CMS surfaces.",
-      "Keep hierarchy explicit through scale and contrast."
-    ]
-  },
-  "surfaces": {
-    "landing": {
-      "goal": "Generate a conversion-ready landing page section set.",
-      "requiredInputs": [
-        "landing goals",
-        "primary CTA",
-        "value proposition"
-      ],
-      "optionalInputs": ["social proof", "metrics"],
-      "promptTemplate": [
-        "Use this brand OS for all visual decisions.",
-        "Prioritize clarity-first hierarchy and measurable conversion path."
-      ],
-      "auditChecklist": [
-        "Does hero include a single primary CTA?",
-        "Are section breaks consistent and predictable?"
-      ],
-      "deliverables": ["hero", "benefits", "social proof", "FAQ", "footer"]
-    }
-  }
-}
-```
-
 ## 5) 5-minute first run checklist
 
-1. Prepare `.project/my-brand/` files: `my-brand.schema.json`, `my-brand-parser-contract.json`, `my-brand-prompt-pack.json`, `my-brand-parser-fixtures.source.json`.
+1. Prepare `.project/my-brand/` files: `my-brand.schema.json`, `my-brand-parser-contract.json`, `my-brand-parser-fixtures.source.json`.
 2. Create `my-brand.adapters/` and add at least `shared/tokens.css` and `tailwind4/index.css`; optionally add `tailwind3/tailwind.extend.ts` and `tailwind4/shadcn.css`.
 3. Verify schema `meta.slug` matches file prefix (`my-brand`) or pass explicit paths.
 4. Run:

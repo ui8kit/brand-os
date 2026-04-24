@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Auth Fly — Open auth that stays yours</title>
+  <meta name="description" content="Open-source SAML 2.0 + OIDC IdP. Self-hosted, provider-agnostic, with a published security checklist." />
+
+  <link rel="icon" type="image/png" href="img/favicon-32x32.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=Nunito+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <link rel="stylesheet" href="css/latty.css" />
+  <link rel="stylesheet" href="_shared/tweaks.css" />
+  <link rel="stylesheet" href="_shared/preview.css" />
+  <link rel="stylesheet" href="_shared/tweaks-dock.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="app-header" role="banner">
+    <div class="app-header__inner">
+      <a href="index.html" class="brand-mark" aria-label="Auth Fly home">
+        <span class="brand-mark__logo" aria-hidden="true"><i class="latty latty-shield"></i></span>
+        <span>Auth&nbsp;Fly</span>
+      </a>
+
+      <nav class="app-nav" role="navigation" aria-label="Primary">
+        <a class="app-nav__link" aria-current="page" href="index.html">Overview</a>
+        <a class="app-nav__link" href="tokens.html">Tokens</a>
+        <a class="app-nav__link" href="components.html">Components</a>
+        <a class="app-nav__link" href="typography.html">Typography</a>
+      </nav>
+
+      <div class="app-header__actions">
+        <button id="ui8kit-theme-toggle" class="btn btn-ghost btn-icon" aria-pressed="true" type="button"
+          data-switch-to-light-label="Switch to light theme" data-switch-to-dark-label="Switch to dark theme">
+          <i id="theme-toggle-icon" class="latty latty-sun" aria-hidden="true"></i>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+        <a href="#" class="btn btn-primary btn-sm">
+          <i class="latty latty-server" aria-hidden="true"></i>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Hero ----------------------------------------------- -->
+    <section class="section" aria-labelledby="hero-title" style="position:relative; isolation:isolate; padding-block: clamp(4rem, 8vw, 8rem);">
+      <div class="mesh-bg" aria-hidden="true"></div>
+
+      <div class="container container-narrow stack-loose" style="position:relative; z-index:1; text-align:center;">
+        <span class="pill pill-primary" style="margin-inline:auto;">
+          <span class="pill-dot"></span>
+          v0.4 · Open-source · MIT
+        </span>
+
+        <h1 id="hero-title" class="t-display">
+          Open auth that <em style="font-style:normal; background: linear-gradient(120deg, var(--primary), var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent;">stays yours</em>.
+        </h1>
+
+        <p class="t-lead">
+          Self-hosted SAML 2.0 + OIDC IdP, hosted-UI on UI8Kit, adaptive SDKs.
+          Provider-agnostic core, published security checklist, zero phone-home telemetry.
+        </p>
+
+        <div class="row" style="justify-content:center;">
+          <a href="#" class="btn btn-primary btn-lg">
+            <i class="latty latty-server" aria-hidden="true"></i>
+            Deploy your IdP
+          </a>
+          <a href="#" class="btn btn-secondary btn-lg">
+            Read the docs
+          </a>
+        </div>
+
+        <p class="t-eyebrow" style="text-align:center; opacity:.7; margin-top:0.5rem;">
+          Press <span class="kbd-keys"><kbd>?</kbd></span> for design playground · <span class="kbd-keys"><kbd>T</kbd></span> toggles theme
+        </p>
+      </div>
+    </section>
+
+    <!-- Trust strip / metrics ------------------------------ -->
+    <section class="section section-tight section-divider" aria-label="Project at a glance">
+      <div class="container">
+        <div class="grid grid-4">
+          <div class="stack-tight"><span class="t-eyebrow">Protocols</span><span class="t-h2 font-display">SAML 2.0 + OIDC</span></div>
+          <div class="stack-tight"><span class="t-eyebrow">Telemetry</span><span class="t-h2 font-display">Zero</span></div>
+          <div class="stack-tight"><span class="t-eyebrow">Backends</span><span class="t-h2 font-display">Pluggable</span></div>
+          <div class="stack-tight"><span class="t-eyebrow">License</span><span class="t-h2 font-display">MIT</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Principles ------------------------------------------ -->
+    <section class="section section-tinted" aria-labelledby="principles-title">
+      <div class="container stack-loose">
+        <header class="container-narrow stack-tight" style="margin-inline:auto; text-align:center;">
+          <span class="t-eyebrow">Working principles</span>
+          <h2 id="principles-title" class="t-h1">Boring reliability is a feature.</h2>
+          <p class="t-lead">Four constraints we refuse to bend on, even when the deadline says otherwise.</p>
+        </header>
+
+        <div class="grid grid-2">
+          <article class="card stack-tight">
+            <span class="icon-tile" aria-hidden="true"><i class="latty latty-server icon-lg"></i></span>
+            <h3 class="t-h3">IdP on your origin</h3>
+            <p class="t-muted">Self-hosted, no telemetry, no third-party update channels. Your origin, your sessions, your audit log.</p>
+          </article>
+
+          <article class="card stack-tight">
+            <span class="icon-tile" aria-hidden="true"><i class="latty latty-boxes icon-lg"></i></span>
+            <h3 class="t-h3">Adaptive SDKs</h3>
+            <p class="t-muted">One TypeScript core for the browser. Thin adapters per provider and per language. New stack = new adapter, not a rewrite.</p>
+          </article>
+
+          <article class="card stack-tight">
+            <span class="icon-tile" aria-hidden="true"><i class="latty latty-box icon-lg"></i></span>
+            <h3 class="t-h3">Provider-agnostic core</h3>
+            <p class="t-muted">Core contracts depend on neither the UI nor the backend. Swap Hanko for Supabase or your own Postgres without IdP edits.</p>
+          </article>
+
+          <article class="card stack-tight">
+            <span class="icon-tile" aria-hidden="true"><i class="latty latty-shield icon-lg"></i></span>
+            <h3 class="t-h3">Security in the open</h3>
+            <p class="t-muted">Hardening tracked publicly in a pre-flight checklist. Strong points and gaps live next to each other — no double bookkeeping.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live SSO preview ------------------------------------ -->
+    <section class="section" aria-labelledby="auth-preview-title">
+      <div class="container">
+        <div class="grid grid-2" style="align-items:center; gap: 3rem;">
+          <div class="stack">
+            <span class="t-eyebrow">Hosted UI · live preview</span>
+            <h2 id="auth-preview-title" class="t-h1">A real auth card, drawn from the same tokens.</h2>
+            <p class="t-lead">
+              Open the <strong style="color:var(--foreground); font-weight:700;">Design Tweaks</strong> dock at the bottom-right and try
+              <span class="kbd-keys"><kbd>R</kbd></span> for radius, <span class="kbd-keys"><kbd>D</kbd></span> for density,
+              <span class="kbd-keys"><kbd>X</kbd></span> for depth. The card on the right responds live — same code as production.
+            </p>
+            <ul class="stack-tight" style="list-style:none; padding:0; margin:0;">
+              <li class="row"><span class="dot dot-online" aria-hidden="true"></span>SSO via SAML, OIDC, Passkeys</li>
+              <li class="row"><span class="dot dot-online" aria-hidden="true"></span>Built-in i18n &amp; RTL</li>
+              <li class="row"><span class="dot dot-online" aria-hidden="true"></span>Audit log streams to your sink</li>
+            </ul>
+          </div>
+
+          <div class="auth-shell" style="padding-block:0;">
+            <form class="auth-card" aria-label="Sign in demo">
+              <header class="stack-tight" style="text-align:center;">
+                <span class="brand-mark" style="margin-inline:auto;">
+                  <span class="brand-mark__logo" aria-hidden="true"><i class="latty latty-shield"></i></span>
+                </span>
+                <h3 class="auth-card__title">Welcome back</h3>
+                <p class="t-muted" style="font-size:.875rem;">Sign in to your workspace</p>
+              </header>
+
+              <div class="sso-grid">
+                <button type="button" class="btn btn-secondary"><i class="latty latty-server" aria-hidden="true"></i>SAML</button>
+                <button type="button" class="btn btn-secondary"><i class="latty latty-shield" aria-hidden="true"></i>Passkey</button>
+              </div>
+
+              <div class="auth-divider" role="separator">or with email</div>
+
+              <div class="field">
+                <label class="field__label" for="hero-email">Work email</label>
+                <input class="input" id="hero-email" type="email" autocomplete="email" placeholder="alex@yourcompany.com" />
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="hero-pass">
+                  Password
+                  <a href="#" class="field__label-aux" tabindex="-1">Forgot?</a>
+                </label>
+                <input class="input" id="hero-pass" type="password" autocomplete="current-password" placeholder="••••••••" />
+              </div>
+
+              <button type="submit" class="btn btn-primary">Sign in</button>
+
+              <p class="t-muted" style="text-align:center; font-size:.75rem;">
+                Protected by your IdP &middot; <a href="#" style="color:inherit; text-underline-offset: 3px;">Privacy</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap ------------------------------------------- -->
+    <section class="section section-tinted" aria-labelledby="roadmap-title">
+      <div class="container container-prose stack-loose">
+        <header class="stack-tight">
+          <span class="t-eyebrow">Roadmap</span>
+          <h2 id="roadmap-title" class="t-h1">Next four quarters, in the open.</h2>
+        </header>
+
+        <ol class="timeline" aria-label="Roadmap">
+          <li class="timeline__item timeline__item--active">
+            <div class="timeline__head">
+              <h3 class="timeline__title">PoC works</h3>
+              <span class="pill pill-primary">Now</span>
+            </div>
+            <p class="t-muted">SAML 2.0 and OIDC share one signed IdP session, Hanko as credential backend.</p>
+            <span class="timeline__when">2025 Q4</span>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__head">
+              <h3 class="timeline__title">Stage 1 — critical hardening</h3>
+              <span class="pill">Next</span>
+            </div>
+            <p class="t-muted">HTTP timeouts, JWT iss/aud/alg, session_key validation, key file mode 0600.</p>
+            <span class="timeline__when">2026 Q1</span>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__head">
+              <h3 class="timeline__title">Stage 2 — protocol hardening</h3>
+              <span class="pill">Planned</span>
+            </div>
+            <p class="t-muted">PKCE, at_hash, iss check in OIDC, IssueInstant / Destination and anti-replay in SAML.</p>
+            <span class="timeline__when">2026 Q2</span>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__head">
+              <h3 class="timeline__title">Stage 3 — enterprise polish</h3>
+              <span class="pill">Planned</span>
+            </div>
+            <p class="t-muted">SCIM bridge, audit-log shipping, FedRAMP-ready posture toggles.</p>
+            <span class="timeline__when">2026 Q3</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CTA ---------------------------------------------- -->
+    <section class="section" style="position:relative; isolation:isolate;">
+      <div class="mesh-bg" aria-hidden="true" style="opacity:.6;"></div>
+      <div class="container container-narrow stack" style="text-align:center; position:relative; z-index:1;">
+        <h2 class="t-h1">Ready to run your own IdP?</h2>
+        <p class="t-lead">No telemetry, no surprises. Full control over your users and sessions.</p>
+        <div class="row" style="justify-content:center;">
+          <a href="#" class="btn btn-primary btn-lg">Deploy Auth Fly</a>
+          <a href="#" class="btn btn-ghost btn-lg">Talk to the maintainer</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <div class="app-footer__inner">
+      <div class="row">
+        <a class="brand-mark" href="index.html">
+          <span class="brand-mark__logo" aria-hidden="true"><i class="latty latty-shield"></i></span>
+          Auth Fly
+        </a>
+        <span>· MIT · Open source</span>
+      </div>
+      <nav class="row" aria-label="Footer">
+        <a href="#" style="color:inherit;">Docs</a>
+        <a href="#" style="color:inherit;">Security</a>
+        <a href="#" style="color:inherit;">Status</a>
+        <a href="#" style="color:inherit;">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="_shared/tweaks-runtime.js"></script>
+  <script src="_shared/tweaks-dock.js"></script>
+  <script src="js/theme.js"></script>
+</body>
+</html>

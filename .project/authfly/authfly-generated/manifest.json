@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-04-24T11:02:32.583Z",
+  "brandName": "Authfly",
+  "outputDir": "E:\\_@Bun\\@ui8kit-brand-os\\.project\\authfly\\authfly-generated",
+  "warnings": [
+    "Theme \"high-contrast\" primary-on-primary contrast 3.52:1 is below 4.5:1 (APCA 75.1)."
+  ],
+  "files": {
+    "designMd": "DESIGN.md",
+    "tweaks": "tweaks/",
+    "brandMarks": "brand-marks/",
+    "fixtureCount": 0,
+    "fixtureIndex": "parser-fixtures/index.json",
+    "copiedAssets": []
+  }
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Tokens — Auth Fly Design System</title>
+
+  <link rel="icon" type="image/png" href="img/favicon-32x32.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=Nunito+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <link rel="stylesheet" href="css/latty.css" />
+  <link rel="stylesheet" href="_shared/tweaks.css" />
+  <link rel="stylesheet" href="_shared/preview.css" />
+  <link rel="stylesheet" href="_shared/tweaks-dock.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="app-header" role="banner">
+    <div class="app-header__inner">
+      <a href="index.html" class="brand-mark" aria-label="Auth Fly home">
+        <span class="brand-mark__logo" aria-hidden="true"><i class="latty latty-shield"></i></span>
+        <span>Auth&nbsp;Fly</span>
+      </a>
+      <nav class="app-nav" role="navigation" aria-label="Primary">
+        <a class="app-nav__link" href="index.html">Overview</a>
+        <a class="app-nav__link" aria-current="page" href="tokens.html">Tokens</a>
+        <a class="app-nav__link" href="components.html">Components</a>
+        <a class="app-nav__link" href="typography.html">Typography</a>
+      </nav>
+      <div class="app-header__actions">
+        <button id="ui8kit-theme-toggle" class="btn btn-ghost btn-icon" aria-pressed="true" type="button"
+          data-switch-to-light-label="Switch to light theme" data-switch-to-dark-label="Switch to dark theme">
+          <i id="theme-toggle-icon" class="latty latty-sun" aria-hidden="true"></i>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <header class="page-header">
+      <div class="page-header__inner">
+        <span class="t-eyebrow">Foundation</span>
+        <h1 class="t-display" style="font-size: clamp(2rem, 3vw + 1rem, 3.5rem);">Design tokens</h1>
+        <p class="t-lead container-narrow" style="padding-inline:0;">
+          Seven canonical surfaces that every screen, every component, every variant of Auth Fly is built from.
+          Cycle them live with the dock or with the keyboard — what you see here is what every page sees.
+        </p>
+      </div>
+    </header>
+
+    <section class="section section-tight section-divider" aria-label="Token cards">
+      <div class="container">
+        <div class="grid grid-3">
+
+          <!-- 1. Color -->
+          <article class="token-card" aria-labelledby="tok-color">
+            <header class="token-card__header">
+              <p class="t-eyebrow">01 · Surface</p>
+              <h2 id="tok-color" class="token-card__title">Color</h2>
+              <p class="token-card__sub">Semantic, theme-aware, contrast-validated.</p>
+            </header>
+            <div class="token-card__body">
+              <div class="token-card__row"><span class="color-swatch" style="background:var(--background)"></span>background <code>--background</code></div>
+              <div class="token-card__row"><span class="color-swatch" style="background:var(--foreground)"></span>foreground <code>--foreground</code></div>
+              <div class="token-card__row"><span class="color-swatch" style="background:var(--primary)"></span>primary <code>--primary</code></div>
+              <div class="token-card__row"><span class="color-swatch" style="background:var(--muted)"></span>muted <code>--muted</code></div>
+              <div class="token-card__row"><span class="color-swatch" style="background:var(--destructive)"></span>destructive <code>--destructive</code></div>
+            </div>
+          </article>
+
+          <!-- 2. Typography -->
+          <article class="token-card" aria-labelledby="tok-type">
+            <header class="token-card__header">
+              <p class="t-eyebrow">02 · Voice</p>
+              <h2 id="tok-type" class="token-card__title">Typography</h2>
+              <p class="token-card__sub">Nunito display + Nunito Sans body.</p>
+            </header>
+            <div class="token-card__body">
+              <div style="font-family: var(--font-display); font-weight:800; font-size: 1.875rem; line-height: 1;">Aa Bb 24</div>
+              <div style="font-family: var(--font-ui); font-weight:600; font-size: 1.125rem;">Body — read me twice</div>
+              <div class="token-card__row"><code>--font-display-size</code></div>
+              <div class="token-card__row"><code>--font-heading-size</code></div>
+              <div class="token-card__row"><code>--font-body-size</code></div>
+            </div>
+          </article>
+
+          <!-- 3. Spacing / Density -->
+          <article class="token-card" aria-labelledby="tok-space">
+            <header class="token-card__header">
+              <p class="t-eyebrow">03 · Rhythm</p>
+              <h2 id="tok-space" class="token-card__title">Spacing &amp; density</h2>
+              <p class="token-card__sub">Press <span class="kbd-keys"><kbd>D</kbd></span> to cycle density.</p>
+            </header>
+            <div class="token-card__body">
+              <div class="spacing-demo" style="width:8%"></div>
+              <div class="spacing-demo" style="width:24%"></div>
+              <div class="spacing-demo" style="width:48%"></div>
+              <div class="spacing-demo" style="width:72%"></div>
+              <div class="spacing-demo" style="width:96%"></div>
+            </div>
+          </article>
+
+          <!-- 4. Radius -->
+          <article class="token-card" aria-labelledby="tok-radius">
+            <header class="token-card__header">
+              <p class="t-eyebrow">04 · Shape</p>
+              <h2 id="tok-radius" class="token-card__title">Radius</h2>
+              <p class="token-card__sub">Sharp · Soft · Pill — <span class="kbd-keys"><kbd>R</kbd></span>.</p>
+            </header>
+            <div class="token-card__body">
+              <div class="row" style="justify-content:space-around;">
+                <div class="radius-demo" style="border-radius: var(--radius-sm)"></div>
+                <div class="radius-demo" style="border-radius: var(--radius-md)"></div>
+                <div class="radius-demo" style="border-radius: var(--radius-lg)"></div>
+                <div class="radius-demo" style="border-radius: 9999px"></div>
+              </div>
+              <div class="token-card__row"><code>--radius-sm</code> · <code>--radius-md</code> · <code>--radius-lg</code></div>
+            </div>
+          </article>
+
+          <!-- 5. Shadow -->
+          <article class="token-card" aria-labelledby="tok-shadow">
+            <header class="token-card__header">
+              <p class="t-eyebrow">05 · Depth</p>
+              <h2 id="tok-shadow" class="token-card__title">Shadow</h2>
+              <p class="token-card__sub">Press <span class="kbd-keys"><kbd>X</kbd></span> to cycle depth.</p>
+            </header>
+            <div class="token-card__body">
+              <div class="shadow-demo" style="box-shadow: var(--shadow-sm);"></div>
+              <div class="shadow-demo" style="box-shadow: var(--shadow-md);"></div>
+              <div class="shadow-demo" style="box-shadow: var(--shadow-lg);"></div>
+            </div>
+          </article>
+
+          <!-- 6. Motion -->
+          <article class="token-card" aria-labelledby="tok-motion">
+            <header class="token-card__header">
+              <p class="t-eyebrow">06 · Time</p>
+              <h2 id="tok-motion" class="token-card__title">Motion</h2>
+              <p class="token-card__sub">Hover bars. Press <span class="kbd-keys"><kbd>M</kbd></span>.</p>
+            </header>
+            <div class="token-card__body">
+              <div class="motion-demo motion-demo--fast" aria-label="Fast motion preview"></div>
+              <div class="motion-demo" aria-label="Normal motion preview"></div>
+              <div class="motion-demo motion-demo--slow" aria-label="Slow motion preview"></div>
+            </div>
+          </article>
+
+          <!-- 7. Surfaces -->
+          <article class="token-card" aria-labelledby="tok-surf">
+            <header class="token-card__header">
+              <p class="t-eyebrow">07 · Layer</p>
+              <h2 id="tok-surf" class="token-card__title">Surfaces</h2>
+              <p class="token-card__sub">Base · Elevated · Overlay.</p>
+            </header>
+            <div class="token-card__body">
+              <div class="surface-demo surface-demo--base">Base · canvas</div>
+              <div class="surface-demo surface-demo--elevated">Elevated · cards</div>
+              <div class="surface-demo surface-demo--overlay">Overlay · popovers</div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tinted" aria-label="Color modes specimen">
+      <div class="container stack-loose">
+        <header class="stack-tight">
+          <span class="t-eyebrow">Themes</span>
+          <h2 class="t-h1">Same tokens, six modes.</h2>
+          <p class="t-lead">Each variant ships its own contrast budget (WCAG AA + APCA Lc) validated by the brand-os CLI.</p>
+        </header>
+        <div class="grid grid-3">
+          <button type="button" class="card stack-tight" onclick="window.brandTweaks.set('theme','light')"><div class="row"><span class="color-swatch" style="background:#ffffff"></span><strong>Light</strong></div><span class="t-muted">Editorial · paper</span></button>
+          <button type="button" class="card stack-tight" onclick="window.brandTweaks.set('theme','dark')"><div class="row"><span class="color-swatch" style="background:#222"></span><strong>Dark</strong></div><span class="t-muted">Default · midnight</span></button>
+          <button type="button" class="card stack-tight" onclick="window.brandTweaks.set('theme','paper')"><div class="row"><span class="color-swatch" style="background:hsl(42 30% 97%)"></span><strong>Paper</strong></div><span class="t-muted">Warm reading</span></button>
+          <button type="button" class="card stack-tight" onclick="window.brandTweaks.set('theme','dusk')"><div class="row"><span class="color-swatch" style="background:hsl(232 26% 15%)"></span><strong>Dusk</strong></div><span class="t-muted">Indigo low-light</span></button>
+          <button type="button" class="card stack-tight" onclick="window.brandTweaks.set('theme','midnight')"><div class="row"><span class="color-swatch" style="background:hsl(222 47% 8%)"></span><strong>Midnight</strong></div><span class="t-muted">Deep navy</span></button>
+          <button type="button" class="card stack-tight" onclick="window.brandTweaks.set('theme','high-contrast')"><div class="row"><span class="color-swatch" style="background:#000"></span><strong>High contrast</strong></div><span class="t-muted">A11y mode</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <div class="app-footer__inner">
+      <span>Tokens generated by <span class="code">brand-os</span> from <span class="code">authfly.schema.json</span>.</span>
+      <a href="index.html" class="row">Back to overview <i class="latty latty-log-out" aria-hidden="true"></i></a>
+    </div>
+  </footer>
+
+  <script src="_shared/tweaks-runtime.js"></script>
+  <script src="_shared/tweaks-dock.js"></script>
+  <script src="js/theme.js"></script>
+</body>
+</html>

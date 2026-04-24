@@ -66,7 +66,6 @@ export function resolveBrandOsPaths(
   schemaPathArg: string,
   schema: BrandOsSchema,
   provided: {
-    promptPack?: string;
     parserContract?: string;
     fixtures?: string;
     emitDir?: string;
@@ -75,16 +74,10 @@ export function resolveBrandOsPaths(
   const schemaPath = resolve(process.cwd(), schemaPathArg);
   const slug = getSchemaSlug(schema, schemaPath);
   const companionPaths: BrandOsCompanionPathsConfig = schema.emit?.companionPaths ?? {};
-  const promptPackSuffix = companionPaths.promptPackSuffix ?? '-prompt-pack.json';
   const parserContractSuffix = companionPaths.parserContractSuffix ?? '-parser-contract.json';
   const fixturesSuffix = companionPaths.fixturesSuffix ?? '-parser-fixtures.source.json';
   const generatedDirSuffix = companionPaths.generatedDirSuffix ?? '-generated';
 
-  const promptPackPath = resolveCompanionPath(
-    schemaPath,
-    provided.promptPack,
-    resolveCompanionFileName(slug, promptPackSuffix),
-  );
   const parserContractPath = resolveCompanionPath(
     schemaPath,
     provided.parserContract,
@@ -102,7 +95,6 @@ export function resolveBrandOsPaths(
 
   return {
     schemaPath,
-    promptPackPath,
     parserContractPath,
     fixturesPath,
     emitDir,

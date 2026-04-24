@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Typography — Auth Fly Design System</title>
+
+  <link rel="icon" type="image/png" href="img/favicon-32x32.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=Nunito+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <link rel="stylesheet" href="css/latty.css" />
+  <link rel="stylesheet" href="_shared/tweaks.css" />
+  <link rel="stylesheet" href="_shared/preview.css" />
+  <link rel="stylesheet" href="_shared/tweaks-dock.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="app-header" role="banner">
+    <div class="app-header__inner">
+      <a href="index.html" class="brand-mark"><span class="brand-mark__logo" aria-hidden="true"><i class="latty latty-shield"></i></span>Auth&nbsp;Fly</a>
+      <nav class="app-nav" role="navigation" aria-label="Primary">
+        <a class="app-nav__link" href="index.html">Overview</a>
+        <a class="app-nav__link" href="tokens.html">Tokens</a>
+        <a class="app-nav__link" href="components.html">Components</a>
+        <a class="app-nav__link" aria-current="page" href="typography.html">Typography</a>
+      </nav>
+      <div class="app-header__actions">
+        <button id="ui8kit-theme-toggle" class="btn btn-ghost btn-icon" aria-pressed="true" type="button"
+          data-switch-to-light-label="Switch to light theme" data-switch-to-dark-label="Switch to dark theme">
+          <i id="theme-toggle-icon" class="latty latty-sun" aria-hidden="true"></i>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <header class="page-header">
+      <div class="page-header__inner">
+        <span class="t-eyebrow">Voice</span>
+        <h1 class="t-display" style="font-size: clamp(2rem, 3vw + 1rem, 3.5rem);">Typography</h1>
+        <p class="t-lead container-narrow" style="padding-inline:0;">
+          Two cuts of one family. <strong style="color:var(--foreground); font-weight:700;">Nunito</strong> brings warmth to every display
+          and heading. <strong style="color:var(--foreground); font-weight:700;">Nunito&nbsp;Sans</strong> carries every paragraph,
+          input, table cell — disciplined, neutral, easy on long sessions.
+        </p>
+      </div>
+    </header>
+
+    <section class="section section-tight section-divider">
+      <div class="container">
+        <div class="grid grid-2" style="grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap:3rem; align-items:start;">
+
+          <aside class="stack" aria-label="Family overview">
+            <span class="t-eyebrow">Family</span>
+            <div class="stack-tight">
+              <div style="font-family:var(--font-display); font-weight:800; font-size: 2.5rem; line-height: 1;">Nunito</div>
+              <span class="t-muted">Display · 800 weight · soft humanist curves</span>
+            </div>
+            <hr style="border:0; border-top:1px dashed color-mix(in srgb, var(--border) 60%, transparent);" />
+            <div class="stack-tight">
+              <div style="font-family:var(--font-ui); font-weight:600; font-size: 1.5rem; line-height: 1;">Nunito&nbsp;Sans</div>
+              <span class="t-muted">Body · 500&ndash;700 · the same skeleton, no tail decorations</span>
+            </div>
+            <hr style="border:0; border-top:1px dashed color-mix(in srgb, var(--border) 60%, transparent);" />
+            <div class="stack-tight">
+              <div class="font-mono" style="font-weight:700; font-size: 1.125rem;">ui-monospace</div>
+              <span class="t-muted">Code · system mono stack</span>
+            </div>
+          </aside>
+
+          <section aria-label="Specimen">
+            <p class="t-eyebrow">Specimen</p>
+            <p class="specimen">
+              Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj
+              Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt
+              Uu Vv Ww Xx Yy Zz 0123456789
+              &amp; ! ? @ &mdash;
+            </p>
+            <div class="row" style="margin-top:1.5rem; gap:2rem;">
+              <span style="font-family: var(--font-display); font-weight:500;">Regular 500</span>
+              <span style="font-family: var(--font-display); font-weight:600;">Medium 600</span>
+              <span style="font-family: var(--font-display); font-weight:700;">Bold 700</span>
+              <span style="font-family: var(--font-display); font-weight:800;">Extra 800</span>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tinted">
+      <div class="container stack-loose">
+        <header class="stack-tight">
+          <span class="t-eyebrow">Scale</span>
+          <h2 class="t-h1">Type scale</h2>
+          <p class="t-lead">Cycle <span class="kbd-keys"><kbd>S</kbd></span> for Compact / Default / Editorial. Sizes use <code class="code">clamp()</code> so they fluidly adapt across viewports.</p>
+        </header>
+
+        <div class="stack-loose">
+          <div class="row-between" style="gap:2rem; padding-block:1.25rem; border-block-end:1px dashed color-mix(in srgb, var(--border) 60%, transparent);">
+            <div style="min-width: 12rem;">
+              <span class="t-eyebrow">Display</span>
+              <p class="t-mono t-muted" style="margin:0;">--font-display-size · 700 · 1.05</p>
+            </div>
+            <div class="t-display" style="margin:0;">Auth Fly Protocol</div>
+          </div>
+
+          <div class="row-between" style="gap:2rem; padding-block:1.25rem; border-block-end:1px dashed color-mix(in srgb, var(--border) 60%, transparent);">
+            <div style="min-width: 12rem;">
+              <span class="t-eyebrow">Heading</span>
+              <p class="t-mono t-muted" style="margin:0;">--font-heading-size · 700 · 1.2</p>
+            </div>
+            <div class="t-h1" style="margin:0;">OIDC provider settings</div>
+          </div>
+
+          <div class="row-between" style="gap:2rem; padding-block:1.25rem; border-block-end:1px dashed color-mix(in srgb, var(--border) 60%, transparent);">
+            <div style="min-width: 12rem;">
+              <span class="t-eyebrow">Subheading</span>
+              <p class="t-mono t-muted" style="margin:0;">.t-h2 · 700 · 1.3</p>
+            </div>
+            <div class="t-h2" style="margin:0;">Connect your tenant</div>
+          </div>
+
+          <div class="row-between" style="gap:2rem; padding-block:1.25rem; border-block-end:1px dashed color-mix(in srgb, var(--border) 60%, transparent);">
+            <div style="min-width: 12rem;">
+              <span class="t-eyebrow">Body</span>
+              <p class="t-mono t-muted" style="margin:0;">--font-body-size · 500 · 1.55</p>
+            </div>
+            <p class="t-body" style="margin:0; max-width: 36rem;">The Identity Provider runs on your origin and only there. Security is handled publicly through pre-flight checklists. The core stays provider-agnostic so swapping Hanko for Supabase is an adapter change.</p>
+          </div>
+
+          <div class="row-between" style="gap:2rem; padding-block:1.25rem;">
+            <div style="min-width: 12rem;">
+              <span class="t-eyebrow">Label / small</span>
+              <p class="t-mono t-muted" style="margin:0;">--font-label-size · 600 · 1.5</p>
+            </div>
+            <small style="font-size: var(--font-label-size, .875rem); font-weight:600; color: var(--muted-foreground);">Note: password must be at least 8 characters with letters, numbers and a symbol.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container container-prose">
+        <span class="t-eyebrow">Prose specimen</span>
+        <h2 class="t-h1" style="margin-top:.5rem;">Provider-agnostic core</h2>
+
+        <article class="stack" style="margin-top:1.5rem; font-family:var(--font-ui); font-size:1.0625rem; line-height:1.6; color:var(--foreground);">
+          <p>Contracts before code: the core knows nothing about Hanko or Supabase. The backend and the UI swap behind an interface; the core stays untouched across the entire product lifecycle.</p>
+
+          <h3 class="t-h2" style="margin-top:1.5rem;">HTTP adapters</h3>
+          <p>One TypeScript contract set is shared by the browser and Node.js. Thin adapters take care of cookies, headers and local storage specifics so each platform feels native.</p>
+
+          <ul style="padding-inline-start:1.25rem; line-height:1.8; color:var(--muted-foreground);">
+            <li>SAML 2.0 integration with full metadata exchange</li>
+            <li>OIDC federation with PKCE and at_hash verification</li>
+            <li>Passkeys (WebAuthn) with discoverable-credential first flow</li>
+          </ul>
+
+          <blockquote style="border-inline-start: 3px solid var(--primary); padding: .25rem 0 .25rem 1.25rem; font-family:var(--font-display); font-style:italic; font-size:1.25rem; color:var(--foreground); line-height:1.4;">
+            &ldquo;Boring reliability is the best foundation for security. We don't rewrite the core for hype — we write adapters.&rdquo;
+          </blockquote>
+
+          <p>Every release ships with a changelog of <em>contract</em> changes, not just features. If your adapter compiled yesterday, it compiles today.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <div class="app-footer__inner">
+      <span>Type system · Nunito + Nunito Sans via Google Fonts.</span>
+      <a href="index.html" class="row">Back to overview <i class="latty latty-log-out" aria-hidden="true"></i></a>
+    </div>
+  </footer>
+
+  <script src="_shared/tweaks-runtime.js"></script>
+  <script src="_shared/tweaks-dock.js"></script>
+  <script src="js/theme.js"></script>
+</body>
+</html>

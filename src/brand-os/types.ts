@@ -7,6 +7,70 @@ export interface AliasColorToken {
   referenceAliases?: string[];
 }
 
+export interface BrandContrastBudget {
+  minBodyAA?: number;
+  minLargeAA?: number;
+  minHeadingOnDark?: number;
+}
+
+export interface BrandTheme {
+  base: 'light' | 'dark';
+  label?: string;
+  overrides?: Partial<StringMap>;
+  intent?: 'paper' | 'dusk' | 'midnight' | 'high-contrast' | 'sepia' | string;
+  contrastBudget?: BrandContrastBudget;
+}
+
+export type TweakAxis =
+  | 'theme'
+  | 'accent'
+  | 'density'
+  | 'radius'
+  | 'depth'
+  | 'motion'
+  | 'typeScale'
+  | 'surfaceTexture';
+
+export interface TweakOptionDef {
+  label: string;
+  vars: Record<string, string>;
+  selectorScope?: 'root' | string;
+}
+
+export interface TweakAxisDef {
+  label: string;
+  options: Record<string, TweakOptionDef>;
+}
+
+export interface BrandTweaks {
+  defaults?: Partial<Record<TweakAxis, string>>;
+  axes: Record<TweakAxis, TweakAxisDef>;
+}
+
+export type BrandMarkPlacement = 'on-light' | 'on-dark' | 'on-accent' | 'on-photo';
+
+export interface BrandMark {
+  intent: string;
+  geometry: {
+    minSize: number;
+    clearSpace: string;
+    safePlacements: BrandMarkPlacement[];
+  };
+  tokens?: {
+    fill?: string;
+    stroke?: string;
+  };
+  assetSlot?: string;
+}
+
+export interface BrandIllustration {
+  style: 'flat' | 'editorial' | 'isometric' | 'hand-drawn' | 'photographic' | string;
+  motifs?: string[];
+  palette?: string[];
+  forbidden?: string[];
+  surfaces?: ('hero' | 'social-poster' | 'presentation' | 'print' | 'icon')[];
+}
+
 export interface BrandOsCopiedAsset {
   source: string;
   output: string;
@@ -54,10 +118,20 @@ export interface BrandOsSchema {
       avoid?: string[];
     };
   };
+  themes?: Record<string, BrandTheme>;
+  tweaks?: BrandTweaks;
+  brandMarks?: {
+    primary?: BrandMark;
+    monochrome?: BrandMark;
+    emblem?: BrandMark;
+    wordmark?: BrandMark;
+    favicon?: BrandMark;
+  };
+  illustration?: BrandIllustration;
   tokens: {
     color: {
       light: StringMap;
-      dark: StringMap;
+      dark: Partial<StringMap>;
       categories?: Record<string, AliasColorToken>;
       charts?: Record<string, string>;
     };
@@ -177,7 +251,6 @@ export interface ParserFixtureSource {
 
 export interface BrandOsResolvedPaths {
   schemaPath: string;
-  promptPackPath: string;
   parserContractPath: string;
   fixturesPath: string;
   emitDir: string;
