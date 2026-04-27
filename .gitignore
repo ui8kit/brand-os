@@ -4,6 +4,7 @@ dist
 .DS_Store
 .env
 .manual/
+.project/
 bun.lockb
 bun.lock
 package-lock.json
