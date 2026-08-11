@@ -1,7 +1,11 @@
 import { join } from 'node:path';
-import { resolveTweaks } from '../defaults/tweaks.js';
-import { BrandOsSchema, TweakAxis } from '../types.js';
+import { BrandOsSchema, BrandTweaks, TweakAxis } from '../types.js';
 import { ensureDir, writeTextFile } from '../utils.js';
+
+function resolveTweaks(schema: BrandOsSchema): BrandTweaks {
+  if (!schema.tweaks) throw new Error('Cannot emit tweaks without /tweaks in the contract.');
+  return schema.tweaks;
+}
 
 const DATA_ATTRIBUTES: Record<TweakAxis, string> = {
   theme: 'data-theme',
@@ -117,7 +121,7 @@ function buildTweaksRuntime(schema: BrandOsSchema): string {
   const axes = Object.keys(tweaks.axes) as TweakAxis[];
 
   return `(() => {
-  const STORAGE_KEY = 'brand-os-tweaks';
+  const STORAGE_KEY = ${JSON.stringify(`brand-os-tweaks:${schema.meta.slug ?? schema.meta.name}:${schema.schemaVersion}`)};
   const attributes = ${JSON.stringify(DATA_ATTRIBUTES, null, 2)};
   const manifest = ${JSON.stringify(tweaks, null, 2)};
   const root = document.documentElement;

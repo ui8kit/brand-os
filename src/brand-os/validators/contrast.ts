@@ -1,13 +1,9 @@
 import { BrandOsSchema } from '../types.js';
 import { resolveThemeColors, resolveThemes, DEFAULT_CONTRAST_BUDGET } from '../defaults/themes.js';
-import { apcaLc, contrastRatio } from '../utils/color.js';
+import { contrastRatio } from '../utils/color.js';
 
 function formatRatio(value: number | null): string {
   return value === null ? 'n/a' : `${value.toFixed(2)}:1`;
-}
-
-function formatApca(value: number | null): string {
-  return value === null ? 'n/a' : value.toFixed(1);
 }
 
 export function validateThemeContrast(schema: BrandOsSchema): string[] {
@@ -26,7 +22,7 @@ export function validateThemeContrast(schema: BrandOsSchema): string[] {
       warnings.push(`Theme "${themeName}" has unparsable body contrast colors.`);
     } else if (bodyRatio < budget.minBodyAA) {
       warnings.push(
-        `Theme "${themeName}" body text contrast ${formatRatio(bodyRatio)} is below ${budget.minBodyAA}:1 (APCA ${formatApca(apcaLc(palette.foreground, palette.background))}).`,
+        `Theme "${themeName}" body text contrast ${formatRatio(bodyRatio)} is below WCAG 2.2 threshold ${budget.minBodyAA}:1.`,
       );
     }
 
@@ -35,7 +31,7 @@ export function validateThemeContrast(schema: BrandOsSchema): string[] {
       warnings.push(`Theme "${themeName}" has unparsable primary contrast colors.`);
     } else if (largeRatio < budget.minLargeAA) {
       warnings.push(
-        `Theme "${themeName}" primary-on-primary contrast ${formatRatio(largeRatio)} is below ${budget.minLargeAA}:1 (APCA ${formatApca(apcaLc(palette.primaryForeground, palette.primary))}).`,
+        `Theme "${themeName}" primary-on-primary contrast ${formatRatio(largeRatio)} is below WCAG 2.2 threshold ${budget.minLargeAA}:1.`,
       );
     }
 
@@ -46,7 +42,7 @@ export function validateThemeContrast(schema: BrandOsSchema): string[] {
         warnings.push(`Theme "${themeName}" has unparsable dark heading contrast colors.`);
       } else if (headingRatio < budget.minHeadingOnDark) {
         warnings.push(
-          `Theme "${themeName}" dark heading contrast ${formatRatio(headingRatio)} is below ${budget.minHeadingOnDark}:1 (APCA ${formatApca(apcaLc(headingColor, palette.background))}).`,
+          `Theme "${themeName}" dark heading contrast ${formatRatio(headingRatio)} is below configured threshold ${budget.minHeadingOnDark}:1.`,
         );
       }
     }

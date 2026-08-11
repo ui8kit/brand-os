@@ -147,18 +147,6 @@ export function contrastRatio(foreground: string, background: string): number | 
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-export function apcaLc(foreground: string, background: string): number | null {
-  const foregroundY = relativeLuminance(foreground);
-  const backgroundY = relativeLuminance(background);
-
-  if (foregroundY === null || backgroundY === null) {
-    return null;
-  }
-
-  const sign = foregroundY >= backgroundY ? 1 : -1;
-  return sign * Math.abs(foregroundY - backgroundY) * 100;
-}
-
 export function pickReadableForeground(background: string, light = '#ffffff', dark = '#111111'): string {
   const lightContrast = contrastRatio(light, background) ?? 0;
   const darkContrast = contrastRatio(dark, background) ?? 0;

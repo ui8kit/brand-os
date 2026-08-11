@@ -9,25 +9,25 @@
   import { site, visit } from "../lib/content"
 </script>
 
-<Block tag="section" id="visit" class="resta-linen-panel border-t border-wood/10 py-20 md:py-28">
+<Block tag="section" id="cta" class="resta-linen-panel resta-section border-t border-border">
   <Box class="mx-auto max-w-3xl px-5 text-center md:px-8">
     <Stack class="items-center gap-5">
-      <Title as={2} class="font-display text-4xl font-semibold tracking-tight text-walnut md:text-5xl">
+      <Title as={2} class="font-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
         {visit.title}
       </Title>
-      <Text class="max-w-xl text-lg leading-relaxed text-muted">
+      <Text class="max-w-xl text-lg leading-relaxed text-muted-foreground">
         {visit.lead}
       </Text>
       <Stack class="gap-1 pt-2">
-        <Text class="text-base font-medium text-wood">{visit.hours}</Text>
-        <Text class="text-base text-muted">{visit.address}</Text>
-        <Text class="text-base text-muted">{site.phone}</Text>
+        <Text class="text-base font-medium text-secondary">{visit.hours}</Text>
+        <Text class="text-base text-muted-foreground">{visit.address}</Text>
+        <Text class="text-base text-muted-foreground">{site.phone}</Text>
       </Stack>
       <Group class="flex-wrap items-center justify-center gap-3 pt-4">
         <Button
           href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}
           size="lg"
-          class="rounded-md bg-terracotta px-7 text-base font-semibold text-primary-foreground hover:bg-terracotta/90"
+          class="resta-btn-primary px-7 text-base font-semibold"
         >
           Позвонить
         </Button>
@@ -35,7 +35,7 @@
           href={`mailto:${site.email}`}
           variant="outline"
           size="lg"
-          class="rounded-md border-wood/30 bg-white/70 px-7 text-base text-walnut hover:bg-cream"
+          class="rounded-[var(--radius-md)] border-border bg-card/80 px-7 text-base text-foreground hover:bg-muted"
         >
           Написать
         </Button>

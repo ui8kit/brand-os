@@ -9,7 +9,9 @@
 
 <Block tag="footer" class="bg-walnut-deep text-cream">
   <Box class="resta-ornament-band" aria-hidden="true" />
-  <Box class="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 md:flex-row md:items-end md:justify-between md:px-8">
+  <Box
+    class="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 md:flex-row md:items-end md:justify-between md:px-8"
+  >
     <Group class="flex-col items-start gap-1">
       <Title as={3} class="font-display text-3xl font-semibold text-linen">
         {site.brand}

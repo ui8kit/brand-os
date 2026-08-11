@@ -77,29 +77,12 @@ export interface BrandOsCopiedAsset {
   description?: string;
 }
 
-export interface BrandOsDocsEmitConfig {
-  generatedKitTitle?: string;
-  promptTitlePrefix?: string;
-  promptIntro?: string;
-  promptAttachFiles?: string[];
-  parserFixtureTitle?: string;
-  parserFixtureReference?: string;
-}
-
-export interface BrandOsCompanionPathsConfig {
-  promptPackSuffix?: string;
-  parserContractSuffix?: string;
-  fixturesSuffix?: string;
-  generatedDirSuffix?: string;
-}
-
 export interface BrandOsEmitConfig {
-  companionPaths?: BrandOsCompanionPathsConfig;
-  docs?: BrandOsDocsEmitConfig;
   assets?: BrandOsCopiedAsset[];
 }
 
 export interface BrandOsSchema {
+  schemaVersion: string;
   meta: {
     name: string;
     description?: string;
@@ -225,34 +208,7 @@ export interface PromptPack {
   auditPromptAddendum?: string[];
 }
 
-export interface ParserFixtureExpected {
-  structural: string[];
-  semantic: string[];
-  decorative: string[];
-  unknown?: string[];
-}
-
-export interface ParserFixture {
-  id: string;
-  title: string;
-  sourceFile: string;
-  description: string;
-  classes: string[];
-  expected: ParserFixtureExpected;
-  notes?: string[];
-}
-
-export interface ParserFixtureSource {
-  schemaVersion: string;
-  brandId: string;
-  referenceProjectName?: string;
-  fixtures: ParserFixture[];
-}
-
 export interface BrandOsResolvedPaths {
   schemaPath: string;
-  parserContractPath: string;
-  fixturesPath: string;
   emitDir: string;
-  schemaFileName: string;
 }

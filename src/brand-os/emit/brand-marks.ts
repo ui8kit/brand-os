@@ -1,5 +1,4 @@
 import { join } from 'node:path';
-import { resolveBrandMarks } from '../defaults/schema.js';
 import { BrandOsSchema } from '../types.js';
 import { ensureDir, writeTextFile } from '../utils.js';
 
@@ -19,7 +18,7 @@ function buildReadme(schema: BrandOsSchema): string {
 
 export function emitBrandMarks(outputDir: string, schema: BrandOsSchema): string[] {
   const brandMarksDir = join(outputDir, 'brand-marks');
-  const marks = resolveBrandMarks(schema);
+  const marks = schema.brandMarks ?? {};
 
   ensureDir(brandMarksDir);
   writeTextFile(join(brandMarksDir, 'marks.json'), `${JSON.stringify(marks, null, 2)}\n`);

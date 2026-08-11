@@ -13,14 +13,14 @@ export const nav = [
   { href: "#atmosphere", label: "Атмосфера" },
   { href: "#cuisine", label: "Кухня" },
   { href: "#banquet", label: "Банкеты" },
-  { href: "#visit", label: "Визит" },
+  { href: "#cta", label: "Визит" },
 ] as const;
 
 export const hero = {
   headline: "Тёплый дом для долгих ужинов",
   support:
     "Тяжёлое дерево, белый лён и живой огонь гостеприимства — стол, к которому хочется возвращаться.",
-  primaryCta: { href: "#visit", label: "Забронировать стол" },
+  primaryCta: { href: "#cta", label: "Забронировать стол" },
   secondaryCta: { href: "#cuisine", label: "Смотреть кухню" },
   image: {
     src: "/images/atmosphere-table.jpg",
@@ -86,7 +86,7 @@ export const banquet = {
     src: "/images/atmosphere-banquet.jpg",
     alt: "Длинный банкетный стол под деревянными балками",
   },
-  cta: { href: "#visit", label: "Обсудить банкет" },
+  cta: { href: "#cta", label: "Обсудить банкет" },
 } as const;
 
 export const visit = {

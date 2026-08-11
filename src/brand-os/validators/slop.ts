@@ -1,101 +1,52 @@
 import { BrandOsSchema } from '../types.js';
 
 export interface SlopFinding {
-  level: 'error' | 'warning';
+  level: 'warning';
   code: string;
+  path: string;
   message: string;
 }
 
-const SLOP_FONT_RE = /\b(inter|roboto|arial|helvetica)\b/i;
-const INDIGO_VIOLET_HUE_RE = /hsl\(\s*(2[4-6]\d|270|280|290)\b/i;
-
-function fontStack(value: string | undefined): string {
-  return (value ?? '').trim();
-}
-
 /**
- * Heuristic anti-slop checks for brand schemas.
- * Aligns with .project/.research/02-ai-design-slop-and-taste.md
+ * Advisory contract-completeness signals. These checks intentionally do not
+ * blacklist colors, fonts, industries, styles, or visual techniques. A CLI
+ * cannot infer taste from a token name; it can only report whether the input
+ * carries enough explicit constraints to make later verification possible.
  */
-export function validateSlopHeuristics(
-  schema: BrandOsSchema,
-  options: { allowSlop?: boolean } = {},
-): SlopFinding[] {
+export function validateSlopHeuristics(schema: BrandOsSchema): SlopFinding[] {
   const findings: SlopFinding[] = [];
-  const allowSlop = Boolean(options.allowSlop);
-  const families = schema.tokens.typography.families;
-  const display = fontStack(families.display);
-  const body = fontStack(families.body);
-  const ui = fontStack(families.ui);
+  const add = (code: string, path: string, message: string): void => {
+    findings.push({ level: 'warning', code, path, message });
+  };
 
-  const stacks = [display, body, ui].filter(Boolean);
-  const slopFonts = stacks.filter((s) => SLOP_FONT_RE.test(s));
-  if (slopFonts.length > 0) {
-    findings.push({
-      level: allowSlop ? 'warning' : 'error',
-      code: 'slop-font',
-      message: `Generic font stack(s) detected (${slopFonts.join('; ')}). Prefer a distinctive display + readable body pairing.`,
-    });
+  if (!schema.brandThesis?.summary?.trim()) {
+    add('missing-thesis', '/brandThesis/summary', 'Add a concise brand thesis so outputs have a declared purpose.');
   }
-
-  if (display && body && display.toLowerCase() === body.toLowerCase() && SLOP_FONT_RE.test(display)) {
-    findings.push({
-      level: allowSlop ? 'warning' : 'error',
-      code: 'slop-mono-font',
-      message: 'Display and body share the same generic sans. Brands need recognisability beyond a single Inter-like face.',
-    });
+  if (!schema.brandThesis?.positioning?.trim()) {
+    add('missing-positioning', '/brandThesis/positioning', 'Positioning is not declared; category difference cannot be verified.');
   }
-
-  const primary = schema.tokens.color.light.primary ?? '';
-  const accent = schema.tokens.color.light.accent ?? '';
-  if (INDIGO_VIOLET_HUE_RE.test(primary) || INDIGO_VIOLET_HUE_RE.test(accent)) {
-    findings.push({
-      level: allowSlop ? 'warning' : 'error',
-      code: 'slop-violet-indigo',
-      message:
-        'Primary/accent sits in the indigo–violet band commonly associated with AI design defaults. Pick a brand-led hue or pass --allow-slop.',
-    });
+  if ((schema.brandThesis?.antiPersonality?.length ?? 0) === 0) {
+    add('missing-negative-constraints', '/brandThesis/antiPersonality', 'Declare what the brand must not become.');
   }
-
-  const anti = schema.brandThesis?.antiPersonality ?? [];
-  if (anti.length < 2) {
-    findings.push({
-      level: 'warning',
-      code: 'missing-anti-personality',
-      message: 'brandThesis.antiPersonality should list ≥2 traits the brand is NOT (kills AI average).',
-    });
+  if (!schema.designGrammar?.shapeLanguage?.core?.trim()) {
+    add('missing-shape-language', '/designGrammar/shapeLanguage/core', 'Color and typography alone do not define a recognisable system.');
   }
-
-  const forbidden = schema.illustration?.forbidden ?? [];
-  const avoidComponents = schema.componentPolicy?.avoid ?? [];
-  if (forbidden.length === 0 && avoidComponents.length === 0) {
-    findings.push({
-      level: 'warning',
-      code: 'missing-forbidden',
-      message: 'Add illustration.forbidden and/or componentPolicy.avoid so agents know what not to invent.',
-    });
+  if ((schema.designGrammar?.imageTreatment?.avoid?.length ?? 0) === 0) {
+    add('missing-image-constraints', '/designGrammar/imageTreatment/avoid', 'Image treatment has no explicit negative constraints.');
   }
-
-  if (!schema.brandMarks?.primary && !schema.brandMarks?.wordmark) {
-    findings.push({
-      level: 'warning',
-      code: 'missing-brand-marks',
-      message: 'Define brandMarks (primary/wordmark). A brand recognisable only by color is incomplete.',
-    });
+  if ((schema.componentPolicy?.avoid?.length ?? 0) === 0) {
+    add('missing-composition-constraints', '/componentPolicy/avoid', 'Composition and component anti-patterns are not declared.');
   }
-
-  const summary = schema.brandThesis?.summary ?? '';
-  if (!summary || summary.length < 12) {
-    findings.push({
-      level: 'warning',
-      code: 'thin-thesis',
-      message: 'brandThesis.summary is thin or missing. Agents need a PURPOSE sentence, not only tokens.',
-    });
+  if (!schema.brandMarks || Object.keys(schema.brandMarks).length === 0) {
+    add('missing-marks-contract', '/brandMarks', 'No mark role or geometry contract is present.');
+  }
+  if (!schema.recipes?.pageArchetypes || Object.keys(schema.recipes.pageArchetypes).length === 0) {
+    add('missing-proof-surfaces', '/recipes/pageArchetypes', 'No target surface contract is declared for downstream proof.');
   }
 
   return findings;
 }
 
 export function formatSlopFindings(findings: SlopFinding[]): string[] {
-  return findings.map((f) => `[${f.level}] ${f.code}: ${f.message}`);
+  return findings.map((finding) => `[${finding.level}] ${finding.code} ${finding.path}: ${finding.message}`);
 }

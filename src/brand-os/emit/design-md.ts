@@ -1,4 +1,3 @@
-import { resolveBrandMarks, resolveIllustration } from '../defaults/schema.js';
 import { resolveColorModes, resolveThemes, DEFAULT_CONTRAST_BUDGET } from '../defaults/themes.js';
 import { BrandOsSchema, PromptPack } from '../types.js';
 import { hslToHex } from '../utils/color.js';
@@ -179,7 +178,7 @@ function section(title: string, lines: string[]): string[] {
 
 function renderOverview(schema: BrandOsSchema, promptPack: PromptPack): string[] {
   const thesis = schema.brandThesis;
-  const illustration = resolveIllustration(schema);
+  const illustration = schema.illustration;
 
   return nonEmpty([
     thesis?.summary ?? schema.meta.description ?? promptPack.sharedContext.brandSummary,
@@ -188,7 +187,7 @@ function renderOverview(schema: BrandOsSchema, promptPack: PromptPack): string[]
     thesis?.personality?.length ? `Personality: ${thesis.personality.join(', ')}` : undefined,
     thesis?.antiPersonality?.length ? `Anti-personality: ${thesis.antiPersonality.join(', ')}` : undefined,
     thesis?.voice?.tone?.length ? `Voice tone: ${thesis.voice.tone.join(', ')}` : undefined,
-    `Illustration style: ${illustration.style}.`,
+    illustration?.style ? `Illustration style: ${illustration.style}.` : undefined,
   ]);
 }
 
@@ -267,7 +266,7 @@ function renderDepth(schema: BrandOsSchema): string[] {
 
 function renderShapes(schema: BrandOsSchema): string[] {
   const radiusLines = Object.entries(schema.tokens.radius).map(([name, value]) => `- ${name}: \`${value}\``);
-  const brandMarks = resolveBrandMarks(schema).primary;
+  const brandMarks = schema.brandMarks?.primary;
 
   return [
     schema.designGrammar?.shapeLanguage?.core ?? 'Shapes should reinforce recognisable brand geometry.',
@@ -319,7 +318,7 @@ function renderComponents(schema: BrandOsSchema, promptPack: PromptPack): string
 
 function renderDosAndDonts(schema: BrandOsSchema): string[] {
   const thesis = schema.brandThesis;
-  const illustration = resolveIllustration(schema);
+  const illustration = schema.illustration;
   const doLines = nonEmpty([
     'Do preserve AA contrast in every emitted theme before polishing visual effects.',
     'Do make the brand recognisable through marks, shape language, and illustration motifs, not color alone.',
@@ -329,7 +328,7 @@ function renderDosAndDonts(schema: BrandOsSchema): string[] {
     ...(thesis?.antiPersonality ?? []).map((item) => `- ${item}`),
     ...(schema.designGrammar?.contentVoice?.avoid ?? []).map((item) => `- ${item}`),
     ...(schema.componentPolicy?.avoid ?? []).map((item) => `- ${item}`),
-    ...(illustration.forbidden ?? []).map((item) => `- ${item}`),
+    ...(illustration?.forbidden ?? []).map((item) => `- ${item}`),
     `- Body text on dark must clear ${DEFAULT_CONTRAST_BUDGET.minBodyAA}:1 and headings on dark must clear ${DEFAULT_CONTRAST_BUDGET.minHeadingOnDark}:1.`,
   ];
 

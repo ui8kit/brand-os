@@ -4,45 +4,90 @@
 @source "./utils/**/*.{ts}";
 @source "./**/*.{svelte,ts}";
 
-/* RestA tokens — walnut / linen / terracotta / brass + folk accents */
+/*
+  RestA tokens — applied from resta-brand (brand/DESIGN.md + public/brand/tweaks).
+  Semantic roles read live CSS vars from tweaks.css / tweaks-runtime.
+*/
+
+/* Fallbacks before tweaks.css (match paper + editorial defaults) */
+:root {
+  --background: hsl(36 100% 97%);
+  --foreground: hsl(20 30% 8%);
+  --card: hsl(37 52% 94%);
+  --popover: hsl(36 60% 98%);
+  --primary: hsl(12 60% 45%);
+  --primary-foreground: hsl(24 100% 98%);
+  --secondary: hsl(22 48% 20%);
+  --secondary-foreground: hsl(36 100% 97%);
+  --muted: hsl(37 52% 89%);
+  --muted-foreground: hsl(23 22% 34%);
+  --accent: hsl(42 47% 56%);
+  --accent-foreground: hsl(22 44% 13%);
+  --destructive: hsl(0 70% 36%);
+  --destructive-foreground: hsl(0 100% 97%);
+  --border: hsl(22 28% 78%);
+  --input: hsl(22 28% 78%);
+  --ring: hsl(42 47% 56%);
+  --brand-accent-current: var(--primary);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius: 0.375rem;
+  --density-section-padding: 2.5rem;
+  --motion-duration-fast: 140ms;
+  --motion-duration-normal: 220ms;
+  --motion-duration-slow: 900ms;
+  --font-display-size: 4rem;
+  --font-heading-size: 2.5rem;
+  --font-body-size: 1.0625rem;
+}
+
 @theme {
   --font-display: "Cormorant Garamond", "Times New Roman", serif;
   --font-body: "Source Sans 3", "Segoe UI", sans-serif;
 
-  --color-walnut: #2f1c12;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-popover: var(--popover);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Material aliases from DESIGN.md chart colors */
+  --color-walnut: #301d13;
   --color-walnut-deep: #1c100a;
   --color-wood: #4a2c1a;
-  --color-linen: #fff8ef;
+  --color-linen: #fff9f0;
   --color-cream: #f3e6d2;
-  --color-terracotta: #b84a2e;
-  --color-brass: #c4a35a;
-  --color-brick: #8b3a2a;
-  --color-folk-red: #c41e3a;
-  --color-folk-green: #2f5d3a;
-  --color-ink: #1a120e;
-  --color-muted: #6b5344;
+  --color-terracotta: #b8492e;
+  --color-brass: #c4a45a;
+  --color-folk-red: #c31d39;
+  --color-folk-green: #2e5c3d;
+  --color-ink: #1b120e;
 
-  --color-background: var(--color-linen);
-  --color-foreground: var(--color-ink);
-  --color-primary: var(--color-terracotta);
-  --color-primary-foreground: #fff8f4;
-  --color-secondary: var(--color-wood);
-  --color-secondary-foreground: var(--color-linen);
-  --color-accent: var(--color-cream);
-  --color-accent-foreground: var(--color-walnut);
-  --color-destructive: #9b1c1c;
-  --color-destructive-foreground: #fff5f5;
-  --color-border: color-mix(in oklab, var(--color-wood) 22%, transparent);
-  --color-input: color-mix(in oklab, var(--color-wood) 28%, transparent);
-  --color-ring: var(--color-brass);
+  /* Brand radius scale (tweaks may override --radius-* on :root at runtime) */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
 }
 
 :root {
   color-scheme: light;
   font-family: var(--font-body);
-  --resta-ornament: radial-gradient(circle at 30% 40%, var(--color-folk-red) 0 2px, transparent 2.5px),
-    radial-gradient(circle at 70% 55%, var(--color-brass) 0 1.5px, transparent 2px),
-    radial-gradient(circle at 50% 20%, var(--color-folk-green) 0 1.5px, transparent 2px);
+  font-size: var(--font-body-size, 1rem);
 }
 
 html {
@@ -53,8 +98,9 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    linear-gradient(180deg, #f7ecda 0%, var(--color-linen) 38%, #efe0c8 100%);
-  color: var(--color-ink);
+    var(--surface-overlay, none),
+    linear-gradient(180deg, color-mix(in oklab, var(--background) 88%, var(--muted)) 0%, var(--background) 42%, var(--muted) 100%);
+  color: var(--foreground);
 }
 
 #app {
@@ -65,38 +111,69 @@ body {
   font-family: var(--font-display);
 }
 
-/* Folk ribbon band — Khokhloma-inspired color rhythm, not a copied mark */
+/* Primary CTA — DESIGN.md button-primary / hover → accent */
+.resta-btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: var(--radius-md);
+  transition: background-color var(--motion-duration-normal) ease, color var(--motion-duration-fast) ease;
+}
+
+.resta-btn-primary:hover {
+  background-color: var(--brand-accent-current, var(--accent));
+  color: var(--primary-foreground);
+}
+
+/* Scarce brass emphasis (banquet) — not the default accent axis */
+.resta-btn-brass {
+  background-color: var(--color-brass);
+  color: var(--color-walnut);
+  border-radius: var(--radius-md);
+  transition: background-color var(--motion-duration-normal) ease;
+}
+
+.resta-btn-brass:hover {
+  background-color: color-mix(in oklab, var(--color-brass) 88%, black);
+}
+
+/* Folk ribbon — abstract color rhythm only */
 .resta-ornament-band {
   height: 0.65rem;
-  background:
-    linear-gradient(
-      90deg,
-      var(--color-folk-red) 0%,
-      var(--color-brass) 22%,
-      var(--color-folk-green) 44%,
-      var(--color-folk-red) 66%,
-      var(--color-brass) 88%,
-      var(--color-folk-green) 100%
-    );
+  background: linear-gradient(
+    90deg,
+    var(--color-folk-red) 0%,
+    var(--color-brass) 22%,
+    var(--color-folk-green) 44%,
+    var(--color-folk-red) 66%,
+    var(--color-brass) 88%,
+    var(--color-folk-green) 100%
+  );
   opacity: 0.85;
 }
 
 .resta-linen-panel {
   background:
-    linear-gradient(180deg, rgba(255, 248, 239, 0.96), rgba(243, 230, 210, 0.92)),
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--background) 96%, white),
+      color-mix(in oklab, var(--muted) 92%, var(--background))
+    ),
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 11px,
-      rgba(74, 44, 26, 0.03) 11px,
-      rgba(74, 44, 26, 0.03) 12px
+      color-mix(in oklab, var(--secondary) 4%, transparent) 11px,
+      color-mix(in oklab, var(--secondary) 4%, transparent) 12px
     );
 }
 
 .resta-wood-panel {
-  background:
-    linear-gradient(135deg, #3a2316 0%, #2a170f 48%, #4a2c1a 100%);
+  background: linear-gradient(135deg, #3a2316 0%, var(--color-walnut-deep) 48%, var(--color-wood) 100%);
   color: var(--color-linen);
+}
+
+.resta-section {
+  padding-block: var(--density-section-padding, 2.5rem);
 }
 
 @keyframes resta-ken {
@@ -129,7 +206,8 @@ body {
 }
 
 .resta-hero-media {
-  animation: resta-ken 18s ease-out forwards;
+  animation: resta-ken var(--motion-duration-slow, 900ms) ease-out forwards;
+  animation-duration: 18s;
 }
 
 .resta-rise {
@@ -151,4 +229,11 @@ body {
   .resta-fade {
     animation: none;
   }
+}
+
+[data-motion="reduced"] .resta-hero-media,
+[data-motion="reduced"] .resta-rise,
+[data-motion="reduced"] .resta-rise-delay,
+[data-motion="reduced"] .resta-fade {
+  animation: none;
 }

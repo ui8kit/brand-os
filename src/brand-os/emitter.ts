@@ -1,181 +1,155 @@
-import { existsSync, rmSync } from 'node:fs';
-import { join } from 'node:path';
-import { ParserContract } from '../ast-parser/types.js';
-import { emitBrandMarks } from './emit/brand-marks.js';
+import {
+  existsSync,
+  mkdtempSync,
+  readdirSync,
+  renameSync,
+  rmSync,
+  statSync,
+} from 'node:fs';
+import { basename, dirname, join, parse, relative, resolve } from 'node:path';
 import { buildDesignMd } from './emit/design-md.js';
+import { emitBrandMarks } from './emit/brand-marks.js';
 import { emitTweaks } from './emit/tweaks.js';
 import { validateThemeContrast } from './validators/contrast.js';
-import { BrandOsCopiedAsset, BrandOsResolvedPaths, BrandOsSchema, ParserFixture, ParserFixtureSource, PromptPack } from './types.js';
-import { copyPath, ensureDir, fail, formatBulletList, resolveRelativeToSchemaDir, writeTextFile } from './utils.js';
+import { BrandOsResolvedPaths, BrandOsSchema, PromptPack } from './types.js';
+import {
+  copyPath,
+  ensureDir,
+  fail,
+  listFilesRecursive,
+  resolveContainedPath,
+  sha256File,
+  sha256Text,
+  writeTextFile,
+} from './utils.js';
 
-function copyAdapterAssets(paths: BrandOsResolvedPaths, schema: BrandOsSchema): string[] {
-  const assets = schema.emit?.assets ?? [];
-  const copiedOutputs: string[] = [];
-
-  for (const asset of assets) {
-    const sourcePath = resolveRelativeToSchemaDir(paths.schemaPath, asset.source);
-    if (!existsSync(sourcePath)) {
-      fail(`Adapter asset "${asset.source}" was not found relative to the schema.`);
-    }
-
-    const destinationPath = join(paths.emitDir, asset.output);
-    copyPath(sourcePath, destinationPath);
-    copiedOutputs.push(asset.output.replace(/\\/g, '/'));
-  }
-
-  return copiedOutputs;
+export interface ManifestFile {
+  path: string;
+  bytes: number;
+  sha256: string;
 }
 
-function buildAssetList(assets: BrandOsCopiedAsset[] | undefined): string {
-  if (!assets || assets.length === 0) {
-    return '- None.';
-  }
-
-  return assets
-    .map((asset) => `- \`${asset.output}\`${asset.description ? ` — ${asset.description}` : ''}`)
-    .join('\n');
+export interface BrandOsManifest {
+  manifestVersion: '1.0.0';
+  generator: { name: 'brand-os'; version: string };
+  schema: { version: string; sha256: string };
+  warnings: string[];
+  files: ManifestFile[];
 }
 
-function buildBrandReadme(schema: BrandOsSchema, promptPack: PromptPack, copiedAssets: string[]): string {
-  const docsConfig = schema.emit?.docs;
-  const thesis = schema.brandThesis;
-  const generatedKitTitle = docsConfig?.generatedKitTitle ?? `${schema.meta.name} Generated Kit`;
+export interface EmitResult {
+  outputDir: string;
+  manifest: BrandOsManifest;
+  copiedAssetCount: number;
+  warnings: string[];
+}
 
+function assertSafeOutputDirectory(outputDir: string, schemaPath: string): void {
+  const target = resolve(outputDir);
+  if (target === parse(target).root || target === resolve(process.cwd()) || target === resolve(dirname(schemaPath))) {
+    fail(`Refusing broad output directory: ${target}`);
+  }
+}
+
+function copyAssets(outputDir: string, schemaPath: string, schema: BrandOsSchema): string[] {
+  const copied: string[] = [];
+  const sourceRoot = dirname(schemaPath);
+  for (const asset of schema.emit?.assets ?? []) {
+    const source = resolveContainedPath(sourceRoot, asset.source, 'emit.assets[].source');
+    if (!existsSync(source)) fail(`Asset not found: ${asset.source}`);
+    const destination = resolveContainedPath(outputDir, asset.output, 'emit.assets[].output');
+    copyPath(source, destination);
+    copied.push(relative(outputDir, destination).replace(/\\/g, '/'));
+  }
+  return copied.sort();
+}
+
+function buildReadme(schema: BrandOsSchema, files: string[]): string {
   return [
-    `# ${generatedKitTitle}`,
+    `# ${schema.meta.name} brand contract`,
     '',
-    'This directory was generated from the machine-readable brand operating system source files.',
+    'Generated deterministically from `contract.json` by brand-os.',
     '',
-    '## Included',
-    '- `DESIGN.md`: Google DESIGN.md-compatible brand contract',
-    '- `tweaks/`: live preview tweak assets with 8 axes',
-    '- `brand-marks/`: brand recognisability slots and geometry rules',
-    '- `parser-fixtures/`: parser contract fixtures derived from the reference input set',
-    '- `parser-contract.json`: copied parser contract snapshot',
-    copiedAssets.length > 0 ? `- adapter assets copied from the brand package: ${copiedAssets.length}` : '- no adapter assets were configured for copying',
+    '## Files',
+    ...files.map((file) => `- \`${file}\``),
     '',
-    '## Adapter Assets',
-    buildAssetList(schema.emit?.assets),
-    '',
-    '## Brand Summary',
-    thesis?.summary ?? promptPack.sharedContext.brandSummary,
-    '',
-    '## Personality',
-    formatBulletList(thesis?.personality),
-    '',
-    '## Anti-Personality',
-    formatBulletList(thesis?.antiPersonality),
-    '',
-    '## Usage',
-    '1. Attach `DESIGN.md` as the source-of-truth brand contract.',
-    '2. Wire `tweaks/tweaks.css` and `tweaks/tweaks-runtime.js` into your host page for live theme and density switching.',
-    '3. Use `parser-contract.json` and `parser-fixtures/` to validate parser-friendly HTML or Tailwind output.',
-    '4. Use the copied adapter assets only for the stacks they were authored for. The CLI does not assume Tailwind version or CSS adapter strategy.',
+    'Treat `contract.json` as machine source of truth and `DESIGN.md` as the human/agent exchange view.',
     '',
   ].join('\n');
 }
 
-function buildFixtureReadme(fixtures: ParserFixture[], fixtureSource: ParserFixtureSource, schema: BrandOsSchema): string {
-  const docsConfig = schema.emit?.docs;
-  const title = docsConfig?.parserFixtureTitle ?? `${schema.meta.name} Parser Fixtures`;
-  const referenceName = docsConfig?.parserFixtureReference ?? fixtureSource.referenceProjectName ?? 'the reference input set';
-
-  return [
-    `# ${title}`,
-    '',
-    `These fixtures are derived from ${referenceName} and are intended to validate how a parser splits classes into structural, semantic, decorative, and unknown buckets.`,
-    '',
-    '## How To Use',
-    '1. Read a fixture file from this directory.',
-    '2. Classify each class according to the parser contract.',
-    '3. Compare the parser result to the `expected` buckets.',
-    '4. Emit warnings for any mismatches or unknown classes.',
-    '',
-    '## Fixture Count',
-    `- ${fixtures.length} fixture(s)`,
-    '',
-  ].join('\n');
+function fileRecords(outputDir: string): ManifestFile[] {
+  return listFilesRecursive(outputDir)
+    .filter((file) => file !== 'manifest.json')
+    .map((file) => {
+      const absolute = join(outputDir, file);
+      return { path: file, bytes: statSync(absolute).size, sha256: sha256File(absolute) };
+    });
 }
 
-function buildManifest(
-  outputDir: string,
-  fixtures: ParserFixture[],
-  schema: BrandOsSchema,
-  copiedAssets: string[],
-  warnings: string[],
-): string {
-  return `${JSON.stringify(
-    {
-      generatedAt: new Date().toISOString(),
-      brandName: schema.meta.name,
-      outputDir,
-      warnings,
-      files: {
-        designMd: 'DESIGN.md',
-        tweaks: 'tweaks/',
-        brandMarks: 'brand-marks/',
-        fixtureCount: fixtures.length,
-        fixtureIndex: 'parser-fixtures/index.json',
-        copiedAssets,
-      },
-    },
-    null,
-    2,
-  )}\n`;
-}
-
-function emitParserFixtures(outputDir: string, source: ParserFixtureSource, schema: BrandOsSchema): ParserFixture[] {
-  const fixturesDir = join(outputDir, 'parser-fixtures');
-  ensureDir(fixturesDir);
-
-  writeTextFile(join(fixturesDir, 'index.json'), `${JSON.stringify(source, null, 2)}\n`);
-  for (const fixture of source.fixtures) {
-    writeTextFile(join(fixturesDir, `${fixture.id}.json`), `${JSON.stringify(fixture, null, 2)}\n`);
+function installStagedDirectory(stageDir: string, outputDir: string, force: boolean): void {
+  const targetExists = existsSync(outputDir);
+  if (targetExists && readdirSync(outputDir).length > 0 && !force) {
+    fail(`Output directory is not empty: ${outputDir}. Pass --force to replace it atomically.`);
   }
-  writeTextFile(join(fixturesDir, 'README.md'), buildFixtureReadme(source.fixtures, source, schema));
-  return source.fixtures;
+
+  ensureDir(dirname(outputDir));
+  if (!targetExists) {
+    renameSync(stageDir, outputDir);
+    return;
+  }
+
+  const backup = `${outputDir}.backup-${process.pid}`;
+  if (existsSync(backup)) rmSync(backup, { recursive: true, force: true });
+  renameSync(outputDir, backup);
+  try {
+    renameSync(stageDir, outputDir);
+    rmSync(backup, { recursive: true, force: true });
+  } catch (error) {
+    if (existsSync(outputDir)) rmSync(outputDir, { recursive: true, force: true });
+    renameSync(backup, outputDir);
+    throw error;
+  }
 }
 
 export function emitBrandOsArtifacts(
   paths: BrandOsResolvedPaths,
   schema: BrandOsSchema,
   promptPack: PromptPack,
-  parserContract: ParserContract,
-  fixtureSource: ParserFixtureSource,
-): {
-  fixtureCount: number;
-  copiedAssetCount: number;
-  warnings: string[];
-  renamedBrandBrief: boolean;
-} {
-  ensureDir(paths.emitDir);
-  for (const legacyFile of ['theme.css', 'tailwind.extend.ts']) {
-    const legacyPath = join(paths.emitDir, legacyFile);
-    if (existsSync(legacyPath)) {
-      rmSync(legacyPath, { force: true });
-    }
+  options: { force: boolean; generatorVersion: string },
+): EmitResult {
+  assertSafeOutputDirectory(paths.emitDir, paths.schemaPath);
+  if (existsSync(paths.emitDir) && readdirSync(paths.emitDir).length > 0 && !options.force) {
+    fail(`Output directory is not empty: ${paths.emitDir}. Pass --force to replace it atomically.`);
   }
 
-  const legacyBriefPath = join(paths.emitDir, 'brand-brief.md');
-  const renamedBrandBrief = existsSync(legacyBriefPath);
-  if (renamedBrandBrief) {
-    rmSync(legacyBriefPath, { force: true });
+  ensureDir(dirname(paths.emitDir));
+  const stage = mkdtempSync(join(dirname(paths.emitDir), `.${basename(paths.emitDir)}.stage-`));
+  try {
+    const contract = `${JSON.stringify(schema, null, 2)}\n`;
+    writeTextFile(join(stage, 'contract.json'), contract);
+    writeTextFile(join(stage, 'DESIGN.md'), buildDesignMd(schema, promptPack));
+
+    const emitted: string[] = ['contract.json', 'DESIGN.md'];
+    if (schema.tweaks) emitted.push(...emitTweaks(stage, schema));
+    if (schema.brandMarks && Object.keys(schema.brandMarks).length > 0) emitted.push(...emitBrandMarks(stage, schema));
+    const copiedAssets = copyAssets(stage, paths.schemaPath, schema);
+    emitted.push(...copiedAssets);
+    writeTextFile(join(stage, 'README.md'), buildReadme(schema, [...emitted, 'manifest.json'].sort()));
+
+    const warnings = validateThemeContrast(schema);
+    const manifest: BrandOsManifest = {
+      manifestVersion: '1.0.0',
+      generator: { name: 'brand-os', version: options.generatorVersion },
+      schema: { version: schema.schemaVersion, sha256: sha256Text(contract) },
+      warnings,
+      files: fileRecords(stage),
+    };
+    writeTextFile(join(stage, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
+    installStagedDirectory(stage, paths.emitDir, options.force);
+    return { outputDir: paths.emitDir, manifest, copiedAssetCount: copiedAssets.length, warnings };
+  } catch (error) {
+    if (existsSync(stage)) rmSync(stage, { recursive: true, force: true });
+    throw error;
   }
-
-  const warnings = validateThemeContrast(schema);
-  const copiedAssets = copyAdapterAssets(paths, schema);
-  writeTextFile(join(paths.emitDir, 'README.md'), buildBrandReadme(schema, promptPack, copiedAssets));
-  writeTextFile(join(paths.emitDir, 'DESIGN.md'), buildDesignMd(schema, promptPack));
-  writeTextFile(join(paths.emitDir, 'parser-contract.json'), `${JSON.stringify(parserContract, null, 2)}\n`);
-  emitTweaks(paths.emitDir, schema);
-  emitBrandMarks(paths.emitDir, schema);
-  const emittedFixtures = emitParserFixtures(paths.emitDir, fixtureSource, schema);
-  writeTextFile(join(paths.emitDir, 'manifest.json'), buildManifest(paths.emitDir, emittedFixtures, schema, copiedAssets, warnings));
-
-  return {
-    fixtureCount: emittedFixtures.length,
-    copiedAssetCount: copiedAssets.length,
-    warnings,
-    renamedBrandBrief,
-  };
 }

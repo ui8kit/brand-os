@@ -1,25 +1,19 @@
 {
   "name": "brand-os",
-  "version": "0.2.2",
-  "description": "Brand contract CLI: init \u2192 emit \u2192 validate DESIGN.md (anti-slop + Google lint). Scaffold and AST are secondary.",
+  "version": "0.3.0",
+  "description": "Deterministic, brand-neutral brand contract compiler and verifier for humans, CI, and LLM tools.",
   "author": "UI8Kit",
   "license": "MIT",
   "type": "module",
   "keywords": [
     "brand-os",
-    "ui8kit",
     "cli",
     "branding",
     "design-system",
     "brand-system",
-    "ast",
-    "npx",
-    "npm",
-    "node",
-    "vite",
-    "react",
-    "scaffolding",
-    "template"
+    "llm-tools",
+    "deterministic",
+    "verification"
   ],
   "homepage": "https://github.com/ui8kit/brand-os",
   "bugs": {
@@ -30,27 +24,38 @@
     "url": "https://github.com/ui8kit/brand-os.git"
   },
   "bin": {
-    "brand-os": "./dist/index.js"
+    "brand-os": "./lib/index.js"
   },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "build": "tsc -p tsconfig.build.json",
-    "brand:emit": "npm run build && node dist/index.js --schema \".project/Tech Brand OS/tech-brand-os.schema.json\" --parser-contract \".project/Tech Brand OS/tech-brand-os-parser-contract.json\" --fixtures \".project/Tech Brand OS/tech-brand-os-parser-fixtures.source.json\" --emit-dir \".project/Tech Brand OS/tech-brand-os-generated\"",
-    "prepublishOnly": "tsc --noEmit -p tsconfig.json && tsc -p tsconfig.build.json",
-    "test": "node --test"
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepublishOnly": "npm run typecheck && npm test"
   },
   "files": [
     "README.md",
-    "AGENTS.md",
-    "SKILL.md",
-    "dist",
-    "template-react",
-    "template-react-resta",
-    "template-tech-blog",
-    "template-svelte-resta"
+    "LICENSE",
+    "lib/index.js",
+    "lib/version.js",
+    "lib/cli/parse-args.js",
+    "lib/commands/brand-os.js",
+    "lib/commands/validate.js",
+    "lib/commands/verify.js",
+    "lib/brand-os/defaults/themes.js",
+    "lib/brand-os/emit/brand-marks.js",
+    "lib/brand-os/emit/design-md.js",
+    "lib/brand-os/emit/tweaks.js",
+    "lib/brand-os/emitter.js",
+    "lib/brand-os/schema.js",
+    "lib/brand-os/types.js",
+    "lib/brand-os/utils.js",
+    "lib/brand-os/utils/color.js",
+    "lib/brand-os/validators/contrast.js",
+    "lib/brand-os/validators/slop.js",
+    "lib/brand-os/verify.js"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "publishConfig": {
     "access": "public"
@@ -58,8 +63,5 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "typescript": "^5.8.0"
-  },
-  "dependencies": {
-    "node-html-parser": "^7.1.0"
   }
 }

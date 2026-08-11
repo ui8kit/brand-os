@@ -1,4 +1,5 @@
 <script lang="ts">
+  /** Landing composition under brand/DESIGN.md (resta-brand). Tweaks load from index.html. */
   import Atmosphere from "./blocks/Atmosphere.svelte"
   import Banquet from "./blocks/Banquet.svelte"
   import Cuisine from "./blocks/Cuisine.svelte"

@@ -9,7 +9,7 @@
   import { banquet } from "../lib/content"
 </script>
 
-<Block tag="section" id="banquet" class="resta-wood-panel py-20 md:py-28">
+<Block tag="section" id="banquet" class="resta-wood-panel resta-section">
   <Box class="mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2 md:gap-14 md:px-8">
     <Box class="overflow-hidden">
       <Image
@@ -36,11 +36,7 @@
         {/each}
       </Stack>
       <Box>
-        <Button
-          href={banquet.cta.href}
-          size="lg"
-          class="rounded-md bg-brass px-7 text-base font-semibold text-walnut hover:bg-brass/90"
-        >
+        <Button href={banquet.cta.href} size="lg" class="resta-btn-brass px-7 text-base font-semibold">
           {banquet.cta.label}
         </Button>
       </Box>

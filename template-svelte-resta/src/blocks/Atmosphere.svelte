@@ -8,13 +8,13 @@
   import { atmosphere } from "../lib/content"
 </script>
 
-<Block tag="section" id="atmosphere" class="resta-linen-panel border-y border-wood/10 py-20 md:py-28">
+<Block tag="section" id="atmosphere" class="resta-linen-panel resta-section border-y border-border">
   <Box class="mx-auto max-w-6xl px-5 md:px-8">
     <Stack class="mb-12 max-w-2xl gap-4">
-      <Title as={2} class="font-display text-4xl font-semibold tracking-tight text-walnut md:text-5xl">
+      <Title as={2} class="font-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
         {atmosphere.title}
       </Title>
-      <Text class="text-lg leading-relaxed text-muted">
+      <Text class="text-lg leading-relaxed text-muted-foreground">
         {atmosphere.lead}
       </Text>
     </Stack>
@@ -31,7 +31,7 @@
               loading="lazy"
             />
           </Box>
-          <Text class="text-sm font-medium uppercase tracking-[0.12em] text-wood">
+          <Text class="text-sm font-medium uppercase tracking-[0.12em] text-secondary">
             {shot.caption}
           </Text>
         </Stack>
