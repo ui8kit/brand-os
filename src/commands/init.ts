@@ -35,33 +35,72 @@ const SURFACE_PRESETS: Record<string, string[]> = {
 const PERSONALITY_PRESETS: Record<string, { personality: string[]; antiPersonality: string[] }> = {
   warm: {
     personality: ['warm', 'welcoming', 'approachable', 'inviting', 'friendly'],
-    antiPersonality: ['cold-enterprise', 'clinical-minimalist', 'generic-template'],
+    antiPersonality: [
+      'cold-enterprise',
+      'clinical-minimalist',
+      'generic-template',
+      'purple-gradient-startup',
+      'inter-only-saas',
+    ],
   },
   bold: {
     personality: ['bold', 'confident', 'striking', 'modern', 'high-contrast'],
-    antiPersonality: ['timid', 'generic-template', 'over-decorated', 'cluttered'],
+    antiPersonality: [
+      'timid',
+      'generic-template',
+      'over-decorated',
+      'cluttered',
+      'purple-gradient-startup',
+      'glassmorphism-default',
+    ],
   },
   minimal: {
     personality: ['precise', 'restrained', 'refined', 'clean', 'intentional'],
-    antiPersonality: ['cluttered', 'over-decorated', 'generic-template', 'noisy'],
+    antiPersonality: [
+      'cluttered',
+      'over-decorated',
+      'generic-template',
+      'noisy',
+      'ai-feature-card-stack',
+    ],
   },
   editorial: {
     personality: ['editorial', 'sophisticated', 'typographic', 'curated', 'distinctive'],
-    antiPersonality: ['generic-template', 'corporate-bland', 'cookie-cutter', 'flat'],
+    antiPersonality: [
+      'generic-template',
+      'corporate-bland',
+      'cookie-cutter',
+      'flat',
+      'inter-only-saas',
+      'purple-gradient-startup',
+    ],
   },
   playful: {
     personality: ['playful', 'energetic', 'colorful', 'rounded', 'friendly'],
-    antiPersonality: ['corporate-bland', 'clinical-minimalist', 'rigid', 'cold-enterprise'],
+    antiPersonality: [
+      'corporate-bland',
+      'clinical-minimalist',
+      'rigid',
+      'cold-enterprise',
+      'generic-template',
+    ],
   },
   luxury: {
     personality: ['refined', 'elegant', 'premium', 'exclusive', 'polished'],
-    antiPersonality: ['cheap', 'generic-template', 'cluttered', 'loud', 'fast-food-generic'],
+    antiPersonality: [
+      'cheap',
+      'generic-template',
+      'cluttered',
+      'loud',
+      'fast-food-generic',
+      'ai-3d-people',
+    ],
   },
 };
 
 const FONT_SUGGESTIONS: Record<string, { display: string; body: string }> = {
   warm: { display: 'Fraunces, serif', body: 'DM Sans, sans-serif' },
-  bold: { display: 'DM Serif Display, serif', body: 'Inter, sans-serif' },
+  bold: { display: 'DM Serif Display, serif', body: 'DM Sans, sans-serif' },
   minimal: { display: 'Geist, sans-serif', body: 'Geist, sans-serif' },
   editorial: { display: 'Playfair Display, serif', body: 'Lora, serif' },
   playful: { display: 'Outfit, sans-serif', body: 'Nunito, sans-serif' },
@@ -287,18 +326,29 @@ function buildSchema(answers: InitAnswers): BrandOsSchema {
       imageTreatment: {
         style: answers.style === 'editorial' || answers.style === 'luxury' ? 'editorial' : 'photographic',
         preferred: ['brand-led compositions', 'clear focal subject', 'authentic material texture'],
-        avoid: ['generic stock poses', 'flat AI gradients', 'overprocessed imagery'],
+        avoid: ['generic stock poses', 'flat AI gradients', 'overprocessed imagery', 'AI 3D people'],
       },
       contentVoice: {
         adjectives: answers.personality.slice(0, 4),
-        avoid: ['generic filler text', 'corporate jargon', 'empty urgency'],
+        avoid: [
+          'generic filler text',
+          'corporate jargon',
+          'empty urgency',
+          'we are a platform headlines',
+        ],
       },
     },
     componentPolicy: {
       keepStandard: ['Button', 'Input', 'Textarea', 'Dialog', 'Card'],
       wrapEarly: ['Hero', 'Section shell', 'Feature grid'],
       customBlocks: ['brand hero', 'testimonial strip', 'CTA banner'],
-      avoid: ['generic feature card stacks', 'over-decorated controls'],
+      avoid: [
+        'generic feature card stacks',
+        'over-decorated controls',
+        'centered three identical feature cards',
+        'purple-on-white startup gradients',
+        'glassmorphism without brand intent',
+      ],
     },
     recipes: {
       pageArchetypes,
@@ -360,9 +410,17 @@ async function runInteractive(): Promise<InitAnswers> {
     const customDisplay = await prompt(rl, `  Display font (enter to accept): `);
     const customBody = await prompt(rl, `  Body font (enter to accept): `);
 
-    console.log('\n  Color presets: warm, cool, rose, forest, slate, amber, violet');
+    console.log('\n  Color presets: warm, cool, rose, forest, slate, amber');
+    console.log('  (violet is AI-slop-risk — only with explicit confirmation)\n');
     const colorPresetRaw = await prompt(rl, '  Color palette: ');
-    const colorPreset = COLOR_PRESETS[colorPresetRaw.toLowerCase()] ?? COLOR_PRESETS['warm'];
+    const paletteKey = colorPresetRaw.toLowerCase();
+    if (paletteKey === 'violet') {
+      const confirm = await prompt(rl, '  violet is a common AI default. Type ALLOW to keep it: ');
+      if (confirm !== 'ALLOW') {
+        throw new Error('Error: Refusing violet palette without ALLOW. Pick another palette.');
+      }
+    }
+    const colorPreset = COLOR_PRESETS[paletteKey] ?? COLOR_PRESETS['warm'];
 
     return {
       name,
@@ -463,9 +521,10 @@ export async function runInit(args: InitCliArgs): Promise<void> {
   console.log(`  Personality: ${answers.personality.join(', ')}`);
   console.log(`  Fonts: ${answers.displayFont} + ${answers.bodyFont}`);
   console.log(`\n  Next steps:`);
-  console.log(`  1. Review and refine the schema`);
-  console.log(`  2. npx brand-os --schema "${outputPath}" --bootstrap`);
-  console.log(`  3. Attach *-generated/DESIGN.md and wire tweaks/* into your host preview\n`);
+  console.log(`  1. Review thesis / antiPersonality / fonts in the schema`);
+  console.log(`  2. npx brand-os emit --schema "${outputPath}" --bootstrap`);
+  console.log(`  3. npx brand-os validate --schema "${outputPath}"`);
+  console.log(`  4. Attach *-generated/DESIGN.md + wire tweaks/* into your host preview\n`);
 }
 
 export function printInitUsage(): string {
@@ -473,14 +532,15 @@ export function printInitUsage(): string {
     'Usage:',
     '  npx brand-os init [options]',
     '',
-    'Create a new brand schema interactively or programmatically.',
+    'Create a brand contract schema (taste first — not a token dump).',
     '',
     'Options:',
     '  --name <name>           brand name',
     '  --description <text>    brand description (one sentence)',
     '  --surfaces <list>       comma-separated surfaces or preset name (restaurant, saas, etc.)',
     '  --style <direction>     style direction: warm, bold, minimal, editorial, playful, luxury',
-    '  --palette <name>        color palette: warm, cool, rose, forest, slate, amber, violet',
+    '  --palette <name>        color palette: warm, cool, rose, forest, slate, amber',
+    '  --allow-slop            allow violet palette (AI-default accent fingerprint)',
     '  --out <path>            output schema path (default: .project/<slug>/<slug>.schema.json)',
     '  --json                  machine-readable JSON output (skip interactive prompts)',
     '  -h, --help              show help',
@@ -504,7 +564,7 @@ export function printInitUsage(): string {
     '',
     'Style directions:',
     '  warm       — welcoming, approachable (Fraunces + DM Sans)',
-    '  bold       — confident, high-contrast (DM Serif Display + Inter)',
+    '  bold       — confident, high-contrast (DM Serif Display + DM Sans)',
     '  minimal    — restrained, clean (Geist)',
     '  editorial  — sophisticated, typographic (Playfair Display + Lora)',
     '  playful    — energetic, rounded (Outfit + Nunito)',
@@ -517,6 +577,6 @@ export function printInitUsage(): string {
     '  forest     — hsl(155 60% 35%) + hsl(45 85% 55%)',
     '  slate      — hsl(215 20% 35%) + hsl(215 85% 54%)',
     '  amber      — hsl(35 92% 50%) + hsl(24 85% 45%)',
-    '  violet     — hsl(270 70% 55%) + hsl(280 80% 90%)',
+    '  violet     — slop-risk; requires --allow-slop',
   ].join('\n');
 }

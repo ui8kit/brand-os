@@ -1,0 +1,34 @@
+{
+  "name": "@brand-os/template-svelte-resta",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "RestA — canonical Svelte restaurant landing template for BrandOSS",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "kit:add": "bunx --bun ui8kit@2.0.1 add --all --runtime svelte --force --registry-url https://unpkg.com/@ui8kit/registry@2.0.0/r --strict-cdn"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "dompurify": "^3.2.5",
+    "marked": "^15.0.11",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/dompurify": "^3.2.0",
+    "svelte": "^5.19.0",
+    "svelte-check": "^4.1.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.3.5"
+  },
+  "engines": {
+    "node": ">=20",
+    "bun": ">=1.1"
+  }
+}

@@ -99,6 +99,8 @@ In Claude Design terms:
 Generate the bundle with:
 
 ```bash
+npx brand-os emit --schema path/to/brand.schema.json --bootstrap
+# backward compatible:
 npx brand-os --schema path/to/brand.schema.json --bootstrap
 ```
 
@@ -113,10 +115,21 @@ Expected output:
 
 No human-facing prompt files are emitted.
 
+Then validate (contrast + anti-slop + optional Google DESIGN.md lint):
+
+```bash
+npx brand-os validate --schema path/to/brand.schema.json
+npx brand-os validate --schema path/to/brand.schema.json --strict
+npx brand-os validate --schema path/to/brand.schema.json --skip-google-lint
+```
+
+Use `--allow-slop` only when indigo/violet accents or generic fonts are intentional; it downgrades those findings to warnings. Prefer fixing fonts/palette instead.
+
 Validation priorities:
-- `DESIGN.md` has YAML frontmatter and 8 canonical sections
+- `DESIGN.md` has YAML frontmatter and 8 canonical sections (lint with `@google/design.md` via `validate`)
 - tweak assets exist and are browser-ready without a build step
 - contrast budgets pass for emitted themes
+- anti-slop heuristics pass (no Inter/Roboto/Arial defaults; antiPersonality ≥2)
 - parser contract and fixtures stay valid
 
 ### Phase 6 — Apply
@@ -178,8 +191,9 @@ Apply these rules to every brand.
 ### Typography
 
 - Never use Inter, Roboto, Arial, or generic system fonts as the primary brand voice.
+- Init presets never default to Inter (e.g. warm → Fraunces + DM Sans; bold → DM Serif Display + DM Sans).
 - Pair a distinctive display family with a readable body family.
-- Good pairings: Playfair Display + Lora, DM Serif Display + DM Sans, Fraunces + Work Sans, Libre Baskerville + Source Sans 3.
+- Good pairings: Playfair Display + Lora, DM Serif Display + DM Sans, Fraunces + DM Sans, Libre Baskerville + Source Sans 3.
 
 ### Anti-slop list
 
@@ -359,12 +373,25 @@ npx brand-os init
 npx brand-os init --name "Brand Name" --style editorial --palette slate --surfaces landing,blog --json
 ```
 
+`violet` palette requires `--allow-slop` (AI-default accent fingerprint).
+
 ### Emit
 
 ```bash
-npx brand-os --schema path/to/brand.schema.json --bootstrap
+npx brand-os emit --schema path/to/brand.schema.json --bootstrap
 npx brand-os --schema path/to/brand.schema.json --emit-dir ./generated --bootstrap --verbose
 ```
+
+### Validate
+
+```bash
+npx brand-os validate --schema path/to/brand.schema.json
+npx brand-os validate --schema path/to/brand.schema.json --strict
+npx brand-os validate --schema path/to/brand.schema.json --allow-slop
+npx brand-os validate --schema path/to/brand.schema.json --skip-google-lint
+```
+
+Runs contrast checks, anti-slop heuristics, and (unless skipped) Google `@google/design.md` lint on emitted `DESIGN.md`.
 
 ### AST parser
 
@@ -377,7 +404,8 @@ npx brand-os --ast-suite path/to/brand.schema.json
 
 ```bash
 npx brand-os my-app
-npx brand-os my-app --template react-resta --immediate
+npx brand-os my-restaurant --template resta --immediate
+# aliases: svelte-resta (canonical RestA Svelte starter)
 ```
 
 ## Example flow
@@ -386,7 +414,7 @@ User: “I need a promo page for charcoal grill dishes.”
 
 Recommended sequence:
 1. Discover the goal, layout, content, and audience.
-2. Create a warm, fire-driven schema with clear anti-personality.
+2. Create a warm, fire-driven schema with clear anti-personality (never Inter defaults).
 3. Add page and section archetypes for the promo surface.
-4. Emit `DESIGN.md`, tweaks, brand marks, and parser assets.
+4. Emit with `brand-os emit`, then `brand-os validate` (contrast, anti-slop, Google DESIGN.md lint).
 5. Attach `DESIGN.md` to the implementation conversation and use the tweak layer for live preview changes.

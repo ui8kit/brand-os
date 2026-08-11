@@ -1,4 +1,4 @@
-export type CliTemplateName = 'react' | 'react-resta' | 'tech-blog';
+export type CliTemplateName = 'react' | 'react-resta' | 'tech-blog' | 'resta' | 'svelte-resta';
 
 export interface ScaffoldCliArgs {
   mode: 'scaffold';
@@ -18,6 +18,7 @@ export interface BrandOsCliArgs {
   emitDir?: string;
   bootstrap: boolean;
   verbose: boolean;
+  allowSlop: boolean;
 }
 
 export interface AstParserCliArgs {
@@ -40,22 +41,44 @@ export interface InitCliArgs {
   palette?: string;
   out?: string;
   json: boolean;
+  allowSlop: boolean;
 }
 
-export type CliArgs = ScaffoldCliArgs | BrandOsCliArgs | AstParserCliArgs | InitCliArgs;
+export interface ValidateCliArgs {
+  mode: 'validate';
+  help: boolean;
+  schema: string;
+  designMd?: string;
+  emitDir?: string;
+  strict: boolean;
+  allowSlop: boolean;
+  skipGoogleLint: boolean;
+}
 
-export const VALID_TEMPLATES: readonly CliTemplateName[] = ['react', 'react-resta', 'tech-blog'];
+export type CliArgs =
+  | ScaffoldCliArgs
+  | BrandOsCliArgs
+  | AstParserCliArgs
+  | InitCliArgs
+  | ValidateCliArgs;
+
+export const VALID_TEMPLATES: readonly CliTemplateName[] = [
+  'react',
+  'react-resta',
+  'tech-blog',
+  'resta',
+  'svelte-resta',
+];
 export const DEFAULT_TEMPLATE: CliTemplateName = 'react';
 
 function fail(message: string): never {
   throw new Error(`Error: ${message}`);
 }
 
-
 export function parseArgs(argv: string[]): CliArgs {
   const parsed: {
     help: boolean;
-    mode: 'scaffold' | 'brand-os' | 'ast-parser' | 'init';
+    mode: 'scaffold' | 'brand-os' | 'ast-parser' | 'init' | 'validate';
     verbose: boolean;
     astInput?: string;
     astOutput?: string;
@@ -79,6 +102,10 @@ export function parseArgs(argv: string[]): CliArgs {
     initPalette?: string;
     initOut?: string;
     initJson: boolean;
+    designMd?: string;
+    strict: boolean;
+    allowSlop: boolean;
+    skipGoogleLint: boolean;
   } = {
     help: false,
     mode: 'scaffold',
@@ -90,6 +117,9 @@ export function parseArgs(argv: string[]): CliArgs {
     templateSpecified: false,
     immediateSpecified: false,
     initJson: false,
+    strict: false,
+    allowSlop: false,
+    skipGoogleLint: false,
   };
 
   const positional: string[] = [];
@@ -104,6 +134,21 @@ export function parseArgs(argv: string[]): CliArgs {
 
     if (arg === 'init') {
       parsed.mode = 'init';
+      continue;
+    }
+
+    if (arg === 'emit') {
+      parsed.mode = 'brand-os';
+      continue;
+    }
+
+    if (arg === 'validate') {
+      parsed.mode = 'validate';
+      continue;
+    }
+
+    if (arg === 'scaffold') {
+      parsed.mode = 'scaffold';
       continue;
     }
 
@@ -150,7 +195,7 @@ export function parseArgs(argv: string[]): CliArgs {
     if (arg === '--palette') {
       const value = argv[i + 1];
       if (!value || value.startsWith('-')) {
-        fail('--palette requires a color palette name (warm, cool, rose, forest, slate, amber, violet).');
+        fail('--palette requires a color palette name (warm, cool, rose, forest, slate, amber).');
       }
       parsed.initPalette = value;
       i += 1;
@@ -169,6 +214,34 @@ export function parseArgs(argv: string[]): CliArgs {
 
     if (arg === '--json') {
       parsed.initJson = true;
+      continue;
+    }
+
+    if (arg === '--allow-slop') {
+      parsed.allowSlop = true;
+      continue;
+    }
+
+    if (arg === '--strict') {
+      parsed.strict = true;
+      continue;
+    }
+
+    if (arg === '--skip-google-lint') {
+      parsed.skipGoogleLint = true;
+      continue;
+    }
+
+    if (arg === '--design-md') {
+      const value = argv[i + 1];
+      if (!value || value.startsWith('-')) {
+        fail('--design-md requires a file path.');
+      }
+      parsed.designMd = value;
+      if (parsed.mode === 'scaffold') {
+        parsed.mode = 'validate';
+      }
+      i += 1;
       continue;
     }
 
@@ -222,7 +295,9 @@ export function parseArgs(argv: string[]): CliArgs {
         fail('--schema requires a schema path.');
       }
       parsed.brandSchema = value;
-      parsed.mode = 'brand-os';
+      if (parsed.mode === 'scaffold') {
+        parsed.mode = 'brand-os';
+      }
       i += 1;
       continue;
     }
@@ -316,6 +391,20 @@ export function parseArgs(argv: string[]): CliArgs {
         palette: parsed.initPalette,
         out: parsed.initOut,
         json: parsed.initJson,
+        allowSlop: parsed.allowSlop,
+      };
+    }
+
+    if (parsed.mode === 'validate') {
+      return {
+        mode: 'validate',
+        help: true,
+        schema: parsed.brandSchema ?? '',
+        designMd: parsed.designMd,
+        emitDir: parsed.emitDir,
+        strict: parsed.strict,
+        allowSlop: parsed.allowSlop,
+        skipGoogleLint: parsed.skipGoogleLint,
       };
     }
 
@@ -342,6 +431,7 @@ export function parseArgs(argv: string[]): CliArgs {
         emitDir: parsed.emitDir,
         bootstrap: parsed.bootstrap,
         verbose: parsed.verbose,
+        allowSlop: parsed.allowSlop,
       };
     }
 
@@ -395,6 +485,12 @@ export function parseArgs(argv: string[]): CliArgs {
       fail('Scaffold-only flags --template and --immediate are not allowed in init mode.');
     }
 
+    if (parsed.initPalette === 'violet' && !parsed.allowSlop) {
+      fail(
+        'Palette "violet" is a known AI-slop accent fingerprint. Choose another palette or pass --allow-slop.',
+      );
+    }
+
     return {
       mode: 'init',
       help: false,
@@ -405,6 +501,24 @@ export function parseArgs(argv: string[]): CliArgs {
       palette: parsed.initPalette,
       out: parsed.initOut,
       json: parsed.initJson,
+      allowSlop: parsed.allowSlop,
+    };
+  }
+
+  if (parsed.mode === 'validate') {
+    if (!parsed.brandSchema) {
+      fail('--schema is required for validate mode.');
+    }
+
+    return {
+      mode: 'validate',
+      help: false,
+      schema: parsed.brandSchema,
+      designMd: parsed.designMd,
+      emitDir: parsed.emitDir,
+      strict: parsed.strict,
+      allowSlop: parsed.allowSlop,
+      skipGoogleLint: parsed.skipGoogleLint,
     };
   }
 
@@ -418,7 +532,7 @@ export function parseArgs(argv: string[]): CliArgs {
     }
 
     if (!parsed.brandSchema) {
-      fail('--schema is required for brand OS mode.');
+      fail('--schema is required for brand OS / emit mode.');
     }
 
     return {
@@ -431,6 +545,7 @@ export function parseArgs(argv: string[]): CliArgs {
       emitDir: parsed.emitDir,
       bootstrap: parsed.bootstrap,
       verbose: parsed.verbose,
+      allowSlop: parsed.allowSlop,
     };
   }
 

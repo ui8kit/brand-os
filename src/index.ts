@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 /**
- * brand-os — Scaffold apps, emit Brand OS assets, and parse ASTs.
+ * brand-os — Brand contract CLI: init → emit → validate → apply.
  *
  * Usage examples:
- *   npx brand-os [OPTION]... [DIRECTORY]
+ *   npx brand-os init --name "Brand" --style editorial --json
+ *   npx brand-os emit --schema .project/brand/brand.schema.json --bootstrap
+ *   npx brand-os validate --schema .project/brand/brand.schema.json
  */
 
 import { CliArgs, parseArgs } from './cli/parse-args.js';
@@ -11,20 +13,24 @@ import { printAstParserUsage, runAstParser } from './commands/ast-parser.js';
 import { printBrandOsUsage, runBrandOs } from './commands/brand-os.js';
 import { printInitUsage, runInit } from './commands/init.js';
 import { printScaffoldUsage, runScaffold } from './commands/scaffold.js';
+import { printValidateUsage, runValidate } from './commands/validate.js';
 
 function fail(message: string, code = 2): never {
-  console.error(`\n${message}`);
+  console.error(`
+${message}`);
   process.exit(code);
 }
 
 function printUsage(): void {
   console.log(printInitUsage());
   console.log('');
-  console.log(printScaffoldUsage());
+  console.log(printValidateUsage());
+  console.log('');
+  console.log(printBrandOsUsage());
   console.log('');
   console.log(printAstParserUsage());
   console.log('');
-  console.log(printBrandOsUsage());
+  console.log(printScaffoldUsage());
 }
 
 async function main(): Promise<void> {
@@ -49,8 +55,8 @@ async function main(): Promise<void> {
       return;
     }
 
-    if (args.mode === 'ast-parser') {
-      const exitCode = await runAstParser(args);
+    if (args.mode === 'validate') {
+      const exitCode = await runValidate(args);
       process.exit(exitCode);
       return;
     }
@@ -58,6 +64,12 @@ async function main(): Promise<void> {
     if (args.mode === 'brand-os') {
       await runBrandOs(args);
       process.exit(0);
+      return;
+    }
+
+    if (args.mode === 'ast-parser') {
+      const exitCode = await runAstParser(args);
+      process.exit(exitCode);
       return;
     }
 

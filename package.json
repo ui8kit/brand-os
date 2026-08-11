@@ -1,7 +1,7 @@
 {
   "name": "brand-os",
-  "version": "0.2.1",
-  "description": "CLI for brand operating systems, template scaffolding, Brand OS asset emit, and AST parsing",
+  "version": "0.2.2",
+  "description": "Brand contract CLI: init \u2192 emit \u2192 validate DESIGN.md (anti-slop + Google lint). Scaffold and AST are secondary.",
   "author": "UI8Kit",
   "license": "MIT",
   "type": "module",
@@ -42,10 +42,12 @@
   "files": [
     "README.md",
     "AGENTS.md",
+    "SKILL.md",
     "dist",
     "template-react",
     "template-react-resta",
-    "template-tech-blog"
+    "template-tech-blog",
+    "template-svelte-resta"
   ],
   "engines": {
     "node": ">=18"

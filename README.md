@@ -1,173 +1,112 @@
 # Brand OS
 
-`npx brand-os` is a Node/Bun CLI for three workflows:
+`npx brand-os` turns a brand brief into a durable **brand contract** — schema → `DESIGN.md`, tweaks, brand marks, and parser fixtures — so agents and UI kits cannot fall back to AI design defaults.
 
-- scaffold UI8Kit-ready Vite + React projects
-- emit generated assets from a Brand OS schema
-- parse HTML into a classified and normalized AST
-
-The package is published as `brand-os`, so commands use `npx brand-os`.
-
-Flag-based command map:
-
-- `npx brand-os [OPTION]... [DIRECTORY]` — scaffold mode
-- `npx brand-os --schema <schema-path>` — Brand OS emit mode
-- `npx brand-os --ast-suite <brand-schema-path> ...` — AST parser mode
-- `npx brand-os --help` — list all modes and options
+Scaffolding Vite apps and AST parsing are secondary tools. Taste is mandatory.
 
 ## Install
 
-No global install needed.
+No global install needed:
 
 ```bash
-npx brand-os my-app
-npx brand-os --schema "./brand.schema.json"
+npx brand-os init --name "Taste Demo" --style editorial --palette amber --surfaces promo --json
 ```
 
-You can also run with npm or bun:
+## Core workflow
+
+```text
+init → emit → validate → apply
+```
+
+### 1) Init — create the schema
 
 ```bash
-npx brand-os my-app --template tech-blog
-bunx brand-os my-app --template react-resta
-npm exec brand-os -- my-app --template react-resta
+npx brand-os init
+npx brand-os init --name "Grill House" --style warm --palette amber --surfaces restaurant --json
+npx brand-os init --name "Taste Demo" --style editorial --palette amber --surfaces promo --json
 ```
 
-## 1) Scaffolding
+Useful flags:
 
-Usage:
+- `--style` — warm, bold, minimal, editorial, playful, luxury (fonts pair for you)
+- `--palette` — warm, cool, rose, forest, slate, amber (`violet` requires `--allow-slop`)
+- `--surfaces` — preset (`promo`, `saas`, …) or comma-separated list
+- `--allow-slop` — permit known AI-default accents (violet) when intentional
+- `--out`, `--json`
+
+Starter fonts are distinctive (e.g. **Fraunces + DM Sans** for warm). Never Inter/Roboto/Arial as brand voice.
+
+### 2) Emit — generate the contract bundle
 
 ```bash
-npx brand-os [OPTION]... [DIRECTORY]
+npx brand-os emit --schema ".project/my-brand/my-brand.schema.json" --bootstrap
+# backward compatible:
+npx brand-os --schema ".project/my-brand/my-brand.schema.json" --bootstrap
 ```
 
-### Scaffolding options
+Output typically includes:
 
-- `-t, --template <name>` — template name (`react`, `react-resta`, or `tech-blog`), default `react`
-- `-i, --immediate` — install dependencies and run dev server after creation
-- `-h, --help` — show help
-
-### Examples
-
-```bash
-npx brand-os my-app
-npx brand-os my-app --template react-resta
-npx brand-os my-app --template tech-blog
-npx brand-os my-app --template react-resta --immediate
-```
-
-## 2) Brand OS emit mode
-
-Use this when you want to generate `DESIGN.md`, tweaks assets, brand mark contracts, parser fixtures, parser-contract snapshots, and brand-owned adapter assets from a Brand OS schema:
-
-```bash
-npx brand-os --schema "./.project/Tech Brand OS/tech-brand-os.schema.json"
-npx brand-os --schema "./.project/RestA Brand OS/resta-brand-os.schema.json" --emit-dir "./generated/resta"
-npx brand-os --schema "./.project/Tech Brand OS/tech-brand-os.schema.json" --bootstrap
-```
-
-Main options:
-
-- `--schema <path>` — path to the Brand OS schema file
-- `--parser-contract <path>` — override parser contract JSON path
-- `--fixtures <path>` — override parser fixture source JSON path
-- `--emit-dir <path>` — output directory for generated assets
-- `--bootstrap` — create missing companion files from generated defaults
-- `--verbose`
-
-## 3) AST parser mode
-
-Use this when you want to validate parser fixtures or parse HTML into a classified and normalized AST.
-
-Validate one or more fixture suites:
-
-```bash
-npx brand-os --ast-suite "./.project/Tech Brand OS/tech-brand-os.schema.json" --ast-suite "./.project/RestA Brand OS/resta-brand-os.schema.json"
-```
-
-Parse a real HTML file:
-
-```bash
-npx brand-os --ast-input "./.project/RestA Brand OS/reference/RoseUI-Welcome-Restaurant.html" --ast-suite "./.project/RestA Brand OS/resta-brand-os.schema.json" --ast-output "./resta-hero-ast.json"
-```
-
-Main options:
-
-- `--ast-input <path>` — HTML file to parse
-- `--ast-output <path>` — JSON report output path
-- `--ast-contract <path>` — explicit parser contract path
-- `--ast-suite <path>` — Brand OS schema used to resolve parser contract and fixture source
-- `--verbose`
-
-## 4) How to build a new brand package (quick)
-
-The minimal brand package consists of:
-
-- `*.schema.json` — base Brand OS definition
-- `*-parser-contract.json` — class classifier rules
-- `*-parser-fixtures.source.json` — sample-based classifier tests
-
-Typical file layout:
-
-```txt
-.project/my-brand/my-brand.schema.json
-.project/my-brand/my-brand-parser-contract.json
-.project/my-brand/my-brand-parser-fixtures.source.json
-```
-
-Common command:
-
-```bash
-npx brand-os --schema ".project/my-brand/my-brand.schema.json"
-```
-
-The schema can define:
-
-- `meta` (`name`, `slug`, `description`) identifiers
-- `tokens` (color, typography, radius, shadow, spacing, motion)
-- optional `designGrammar` and `recipes` for visual consistency
-- `emit.assets` to copy your shared/tailwind3/tailwind4 adapter files
-
-By default, companion files are auto-discovered with these suffixes based on the schema `slug`:
-
-- `-parser-contract.json`
-- `-parser-fixtures.source.json`
-- output directory: `<slug>-generated`
-
-Optional custom names:
-
-```bash
-npx brand-os \
-  --schema ".project/my-brand/my-brand.schema.json" \
-  --parser-contract ".project/my-brand/contracts/my-contract.json" \
-  --fixtures ".project/my-brand/fixtures/my-fixtures.json" \
-  --emit-dir ".project/my-brand/generated"
-```
-
-Generated output now includes:
-
-- `DESIGN.md`
-- `tweaks/`
+- `DESIGN.md` — Google DESIGN.md–shaped exchange format
+- `tweaks/` — live preview axes (no build step)
 - `brand-marks/`
-- `parser-contract.json`
-- `parser-fixtures/`
-- `manifest.json`
+- `parser-contract.json`, `parser-fixtures/`, `manifest.json`
 
-Validate brand parsing fixtures:
+Emit also prints anti-slop heuristics. Errors warn strongly; fix the schema or pass `--allow-slop` if intentional. Prefer `validate` for a hard gate.
+
+### 3) Validate — contrast, anti-slop, DESIGN.md lint
 
 ```bash
-npx brand-os --ast-suite ".project/my-brand/my-brand.schema.json"
+npx brand-os validate --schema ".project/my-brand/my-brand.schema.json"
+npx brand-os validate --schema ".project/my-brand/my-brand.schema.json" --strict
+npx brand-os validate --schema ".project/my-brand/my-brand.schema.json" --skip-google-lint
+npx brand-os validate --schema ".project/my-brand/my-brand.schema.json" --allow-slop
 ```
 
-### Copy-paste starter pack (minimal)
+Checks:
 
-Use this starter block as a starting point for a brand.
+- theme contrast budgets
+- anti-slop heuristics (generic fonts, indigo/violet accents, thin thesis, missing antiPersonality / forbidden / marks)
+- optional `npx @google/design.md` lint on emitted `DESIGN.md`
+
+### 4) Apply
+
+Attach `*-generated/DESIGN.md` (and tweaks) to implementation chats. Wire `tweaks/tweaks.css` + `tweaks-runtime.js` for live preview. Keep HARD CONSTRAINTS and FORBIDDEN from the schema.
+
+## Anti-slop
+
+Do not ship brands that look like every other AI page:
+
+- no Inter / Roboto / Arial as the primary voice
+- no default indigo–violet startup accents (use `--allow-slop` only when deliberate)
+- require `brandThesis.antiPersonality` (≥2 traits the brand is **not**)
+- define `brandMarks` and `illustration.forbidden` / `componentPolicy.avoid`
+
+Agents: see [AGENTS.md](./AGENTS.md) and [SKILL.md](./SKILL.md).
+
+## Copy-paste starter schema
+
+Use Fraunces + DM Sans (not Inter). Include thesis + antiPersonality:
 
 ```json
 {
   "meta": {
     "name": "My Brand OS",
     "slug": "my-brand",
-    "description": "A consistent brand language for web and product surfaces."
+    "description": "A distinctive brand language for web and product surfaces."
+  },
+  "brandThesis": {
+    "summary": "Purpose-led surfaces with clear hierarchy and calm conversion.",
+    "personality": ["clear", "confident", "warm"],
+    "antiPersonality": ["generic SaaS purple", "template feature-card stacks", "Inter-only UI"]
+  },
+  "brandMarks": {
+    "wordmark": "Wordmark locks to display type; keep generous tracking on large sizes."
+  },
+  "illustration": {
+    "forbidden": ["generic 3D AI people", "purple glow orbs", "emoji as primary icons"]
+  },
+  "componentPolicy": {
+    "avoid": ["triple identical feature cards as the hero story"]
   },
   "emit": {
     "assets": []
@@ -175,32 +114,32 @@ Use this starter block as a starting point for a brand.
   "tokens": {
     "color": {
       "light": {
-        "background": "hsl(0 0% 100%)",
-        "foreground": "hsl(220 20% 10%)",
+        "background": "hsl(40 33% 98%)",
+        "foreground": "hsl(220 20% 12%)",
         "card": "hsl(0 0% 100%)",
         "popover": "hsl(0 0% 100%)",
-        "primary": "hsl(215 85% 54%)",
-        "primaryForeground": "hsl(0 0% 100%)",
-        "secondary": "hsl(210 40% 96%)",
+        "primary": "hsl(35 92% 45%)",
+        "primaryForeground": "hsl(40 33% 98%)",
+        "secondary": "hsl(40 20% 94%)",
         "secondaryForeground": "hsl(220 20% 20%)",
-        "muted": "hsl(210 40% 96%)",
-        "mutedForeground": "hsl(220 20% 40%)",
-        "accent": "hsl(45 95% 70%)",
-        "accentForeground": "hsl(220 20% 20%)",
+        "muted": "hsl(40 20% 94%)",
+        "mutedForeground": "hsl(220 12% 40%)",
+        "accent": "hsl(24 85% 45%)",
+        "accentForeground": "hsl(40 33% 98%)",
         "destructive": "hsl(0 84% 60%)",
         "destructiveForeground": "hsl(0 0% 100%)",
-        "border": "hsl(214 32% 91%)",
-        "input": "hsl(214 32% 91%)",
-        "ring": "hsl(215 85% 54%)"
+        "border": "hsl(40 16% 88%)",
+        "input": "hsl(40 16% 88%)",
+        "ring": "hsl(35 92% 45%)"
       },
       "dark": {},
       "categories": {}
     },
     "typography": {
       "families": {
-        "display": "Inter",
-        "body": "Inter",
-        "ui": "Inter"
+        "display": "Fraunces, serif",
+        "body": "DM Sans, sans-serif",
+        "ui": "DM Sans, sans-serif"
       }
     },
     "radius": {
@@ -216,7 +155,7 @@ Use this starter block as a starting point for a brand.
   },
   "designGrammar": {
     "shapeLanguage": {
-      "core": "Clear hierarchy, generous whitespace, soft elevation."
+      "core": "Editorial hierarchy, generous whitespace, restrained elevation."
     }
   },
   "recipes": {
@@ -226,141 +165,29 @@ Use this starter block as a starting point for a brand.
 }
 ```
 
-`my-brand-parser-contract.json`
+Companion files (auto-discovered from `meta.slug`):
 
-```json
-{
-  "version": "1.0",
-  "buckets": {
-    "structural": [
-      "container",
-      "mx-auto",
-      "max-w-*",
-      "flex",
-      "grid",
-      "gap-*",
-      "w-full",
-      "h-full",
-      "min-h-screen",
-      "p-*",
-      "px-*",
-      "py-*",
-      "items-*",
-      "justify-*"
-    ],
-    "semantic": [
-      "text-*",
-      "font-*",
-      "leading-*",
-      "tracking-*",
-      "truncate",
-      "font-bold",
-      "font-semibold"
-    ],
-    "decorative": [
-      "rounded-*",
-      "bg-*",
-      "text-white",
-      "shadow-*",
-      "border",
-      "border-*",
-      "ring",
-      "ring-*",
-    "hover:*"
-  ]
-  },
-  "customUtilities": {
-    "structural": [],
-    "semantic": [],
-    "decorative": []
-  },
-  "semanticPrefix": [],
-  "decorativePrefix": [
-    "hover:",
-    "focus:",
-    "active:"
-  ],
-  "fallback": {
-    "structural": [
-      "hidden",
-      "block"
-    ],
-    "semantic": [
-      "font-medium"
-    ],
-    "decorative": [
-      "hidden"
-    ]
-  }
-}
+- `my-brand-parser-contract.json`
+- `my-brand-parser-fixtures.source.json`
+- emit dir: `my-brand-generated`
+
+Use `--bootstrap` on first emit to generate missing companions from safe defaults.
+
+## Secondary: scaffold
+
+```bash
+npx brand-os my-app
+npx brand-os my-app --template react-resta --immediate
 ```
 
-`my-brand-parser-fixtures.source.json`
+Templates: `react`, `react-resta`, `tech-blog`, **`resta`** / `svelte-resta` (canonical Svelte restaurant starter). Prefer defining the brand contract before scaffolding UI.
 
-```json
-{
-  "schemaVersion": "1.0.0",
-  "brandId": "my-brand",
-  "referenceProjectName": "my-brand-reference",
-  "fixtures": [
-    {
-      "id": "my-brand-hero",
-      "title": "Hero structure",
-      "sourceFile": "hero.html",
-      "description": "Basic hero layout with CTA",
-      "classes": [
-        "min-h-screen",
-        "flex",
-        "items-center",
-        "justify-center",
-        "container",
-        "mx-auto",
-        "px-4",
-        "bg-white",
-        "text-center",
-        "rounded-lg",
-        "shadow-md",
-        "text-4xl",
-        "font-bold"
-      ],
-      "expected": {
-        "structural": [
-          "min-h-screen",
-          "flex",
-          "items-center",
-          "justify-center",
-          "container",
-          "mx-auto",
-          "px-4"
-        ],
-        "semantic": [
-          "text-center",
-          "text-4xl",
-          "font-bold"
-        ],
-        "decorative": [
-          "bg-white",
-          "rounded-lg",
-          "shadow-md"
-        ],
-        "unknown": []
-      },
-      "notes": ["Adjust as you onboard your own brand patterns."]
-    }
-  ]
-}
+## Secondary: AST parser
+
+```bash
+npx brand-os --ast-suite ".project/my-brand/my-brand.schema.json"
+npx brand-os --ast-input page.html --ast-suite ".project/my-brand/my-brand.schema.json" --ast-output analysis.json
 ```
-
-## 5) 5-minute first run checklist
-
-1. Prepare `.project/my-brand/` files: `my-brand.schema.json`, `my-brand-parser-contract.json`, `my-brand-parser-fixtures.source.json`.
-2. Create `my-brand.adapters/` and add at least `shared/tokens.css` and `tailwind4/index.css`; optionally add `tailwind3/tailwind.extend.ts` and `tailwind4/shadcn.css`.
-3. Verify schema `meta.slug` matches file prefix (`my-brand`) or pass explicit paths.
-4. Run:
-   `npx brand-os --schema ".project/my-brand/my-brand.schema.json"`
-5. Validate parser fixtures:
-   `npx brand-os --ast-suite ".project/my-brand/my-brand.schema.json"`
-6. If the command returns violations, inspect the unknown classes in the report and add only missing entries to the contract buckets.
 
 ## Development
 
@@ -369,7 +196,7 @@ npm run typecheck
 npm run build
 ```
 
-The build output is published from `dist/` through `bin.brand-os`.
+Published binary: `dist/index.js` → `bin.brand-os`.
 
 ## Publish
 

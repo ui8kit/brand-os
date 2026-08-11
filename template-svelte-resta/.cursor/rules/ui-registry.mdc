@@ -1,0 +1,17 @@
+---
+description: Where kit, layout, components, and views live in TestApp
+alwaysApply: true
+---
+
+# TestApp UI registry
+
+| Need | Path |
+| --- | --- |
+| Primitives / atoms | `web/src/kit` |
+| App stage / phone chrome | `web/src/App.svelte` |
+| Reusable composites | `web/src/components` |
+| Screens | `web/src/views` |
+| Fixtures / copy | `fixtures/vsa01` |
+| Cursor bridge | `services/cursor-bridge` |
+
+Do not hand-grow a second primitive tree. New atoms → kit (later: ui8kit codegen).

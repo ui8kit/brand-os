@@ -1,0 +1,36 @@
+---
+description: Svelte composition mirrors UI8Kit retag — no raw HTML in views/blocks
+globs: web/src/{views,components,blocks}/**/*.{svelte,ts}
+alwaysApply: true
+---
+
+# TestApp UI composition (UI8Kit essence)
+
+Same rules as YMAIL_SITE / BotApp templ-retag, adapted to Svelte.
+
+## Zones
+
+| Zone | Paths | Raw HTML |
+| --- | --- | --- |
+| **U** | `web/src/kit/**` | Allowed (atoms). Prefer codegen later; hand-thin ok for VSA. |
+| **L** | `web/index.html`, `App.svelte` phone chrome | Document / stage only |
+| **C** | `web/src/views/**`, `web/src/components/**` | **No raw layout/typography/controls** — use kit |
+
+## Block vs Box
+
+- `Block` — one landmark root (`section` / `header` / `nav` / `article` / …). Always set `tag`.
+- `Box` — inner non-landmark shells (`div` only).
+- Do not use `Block` as a generic div wrapper.
+
+## Atoms
+
+`Stack`, `Group`, `Title`, `Text`, `Inline`, `Button`, `Input` from `$lib` → `../kit`.
+
+## Allowlist
+
+- `@html` only inside `MarkdownBody` after DOMPurify (`// retag:allow`).
+- SVG icons inside dock/send may stay with a short allow comment until Icon brick lands.
+
+## Chat UX
+
+One composer, large primary actions, calm linear thread. No competing CTAs.

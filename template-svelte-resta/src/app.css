@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@source "./kit/**/*.{svelte,ts}";
+@source "./utils/**/*.{ts}";
+@source "./**/*.{svelte,ts}";
+
+/* RestA tokens — walnut / linen / terracotta / brass + folk accents */
+@theme {
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+
+  --color-walnut: #2f1c12;
+  --color-walnut-deep: #1c100a;
+  --color-wood: #4a2c1a;
+  --color-linen: #fff8ef;
+  --color-cream: #f3e6d2;
+  --color-terracotta: #b84a2e;
+  --color-brass: #c4a35a;
+  --color-brick: #8b3a2a;
+  --color-folk-red: #c41e3a;
+  --color-folk-green: #2f5d3a;
+  --color-ink: #1a120e;
+  --color-muted: #6b5344;
+
+  --color-background: var(--color-linen);
+  --color-foreground: var(--color-ink);
+  --color-primary: var(--color-terracotta);
+  --color-primary-foreground: #fff8f4;
+  --color-secondary: var(--color-wood);
+  --color-secondary-foreground: var(--color-linen);
+  --color-accent: var(--color-cream);
+  --color-accent-foreground: var(--color-walnut);
+  --color-destructive: #9b1c1c;
+  --color-destructive-foreground: #fff5f5;
+  --color-border: color-mix(in oklab, var(--color-wood) 22%, transparent);
+  --color-input: color-mix(in oklab, var(--color-wood) 28%, transparent);
+  --color-ring: var(--color-brass);
+}
+
+:root {
+  color-scheme: light;
+  font-family: var(--font-body);
+  --resta-ornament: radial-gradient(circle at 30% 40%, var(--color-folk-red) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 70% 55%, var(--color-brass) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 50% 20%, var(--color-folk-green) 0 1.5px, transparent 2px);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, #f7ecda 0%, var(--color-linen) 38%, #efe0c8 100%);
+  color: var(--color-ink);
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Folk ribbon band — Khokhloma-inspired color rhythm, not a copied mark */
+.resta-ornament-band {
+  height: 0.65rem;
+  background:
+    linear-gradient(
+      90deg,
+      var(--color-folk-red) 0%,
+      var(--color-brass) 22%,
+      var(--color-folk-green) 44%,
+      var(--color-folk-red) 66%,
+      var(--color-brass) 88%,
+      var(--color-folk-green) 100%
+    );
+  opacity: 0.85;
+}
+
+.resta-linen-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 248, 239, 0.96), rgba(243, 230, 210, 0.92)),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 11px,
+      rgba(74, 44, 26, 0.03) 11px,
+      rgba(74, 44, 26, 0.03) 12px
+    );
+}
+
+.resta-wood-panel {
+  background:
+    linear-gradient(135deg, #3a2316 0%, #2a170f 48%, #4a2c1a 100%);
+  color: var(--color-linen);
+}
+
+@keyframes resta-ken {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes resta-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes resta-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.resta-hero-media {
+  animation: resta-ken 18s ease-out forwards;
+}
+
+.resta-rise {
+  animation: resta-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.resta-rise-delay {
+  animation: resta-rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.resta-fade {
+  animation: resta-fade 1.2s ease 0.35s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resta-hero-media,
+  .resta-rise,
+  .resta-rise-delay,
+  .resta-fade {
+    animation: none;
+  }
+}

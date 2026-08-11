@@ -3,6 +3,7 @@ import { BrandOsCliArgs } from '../cli/parse-args.js';
 import { emitBrandOsArtifacts } from '../brand-os/emitter.js';
 import { BrandOsSchema, ParserFixtureSource, PromptPack, PromptPackSurface } from '../brand-os/types.js';
 import { fail, readJsonFile, resolveBrandOsPaths, writeTextFile } from '../brand-os/utils.js';
+import { formatSlopFindings, validateSlopHeuristics } from '../brand-os/validators/slop.js';
 import { ParserContract } from '../ast-parser/types.js';
 
 type PageArchetype = NonNullable<NonNullable<BrandOsSchema['recipes']>['pageArchetypes']>[string];
@@ -391,12 +392,31 @@ export async function runBrandOs(args: BrandOsCliArgs): Promise<void> {
     console.log(`Parser contract: ${paths.parserContractPath}`);
     console.log(`Fixtures: ${paths.fixturesPath}`);
   }
+
+  const slopFindings = validateSlopHeuristics(schema, { allowSlop: args.allowSlop });
+  if (slopFindings.length > 0) {
+    console.log('\nAnti-slop heuristics');
+    for (const line of formatSlopFindings(slopFindings)) {
+      console.warn(`  ${line}`);
+    }
+    const hasSlopError = slopFindings.some((finding) => finding.level === 'error');
+    if (hasSlopError) {
+      console.warn(
+        '\nWarning: slop errors detected. Emit completed, but run `npx brand-os validate --schema ...` and fix fonts/palette (or pass --allow-slop if intentional).',
+      );
+    }
+  } else if (args.verbose) {
+    console.log('\nAnti-slop heuristics: ok');
+  }
 }
 
 export function printBrandOsUsage(): string {
   return [
     'Usage:',
+    '  npx brand-os emit --schema <schema-path> [options]',
     '  npx brand-os --schema <schema-path> [options]',
+    '',
+    'Emit DESIGN.md, tweaks, brand marks, parser fixtures, and adapter assets from a Brand OS schema.',
     '',
     'Options:',
     '  --schema <path>           brand OS schema path (required)',
@@ -404,12 +424,13 @@ export function printBrandOsUsage(): string {
     '  --fixtures <path>         parser fixture source JSON path',
     '  --emit-dir <path>         output directory for generated artifacts',
     '  --bootstrap               generate missing companion files from safe defaults',
+    '  --allow-slop              downgrade indigo/violet + generic-font findings to warnings',
     '  --verbose                 print resolved input paths',
     '  -h, --help                show help',
     '',
     'Examples:',
-    '  npx brand-os --schema .project/brand.schema.json',
+    '  npx brand-os emit --schema .project/brand.schema.json --bootstrap',
     '  npx brand-os --schema .project/brand.schema.json --bootstrap',
-    '  npx brand-os --schema .project/brand.schema.json --emit-dir .project/brand-generated --verbose',
+    '  npx brand-os emit --schema .project/brand.schema.json --emit-dir .project/brand-generated --verbose',
   ].join('\n');
 }
